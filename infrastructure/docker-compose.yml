@@ -1,0 +1,122 @@
+# ==============================================================================
+# docker-compose.yml - Multi-Arch Resilient Production Stack
+# MySQL 8.4 LTS + PHP 8.4-FPM (Non-Root) + Hardened Nginx
+# DevOps & Infrastructure Sage (v3.0.0)
+# ==============================================================================
+
+services:
+  # ----------------------------------------------------------------------------
+  # Database Service: MySQL 8.4 LTS
+  # ----------------------------------------------------------------------------
+  mysql:
+    image: mysql:8.4
+    container_name: laravel_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Error: MYSQL_ROOT_PASSWORD must be provided in .env}
+      MYSQL_DATABASE: ${DB_DATABASE:-laravel_production}
+      MYSQL_USER: ${DB_USERNAME:-app_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?Error: DB_PASSWORD must be provided in .env}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/conf.d/custom.cnf:ro
+    ports:
+      - "${HOST_DB_PORT:-127.0.0.1:3306}:3306"
+    networks:
+      - internal_net
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+    security_opt:
+      - no-new-privileges:true
+
+  # ----------------------------------------------------------------------------
+  # Application Backend: PHP 8.4-FPM (Multi-Arch, Multi-Stage, Non-Root)
+  # ----------------------------------------------------------------------------
+  php:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64"
+    container_name: laravel_php
+    restart: unless-stopped
+    environment:
+      APP_ENV: ${APP_ENV:-production}
+      APP_DEBUG: ${APP_DEBUG:-false}
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: ${DB_DATABASE:-laravel_production}
+      DB_USERNAME: ${DB_USERNAME:-app_user}
+      DB_PASSWORD: ${DB_PASSWORD:-ChangeThisSecurePassword_MySQL84!}
+    volumes:
+      - app_data:/var/www/html:ro
+      - app_storage:/var/www/html/storage:rw
+      - app_bootstrap_cache:/var/www/html/bootstrap/cache:rw
+    networks:
+      - internal_net
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "SCRIPT_NAME=/ping SCRIPT_FILENAME=/ping REQUEST_METHOD=GET cgi-fcgi -bind -connect 127.0.0.1:9000 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    security_opt:
+      - no-new-privileges:true
+
+  # ----------------------------------------------------------------------------
+  # Web Gateway: Hardened Nginx 1.27
+  # ----------------------------------------------------------------------------
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: laravel_nginx
+    restart: unless-stopped
+    ports:
+      - "${HOST_HTTP_PORT:-8080}:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - app_data:/var/www/html:ro
+      - app_storage:/var/www/html/storage:ro
+    networks:
+      - internal_net
+    depends_on:
+      php:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1/healthz || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    security_opt:
+      - no-new-privileges:true
+
+# ------------------------------------------------------------------------------
+# Persistent Named Volumes (Strict Isolation)
+# ------------------------------------------------------------------------------
+volumes:
+  mysql_data:
+    name: laravel_mysql_data
+  app_data:
+    name: laravel_app_data
+  app_storage:
+    name: laravel_app_storage
+  app_bootstrap_cache:
+    name: laravel_app_bootstrap_cache
+
+# ------------------------------------------------------------------------------
+# Isolated Internal Network
+# ------------------------------------------------------------------------------
+networks:
+  internal_net:
+    driver: bridge
+    ipam:
+      driver: default
