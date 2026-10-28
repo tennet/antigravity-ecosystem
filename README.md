@@ -12,7 +12,7 @@
 Questo workspace unificato raccoglie e governa l'intero ecosistema di sviluppo, memoria e automazione per **Antigravity AI**, strutturato per essere continuamente esteso, manutenuto e sincronizzato tra **3 Mac** e **1 PC Windows 11**:
 
 1. **`plugin/`**: La suite ufficiale dei **9 subagenti specializzati** con i rispettivi **9 alias rapidi** (`@turing`, `@werner`, `@taylor`, `@linus`, `@steve`, `@carmack`, `@rauch`, `@geohot`, `@guido`) e il **Tomo della Saggezza Ingegneristica** (`references/01-09`).
-2. **`backend/`**: La pipeline del grafo di memoria multi-tenant in **PHP 8.4+ e Laravel 11/12**, dotata di Action atomiche, prevenzione dei Gap Lock InnoDB, retry esponenziale con jitter decorrelato e protezione BOLA multi-tenant.
+2. **`backend/`**: La pipeline del grafo di memoria multi-tenant in **PHP 8.4+ e Laravel 13** (con piena retrocompatibilità 11/12), dotata di Action atomiche, prevenzione dei Gap Lock InnoDB, retry esponenziale con jitter decorrelato e protezione BOLA multi-tenant.
 3. **`infrastructure/`**: Lo stack **Docker multi-arch** (`linux/amd64` e `linux/arm64`) con MySQL 8.4 LTS, PHP 8.4-FPM non-root (`su-exec`) e Nginx webroot hardening.
 4. **`scripts/`**: Gli strumenti di sincronizzazione simmetrica cross-platform (`sync.sh` per macOS, `sync.ps1` per Windows 11) e il motore di consolidamento della memoria Google Drive (`unify_memory.py`).
 5. **`docs/`**: Tutti i report storici, i test avversariali "Tutti contro Tutti", i piani di unificazione multi-device e le scorecard di maturità tecnica.
@@ -65,7 +65,7 @@ antigravity-ecosystem/
 | :---: | :--- | :--- |
 | **`@turing`** | [`project-orchestrator`](plugin/agents/project-orchestrator.md) | **Alan Turing**: Tech Lead, governance del flusso a 5 fasi, matrice RACI e quality gate. |
 | **`@werner`** | [`software-architect`](plugin/agents/software-architect.md) | **Werner Vogels**: System Architect, contratti tipizzati OpenAPI, resilienza cloud. |
-| **`@taylor`** | [`polyglot-backend-sage`](plugin/agents/polyglot-backend-sage.md) | **Taylor Otwell**: Backend Sage, Laravel 11/12, zero N+1, Action pattern, anti Gap-Lock. |
+| **`@taylor`** | [`polyglot-backend-sage`](plugin/agents/polyglot-backend-sage.md) | **Taylor Otwell**: Backend Sage, Laravel 13, zero N+1, Action pattern, anti Gap-Lock. |
 | **`@linus`** | [`devops-infra-sage`](plugin/agents/devops-infra-sage.md) | **Linus Torvalds**: DevOps, Docker multi-arch, webroot hardening, script macOS/Windows. |
 | **`@steve`** | [`ui-ux-designer`](plugin/agents/ui-ux-designer.md) | **Steve Jobs**: UI/UX Designer, layout Bento Grid dark Zinc 950/900, micro-interazioni. |
 | **`@carmack`** | [`qa-engineer`](plugin/agents/qa-engineer.md) | **John Carmack**: Lead QA, TDD rigoroso, boundary testing estremo (NaN/INF, 10MB), anti-crash. |

@@ -18,3 +18,8 @@ Thumbs.db
 # Temp & Logs
 *.tmp
 *.log
+
+# Portable build archives
+portable/dist/
+portable/*.tar.gz
+portable/*.zip
