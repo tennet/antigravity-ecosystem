@@ -12,27 +12,27 @@
     ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
     .glass-panel {
-      background: rgba(18, 18, 24, 0.75);
+      background: rgba(18, 18, 24, 0.78);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
     .glass-card {
-      background: rgba(24, 24, 32, 0.6);
+      background: rgba(24, 24, 32, 0.65);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .glass-card:hover {
-      border-color: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.18);
       transform: translateY(-2px);
-    }
-    .pulse-glow {
-      box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
     }
     .badge-mono {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       letter-spacing: 0.05em;
+    }
+    .card-transition {
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
   </style>
 </head>
@@ -55,7 +55,7 @@
         <div class="flex items-center space-x-2">
           <h1 class="font-bold text-base tracking-tight text-white flex items-center gap-2">
             Antigravity Mission Control
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-mono">v3.0.0</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-mono">v3.2.0</span>
           </h1>
         </div>
         <p class="text-xs text-slate-400 flex items-center gap-2">
@@ -63,7 +63,7 @@
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
-          9 Specialisti Canonici Attivi • Multi-Platform Sync Ready (macOS & Windows 11)
+          9 Specialisti Canonici • 5 Gruppi Funzionali • Laravel 13 & PHP 8.4 • Multi-Platform Sync
         </p>
       </div>
     </div>
@@ -73,11 +73,14 @@
       <span class="text-slate-400">Workspace:</span>
       <span class="font-mono text-sky-400">antigravity-ecosystem</span>
       <span class="text-slate-600">|</span>
-      <span class="text-slate-400">Arch:</span>
-      <span class="text-emerald-400 font-mono">linux/amd64 + arm64</span>
+      <span class="text-slate-400">Stack:</span>
+      <span class="text-red-400 font-mono">PHP 8.4 + Laravel 13</span>
       <span class="text-slate-600">|</span>
-      <span class="text-slate-400">Database:</span>
+      <span class="text-slate-400">DB:</span>
       <span class="text-indigo-400 font-mono">MySQL 8.4 LTS</span>
+      <span class="text-slate-600">|</span>
+      <span class="text-slate-400">DevOps:</span>
+      <span class="text-emerald-400 font-mono">Non-Root UID 10001</span>
     </div>
 
     <!-- Right Controls -->
@@ -105,7 +108,7 @@
       <div class="p-4 border-b border-white/5">
         <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-2.5 flex items-center justify-between">
           <span>Spazi di Sviluppo</span>
-          <span class="text-[10px] px-1.5 py-0.2 bg-slate-800 text-slate-300 rounded">6 Aree</span>
+          <span class="text-[10px] px-1.5 py-0.2 bg-slate-800 text-slate-300 rounded font-mono">6 Aree</span>
         </div>
         <nav class="space-y-1">
           <button onclick="switchTab('tab-cockpit')" id="nav-cockpit" class="nav-item w-full flex items-center space-x-2.5 px-3 py-2 rounded-lg text-xs font-medium text-white bg-indigo-600/30 border border-indigo-500/40 transition-all text-left">
@@ -117,7 +120,7 @@
           <button onclick="switchTab('tab-team')" id="nav-team" class="nav-item w-full flex items-center space-x-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900/60 transition-all text-left">
             <span class="text-sky-400">👥</span>
             <span class="flex-1">I 9 Specialisti</span>
-            <span class="text-[10px] font-mono text-slate-400">9 sub</span>
+            <span class="text-[10px] font-mono text-slate-400">5 gruppi</span>
           </button>
 
           <button onclick="switchTab('tab-pipeline')" id="nav-pipeline" class="nav-item w-full flex items-center space-x-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900/60 transition-all text-left">
@@ -135,7 +138,7 @@
           <button onclick="switchTab('tab-infra')" id="nav-infra" class="nav-item w-full flex items-center space-x-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900/60 transition-all text-left">
             <span class="text-emerald-400">🐳</span>
             <span class="flex-1">Infrastruttura Docker</span>
-            <span class="text-[10px] font-mono text-emerald-400">MySQL8.4</span>
+            <span class="text-[10px] font-mono text-emerald-400">Multi-Arch</span>
           </button>
 
           <button onclick="switchTab('tab-sync')" id="nav-sync" class="nav-item w-full flex items-center space-x-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900/60 transition-all text-left">
@@ -146,90 +149,146 @@
         </nav>
       </div>
 
-      <!-- Section: I 9 Specialisti Quick List -->
-      <div class="p-4 flex-1">
-        <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-2 flex items-center justify-between">
-          <span>Squadra Rapida</span>
-          <span class="text-[9px] text-indigo-400 font-mono">@alias</span>
+      <!-- Section: I 9 Specialisti Quick List suddivisi per Gruppi -->
+      <div class="p-4 flex-1 space-y-3">
+        <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider flex items-center justify-between">
+          <span>Squadra per Gruppo</span>
+          <span class="text-[9px] text-indigo-400 font-mono">9 Specialisti</span>
         </div>
-        <div class="space-y-1.5">
-          <button onclick="selectAgent('turing')" class="w-full text-left p-2 rounded-lg bg-slate-900/50 hover:bg-slate-800/60 border border-white/5 transition flex items-center justify-between group">
+
+        <!-- Gruppo 1: Leadership -->
+        <div>
+          <div class="text-[10px] font-semibold text-indigo-400/90 uppercase tracking-wide mb-1 flex items-center gap-1">
+            <span>👑</span> Leadership & Governance
+          </div>
+          <button onclick="quickDispatch('turing')" class="w-full text-left p-1.5 rounded-lg bg-slate-900/40 hover:bg-slate-800/60 border border-white/5 transition flex items-center justify-between group">
             <div class="flex items-center space-x-2">
               <span class="text-xs">👑</span>
               <div>
                 <div class="text-xs font-semibold text-slate-200 group-hover:text-indigo-300">@turing</div>
-                <div class="text-[10px] text-slate-400 truncate w-32">Alan Turing • Orchestrator</div>
+                <div class="text-[10px] text-slate-400 truncate w-28">Alan Turing</div>
               </div>
             </div>
-            <span class="text-[9px] bg-indigo-500/20 text-indigo-300 px-1.5 py-0.5 rounded font-mono">Lead</span>
+            <span class="text-[9px] bg-indigo-500/20 text-indigo-300 px-1 py-0.2 rounded font-mono">Lead</span>
           </button>
+        </div>
 
-          <button onclick="selectAgent('werner')" class="w-full text-left p-2 rounded-lg bg-slate-900/50 hover:bg-slate-800/60 border border-white/5 transition flex items-center justify-between group">
+        <!-- Gruppo 2: Architettura -->
+        <div>
+          <div class="text-[10px] font-semibold text-sky-400/90 uppercase tracking-wide mb-1 flex items-center gap-1">
+            <span>📐</span> Architettura & Contratti
+          </div>
+          <button onclick="quickDispatch('werner')" class="w-full text-left p-1.5 rounded-lg bg-slate-900/40 hover:bg-slate-800/60 border border-white/5 transition flex items-center justify-between group">
             <div class="flex items-center space-x-2">
               <span class="text-xs">📐</span>
               <div>
                 <div class="text-xs font-semibold text-slate-200 group-hover:text-sky-300">@werner</div>
-                <div class="text-[10px] text-slate-400 truncate w-32">Werner Vogels • Architect</div>
+                <div class="text-[10px] text-slate-400 truncate w-28">Werner Vogels</div>
               </div>
             </div>
-            <span class="text-[9px] bg-sky-500/20 text-sky-300 px-1.5 py-0.5 rounded font-mono">Arch</span>
-          </button>
-
-          <button onclick="selectAgent('taylor')" class="w-full text-left p-2 rounded-lg bg-slate-900/50 hover:bg-slate-800/60 border border-white/5 transition flex items-center justify-between group">
-            <div class="flex items-center space-x-2">
-              <span class="text-xs">🐘</span>
-              <div>
-                <div class="text-xs font-semibold text-slate-200 group-hover:text-red-300">@taylor</div>
-                <div class="text-[10px] text-slate-400 truncate w-32">Taylor Otwell • Backend</div>
-              </div>
-            </div>
-            <span class="text-[9px] bg-red-500/20 text-red-300 px-1.5 py-0.5 rounded font-mono">PHP8.4</span>
-          </button>
-
-          <button onclick="selectAgent('linus')" class="w-full text-left p-2 rounded-lg bg-slate-900/50 hover:bg-slate-800/60 border border-white/5 transition flex items-center justify-between group">
-            <div class="flex items-center space-x-2">
-              <span class="text-xs">🐧</span>
-              <div>
-                <div class="text-xs font-semibold text-slate-200 group-hover:text-amber-300">@linus</div>
-                <div class="text-[10px] text-slate-400 truncate w-32">Linus Torvalds • DevOps</div>
-              </div>
-            </div>
-            <span class="text-[9px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded font-mono">Docker</span>
-          </button>
-
-          <button onclick="selectAgent('steve')" class="w-full text-left p-2 rounded-lg bg-slate-900/50 hover:bg-slate-800/60 border border-white/5 transition flex items-center justify-between group">
-            <div class="flex items-center space-x-2">
-              <span class="text-xs">🎨</span>
-              <div>
-                <div class="text-xs font-semibold text-slate-200 group-hover:text-purple-300">@steve</div>
-                <div class="text-[10px] text-slate-400 truncate w-32">Steve Jobs • UI/UX</div>
-              </div>
-            </div>
-            <span class="text-[9px] bg-purple-500/20 text-purple-300 px-1.5 py-0.5 rounded font-mono">Bento</span>
-          </button>
-
-          <button onclick="selectAgent('carmack')" class="w-full text-left p-2 rounded-lg bg-slate-900/50 hover:bg-slate-800/60 border border-white/5 transition flex items-center justify-between group">
-            <div class="flex items-center space-x-2">
-              <span class="text-xs">🚀</span>
-              <div>
-                <div class="text-xs font-semibold text-slate-200 group-hover:text-emerald-300">@carmack</div>
-                <div class="text-[10px] text-slate-400 truncate w-32">John Carmack • QA Lead</div>
-              </div>
-            </div>
-            <span class="text-[9px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded font-mono">TDD</span>
-          </button>
-
-          <button onclick="selectAgent('geohot')" class="w-full text-left p-2 rounded-lg bg-slate-900/50 hover:bg-slate-800/60 border border-white/5 transition flex items-center justify-between group">
-            <div class="flex items-center space-x-2">
-              <span class="text-xs">⚔️</span>
-              <div>
-                <div class="text-xs font-semibold text-slate-200 group-hover:text-rose-300">@geohot</div>
-                <div class="text-[10px] text-slate-400 truncate w-32">George Hotz • Security</div>
-              </div>
-            </div>
-            <span class="text-[9px] bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded font-mono">Veto</span>
+            <span class="text-[9px] bg-sky-500/20 text-sky-300 px-1 py-0.2 rounded font-mono">Arch</span>
           </button>
         </div>
+
+        <!-- Gruppo 3: Costruttori -->
+        <div>
+          <div class="text-[10px] font-semibold text-amber-400/90 uppercase tracking-wide mb-1 flex items-center gap-1">
+            <span>🛠️</span> I Costruttori (Core)
+          </div>
+          <div class="space-y-1">
+            <button onclick="quickDispatch('taylor')" class="w-full text-left p-1.5 rounded-lg bg-slate-900/40 hover:bg-slate-800/60 border border-white/5 transition flex items-center justify-between group">
+              <div class="flex items-center space-x-2">
+                <span class="text-xs">🐘</span>
+                <div>
+                  <div class="text-xs font-semibold text-slate-200 group-hover:text-red-300">@taylor</div>
+                  <div class="text-[10px] text-slate-400 truncate w-28">Taylor Otwell</div>
+                </div>
+              </div>
+              <span class="text-[9px] bg-red-500/20 text-red-300 px-1 py-0.2 rounded font-mono">L13</span>
+            </button>
+
+            <button onclick="quickDispatch('steve')" class="w-full text-left p-1.5 rounded-lg bg-slate-900/40 hover:bg-slate-800/60 border border-white/5 transition flex items-center justify-between group">
+              <div class="flex items-center space-x-2">
+                <span class="text-xs">🎨</span>
+                <div>
+                  <div class="text-xs font-semibold text-slate-200 group-hover:text-purple-300">@steve</div>
+                  <div class="text-[10px] text-slate-400 truncate w-28">Steve Jobs</div>
+                </div>
+              </div>
+              <span class="text-[9px] bg-purple-500/20 text-purple-300 px-1 py-0.2 rounded font-mono">UI/UX</span>
+            </button>
+
+            <button onclick="quickDispatch('linus')" class="w-full text-left p-1.5 rounded-lg bg-slate-900/40 hover:bg-slate-800/60 border border-white/5 transition flex items-center justify-between group">
+              <div class="flex items-center space-x-2">
+                <span class="text-xs">🐧</span>
+                <div>
+                  <div class="text-xs font-semibold text-slate-200 group-hover:text-amber-300">@linus</div>
+                  <div class="text-[10px] text-slate-400 truncate w-28">Linus Torvalds</div>
+                </div>
+              </div>
+              <span class="text-[9px] bg-amber-500/20 text-amber-300 px-1 py-0.2 rounded font-mono">DevOps</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Gruppo 4: Inquisitori & Gatekeeper -->
+        <div>
+          <div class="text-[10px] font-semibold text-rose-400/90 uppercase tracking-wide mb-1 flex items-center gap-1">
+            <span>🛡️</span> Inquisitori & Gatekeeper
+          </div>
+          <div class="space-y-1">
+            <button onclick="quickDispatch('carmack')" class="w-full text-left p-1.5 rounded-lg bg-slate-900/40 hover:bg-slate-800/60 border border-white/5 transition flex items-center justify-between group">
+              <div class="flex items-center space-x-2">
+                <span class="text-xs">🚀</span>
+                <div>
+                  <div class="text-xs font-semibold text-slate-200 group-hover:text-emerald-300">@carmack</div>
+                  <div class="text-[10px] text-slate-400 truncate w-28">John Carmack</div>
+                </div>
+              </div>
+              <span class="text-[9px] bg-emerald-500/20 text-emerald-300 px-1 py-0.2 rounded font-mono">QA</span>
+            </button>
+
+            <button onclick="quickDispatch('rauch')" class="w-full text-left p-1.5 rounded-lg bg-slate-900/40 hover:bg-slate-800/60 border border-white/5 transition flex items-center justify-between group">
+              <div class="flex items-center space-x-2">
+                <span class="text-xs">⚡</span>
+                <div>
+                  <div class="text-xs font-semibold text-slate-200 group-hover:text-cyan-300">@rauch</div>
+                  <div class="text-[10px] text-slate-400 truncate w-28">Guillermo Rauch</div>
+                </div>
+              </div>
+              <span class="text-[9px] bg-cyan-500/20 text-cyan-300 px-1 py-0.2 rounded font-mono">E2E</span>
+            </button>
+
+            <button onclick="quickDispatch('geohot')" class="w-full text-left p-1.5 rounded-lg bg-slate-900/40 hover:bg-slate-800/60 border border-white/5 transition flex items-center justify-between group">
+              <div class="flex items-center space-x-2">
+                <span class="text-xs">⚔️</span>
+                <div>
+                  <div class="text-xs font-semibold text-slate-200 group-hover:text-rose-300">@geohot</div>
+                  <div class="text-[10px] text-slate-400 truncate w-28">George Hotz</div>
+                </div>
+              </div>
+              <span class="text-[9px] bg-rose-500/20 text-rose-300 px-1 py-0.2 rounded font-mono">Veto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Gruppo 5: Documentazione -->
+        <div>
+          <div class="text-[10px] font-semibold text-lime-400/90 uppercase tracking-wide mb-1 flex items-center gap-1">
+            <span>📖</span> Conoscenza & Docs
+          </div>
+          <button onclick="quickDispatch('guido')" class="w-full text-left p-1.5 rounded-lg bg-slate-900/40 hover:bg-slate-800/60 border border-white/5 transition flex items-center justify-between group">
+            <div class="flex items-center space-x-2">
+              <span class="text-xs">📖</span>
+              <div>
+                <div class="text-xs font-semibold text-slate-200 group-hover:text-lime-300">@guido</div>
+                <div class="text-[10px] text-slate-400 truncate w-28">Guido van Rossum</div>
+              </div>
+            </div>
+            <span class="text-[9px] bg-lime-500/20 text-lime-300 px-1 py-0.2 rounded font-mono">Docs</span>
+          </button>
+        </div>
+
       </div>
 
       <!-- Quick Platform Badge -->
@@ -256,21 +315,22 @@
           <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <div class="flex items-center gap-2 mb-1">
-                <span class="text-xs px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-mono font-semibold border border-indigo-500/30">CANONE INGEGNERISTICO v3.0</span>
-                <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono">Zero Sycophancy</span>
+                <span class="text-xs px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-mono font-semibold border border-indigo-500/30">CANONE INGEGNERISTICO v3.2</span>
+                <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono">5 Gruppi Funzionali</span>
+                <span class="text-xs px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 font-mono">Laravel 13 Ready</span>
               </div>
               <h2 class="text-2xl font-bold text-white tracking-tight">Centro di Comando Ecosistema</h2>
               <p class="text-sm text-slate-300 max-w-2xl mt-1 leading-relaxed">
-                Ambiente unificato per orchestrare i 9 specialisti software, eseguire boundary testing estremo, presidiare il grafo di memoria multi-tenant e garantire la sincronizzazione simmetrica cross-platform.
+                Ambiente integrato per orchestrare i 9 specialisti canonici, governare la matrice RACI dei 5 gruppi di competenza, applicare TDD e boundary testing estremo, presidiare il backend Laravel 13 e sincronizzare macOS e Windows 11.
               </p>
             </div>
             <div class="flex flex-wrap gap-2 shrink-0">
-              <button onclick="switchTab('tab-pipeline')" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
-                <span>Avvia Flusso 5 Fasi</span>
+              <button onclick="switchTab('tab-team')" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
+                <span>Esplora i 9 Specialisti</span>
                 <span>→</span>
               </button>
-              <button onclick="switchTab('tab-team')" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium text-xs border border-white/10 transition">
-                Consulta Specialisti
+              <button onclick="switchTab('tab-pipeline')" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium text-xs border border-white/10 transition">
+                Flusso a 5 Fasi
               </button>
             </div>
           </div>
@@ -278,58 +338,168 @@
 
         <!-- Bento Grid: Key Metrics & Status -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <!-- Card 1: Subagenti -->
+          <!-- Card 1: Subagenti & Gruppi -->
           <div class="glass-card rounded-xl p-4 flex flex-col justify-between">
             <div class="flex items-center justify-between text-slate-400">
-              <span class="text-xs font-medium uppercase tracking-wider">Subagenti Operativi</span>
-              <span class="text-lg">🤖</span>
+              <span class="text-xs font-medium uppercase tracking-wider">Specialisti & Gruppi</span>
+              <span class="text-lg">👥</span>
             </div>
             <div class="mt-3">
-              <div class="text-2xl font-bold text-white tracking-tight">9 / 9 Online</div>
+              <div class="text-2xl font-bold text-white tracking-tight">9 Sub / 5 Gruppi</div>
               <div class="text-xs text-emerald-400 font-mono mt-0.5 flex items-center gap-1">
-                <span>●</span> Tutti i Canoni caricati (01-09)
+                <span>●</span> Canoni 01-09 caricati e attivi
               </div>
             </div>
           </div>
 
-          <!-- Card 2: Grafo Memoria -->
+          <!-- Card 2: Stack Backend -->
           <div class="glass-card rounded-xl p-4 flex flex-col justify-between">
             <div class="flex items-center justify-between text-slate-400">
-              <span class="text-xs font-medium uppercase tracking-wider">Pipeline Memoria</span>
+              <span class="text-xs font-medium uppercase tracking-wider">Backend Core</span>
+              <span class="text-lg">🐘</span>
+            </div>
+            <div class="mt-3">
+              <div class="text-2xl font-bold text-red-300 tracking-tight">Laravel 13 + PHP 8.4</div>
+              <div class="text-xs text-sky-400 font-mono mt-0.5 flex items-center gap-1">
+                <span>●</span> Property Hooks & Asymmetric Visibility
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Grafo Memoria & DB -->
+          <div class="glass-card rounded-xl p-4 flex flex-col justify-between">
+            <div class="flex items-center justify-between text-slate-400">
+              <span class="text-xs font-medium uppercase tracking-wider">Database & Memoria</span>
               <span class="text-lg">🧠</span>
             </div>
             <div class="mt-3">
-              <div class="text-2xl font-bold text-white tracking-tight">InnoDB Anti-Gap</div>
-              <div class="text-xs text-sky-400 font-mono mt-0.5 flex items-center gap-1">
-                <span>●</span> Atomico • Zero Deadlock
+              <div class="text-2xl font-bold text-indigo-300 tracking-tight">MySQL 8.4 LTS</div>
+              <div class="text-xs text-emerald-400 font-mono mt-0.5 flex items-center gap-1">
+                <span>●</span> Zero Gap Lock • Action Atomiche
               </div>
             </div>
           </div>
 
-          <!-- Card 3: Sicurezza STRIDE -->
+          <!-- Card 4: Gatekeeper & Sicurezza -->
           <div class="glass-card rounded-xl p-4 flex flex-col justify-between">
             <div class="flex items-center justify-between text-slate-400">
-              <span class="text-xs font-medium uppercase tracking-wider">Veto Difensivo</span>
+              <span class="text-xs font-medium uppercase tracking-wider">Inquisitori & Veto</span>
               <span class="text-lg">🛡️</span>
             </div>
             <div class="mt-3">
-              <div class="text-2xl font-bold text-rose-300 tracking-tight">Attivo (Geohot)</div>
+              <div class="text-2xl font-bold text-rose-300 tracking-tight">Carmack + Geohot</div>
               <div class="text-xs text-rose-400 font-mono mt-0.5 flex items-center gap-1">
-                <span>●</span> Anti-BOLA • Anti-Injection
+                <span>●</span> STRIDE Threat Model & NaN Boundary
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- Card 4: Docker & Multi-arch -->
-          <div class="glass-card rounded-xl p-4 flex flex-col justify-between">
-            <div class="flex items-center justify-between text-slate-400">
-              <span class="text-xs font-medium uppercase tracking-wider">Infrastruttura</span>
-              <span class="text-lg">🐳</span>
+        <!-- SEZIONE SPECIALE: MAPPA DEI 5 GRUPPI FUNZIONALI -->
+        <div class="glass-panel rounded-2xl p-5 border border-white/10 space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <span>🏛️</span> I 5 Gruppi Funzionali dell'Ecosistema
+              </h3>
+              <p class="text-xs text-slate-400">Organizzazione sinergica delle competenze specialistiche secondo il Canone Ingegneristico.</p>
             </div>
-            <div class="mt-3">
-              <div class="text-2xl font-bold text-white tracking-tight">MySQL + PHP 8.4</div>
-              <div class="text-xs text-emerald-400 font-mono mt-0.5 flex items-center gap-1">
-                <span>●</span> Non-root UID 1000
+            <span class="text-xs bg-indigo-500/20 text-indigo-300 font-mono px-2.5 py-1 rounded-full border border-indigo-500/30">Topologia Hub-and-Spoke</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
+            <!-- Gruppo 1 -->
+            <div onclick="filterSpecialists('group-leadership'); switchTab('tab-team');" class="glass-card p-3 rounded-xl border border-indigo-500/30 cursor-pointer hover:border-indigo-400 transition flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="text-lg">👑</span>
+                  <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300">Gruppo 1</span>
+                </div>
+                <div class="font-bold text-white text-xs">Leadership & Governance</div>
+                <div class="text-[11px] text-indigo-300 font-mono mt-0.5">@turing (Alan Turing)</div>
+                <p class="text-[11px] text-slate-400 mt-2 leading-snug">
+                  Orchestrazione del team, matrice RACI, quality gate formali e Tie-Breaking Quorum a 3 round.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-white/5 flex items-center justify-between text-[10px]">
+                <span class="text-slate-400">Canone 09</span>
+                <span class="text-indigo-400 font-medium">Visualizza →</span>
+              </div>
+            </div>
+
+            <!-- Gruppo 2 -->
+            <div onclick="filterSpecialists('group-architecture'); switchTab('tab-team');" class="glass-card p-3 rounded-xl border border-sky-500/30 cursor-pointer hover:border-sky-400 transition flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="text-lg">📐</span>
+                  <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300">Gruppo 2</span>
+                </div>
+                <div class="font-bold text-white text-xs">Architettura & Contratti</div>
+                <div class="text-[11px] text-sky-300 font-mono mt-0.5">@werner (Werner Vogels)</div>
+                <p class="text-[11px] text-slate-400 mt-2 leading-snug">
+                  Contratti OpenAPI 3.1, RFC 7807 Problem Details, Transactional Outbox e resilienza cloud distribuita.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-white/5 flex items-center justify-between text-[10px]">
+                <span class="text-slate-400">Canone 01</span>
+                <span class="text-sky-400 font-medium">Visualizza →</span>
+              </div>
+            </div>
+
+            <!-- Gruppo 3 -->
+            <div onclick="filterSpecialists('group-builders'); switchTab('tab-team');" class="glass-card p-3 rounded-xl border border-amber-500/30 cursor-pointer hover:border-amber-400 transition flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="text-lg">🛠️</span>
+                  <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300">Gruppo 3</span>
+                </div>
+                <div class="font-bold text-white text-xs">I Costruttori (Core)</div>
+                <div class="text-[11px] text-amber-300 font-mono mt-0.5">@taylor, @steve, @linus</div>
+                <p class="text-[11px] text-slate-400 mt-2 leading-snug">
+                  Backend Laravel 13 & PHP 8.4, Frontend Bento Grid dark WCAG AA, e Docker multi-arch non-root.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-white/5 flex items-center justify-between text-[10px]">
+                <span class="text-slate-400">Canoni 02, 03, 04</span>
+                <span class="text-amber-400 font-medium">Visualizza (3) →</span>
+              </div>
+            </div>
+
+            <!-- Gruppo 4 -->
+            <div onclick="filterSpecialists('group-inquisitors'); switchTab('tab-team');" class="glass-card p-3 rounded-xl border border-rose-500/30 cursor-pointer hover:border-rose-400 transition flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="text-lg">🛡️</span>
+                  <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300">Gruppo 4</span>
+                </div>
+                <div class="font-bold text-white text-xs">Inquisitori & Gatekeeper</div>
+                <div class="text-[11px] text-rose-300 font-mono mt-0.5">@carmack, @rauch, @geohot</div>
+                <p class="text-[11px] text-slate-400 mt-2 leading-snug">
+                  TDD e boundary test (NaN/10MB), collaudo E2E con Circuit Breaker, audit STRIDE e Diritto di Veto vincolante.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-white/5 flex items-center justify-between text-[10px]">
+                <span class="text-slate-400">Canoni 05, 06, 07</span>
+                <span class="text-rose-400 font-medium">Visualizza (3) →</span>
+              </div>
+            </div>
+
+            <!-- Gruppo 5 -->
+            <div onclick="filterSpecialists('group-documentation'); switchTab('tab-team');" class="glass-card p-3 rounded-xl border border-lime-500/30 cursor-pointer hover:border-lime-400 transition flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="text-lg">📖</span>
+                  <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-lime-500/20 text-lime-300">Gruppo 5</span>
+                </div>
+                <div class="font-bold text-white text-xs">Conoscenza & Docs</div>
+                <div class="text-[11px] text-lime-300 font-mono mt-0.5">@guido (Guido van Rossum)</div>
+                <p class="text-[11px] text-slate-400 mt-2 leading-snug">
+                  Docs-as-Code vivo, framework Diátaxis a 4 quadranti, testable doctests in CI, ADR e SemVer.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-white/5 flex items-center justify-between text-[10px]">
+                <span class="text-slate-400">Canone 08</span>
+                <span class="text-lime-400 font-medium">Visualizza →</span>
               </div>
             </div>
           </div>
@@ -345,28 +515,52 @@
                 <h3 class="text-base font-bold text-white flex items-center gap-2">
                   <span>⚡</span> Prompt Studio & Dispatcher Istantaneo
                 </h3>
-                <p class="text-xs text-slate-400">Seleziona lo specialista, inserisci il tuo task e copia il prompt già ottimizzato con le regole del Canone.</p>
+                <p class="text-xs text-slate-400">Seleziona lo specialista canonico, visualizza la sua missione e copia il prompt già ottimizzato per Antigravity.</p>
               </div>
               <span class="text-xs bg-indigo-500/20 text-indigo-300 font-mono px-2 py-1 rounded">1-Click Dispatch</span>
             </div>
 
-            <!-- Agent selector chips -->
-            <div class="flex flex-wrap gap-2 pt-1">
-              <button onclick="setPromptAgent('turing')" class="agent-chip px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white border border-indigo-400/40">@turing</button>
-              <button onclick="setPromptAgent('werner')" class="agent-chip px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">@werner</button>
-              <button onclick="setPromptAgent('taylor')" class="agent-chip px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">@taylor</button>
-              <button onclick="setPromptAgent('linus')" class="agent-chip px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">@linus</button>
-              <button onclick="setPromptAgent('steve')" class="agent-chip px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">@steve</button>
-              <button onclick="setPromptAgent('carmack')" class="agent-chip px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">@carmack</button>
-              <button onclick="setPromptAgent('rauch')" class="agent-chip px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">@rauch</button>
-              <button onclick="setPromptAgent('geohot')" class="agent-chip px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">@geohot</button>
-              <button onclick="setPromptAgent('guido')" class="agent-chip px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">@guido</button>
+            <!-- Agent selector chips raggruppati -->
+            <div class="space-y-1.5 pt-1">
+              <div class="flex flex-wrap gap-1.5">
+                <button onclick="setPromptAgent('turing')" class="agent-chip px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white border border-indigo-400/40">👑 @turing</button>
+                <button onclick="setPromptAgent('werner')" class="agent-chip px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">📐 @werner</button>
+                <button onclick="setPromptAgent('taylor')" class="agent-chip px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">🐘 @taylor</button>
+                <button onclick="setPromptAgent('steve')" class="agent-chip px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">🎨 @steve</button>
+                <button onclick="setPromptAgent('linus')" class="agent-chip px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">🐧 @linus</button>
+                <button onclick="setPromptAgent('carmack')" class="agent-chip px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">🚀 @carmack</button>
+                <button onclick="setPromptAgent('rauch')" class="agent-chip px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">⚡ @rauch</button>
+                <button onclick="setPromptAgent('geohot')" class="agent-chip px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">⚔️ @geohot</button>
+                <button onclick="setPromptAgent('guido')" class="agent-chip px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">📖 @guido</button>
+              </div>
+            </div>
+
+            <!-- Box informativo dinamico dell'agente selezionato (Cosa fa & Come) -->
+            <div id="agentMissionBanner" class="p-3 bg-slate-900/90 rounded-xl border border-white/10 text-xs space-y-1.5">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-white flex items-center gap-2">
+                  <span id="selectedAgentIcon">👑</span>
+                  <span id="selectedAgentName">Alan Turing</span>
+                  <span id="selectedAgentAlias" class="font-mono text-indigo-400">@turing</span>
+                </span>
+                <span id="selectedAgentGroupBadge" class="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-mono">Gruppo 1: Leadership & Governance</span>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2 pt-1 text-[11px]">
+                <div class="p-2 rounded bg-slate-950/60 border border-white/5">
+                  <span class="text-indigo-400 font-semibold block mb-0.5">🎯 COSA FA:</span>
+                  <p id="selectedAgentWhat" class="text-slate-300 leading-snug">Pianifica lo sviluppo end-to-end, governa la dialettica tra gli 8 colleghi, assegna la matrice RACI e convalida i quality gate formali.</p>
+                </div>
+                <div class="p-2 rounded bg-slate-950/60 border border-white/5">
+                  <span class="text-sky-400 font-semibold block mb-0.5">⚙️ COME LO FA:</span>
+                  <p id="selectedAgentHow" class="text-slate-300 leading-snug">Topologia Hub-and-Spoke, Tie-Breaking Quorum a 3 round, quality gate bloccanti e Canone Volume 09.</p>
+                </div>
+              </div>
             </div>
 
             <!-- Task description input -->
             <div class="space-y-2">
               <label class="text-xs font-medium text-slate-300 flex justify-between">
-                <span>Descrizione del Task da affidare:</span>
+                <span>Istruzione da affidare all'agente:</span>
                 <span id="agentRoleBadge" class="text-[11px] text-indigo-400 font-mono">Alan Turing • Tech Lead & Orchestratore</span>
               </label>
               <input type="text" id="taskInput" oninput="updateGeneratedPrompt()" value="Coordina lo sviluppo end-to-end con matrice RACI e quality gate" class="w-full bg-slate-900/90 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-indigo-500 font-sans" placeholder="Scrivi il task qui...">
@@ -375,11 +569,12 @@
             <!-- Quick Template Presets -->
             <div class="flex flex-wrap gap-1.5 text-[11px]">
               <span class="text-slate-400 self-center mr-1">Preset rapidi:</span>
-              <button onclick="applyPreset('Flusso 5 Fasi Completo')" class="px-2 py-0.5 rounded bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5">5 Fasi</button>
-              <button onclick="applyPreset('Action Atomica Backend')" class="px-2 py-0.5 rounded bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5">Backend Action</button>
-              <button onclick="applyPreset('Boundary Test NaN & 10MB')" class="px-2 py-0.5 rounded bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5">Test Boundary</button>
-              <button onclick="applyPreset('Threat Model STRIDE & OWASP')" class="px-2 py-0.5 rounded bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5">Audit OWASP</button>
-              <button onclick="applyPreset('Hardening Dockerfile Non-Root')" class="px-2 py-0.5 rounded bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5">Docker Hardening</button>
+              <button onclick="applyPreset('Flusso 5 Fasi Completo')" class="px-2 py-0.5 rounded bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5">5 Fasi (Turing)</button>
+              <button onclick="applyPreset('Action Atomica Laravel 13')" class="px-2 py-0.5 rounded bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5">Action L13 (Taylor)</button>
+              <button onclick="applyPreset('Boundary Test NaN & 10MB')" class="px-2 py-0.5 rounded bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5">Boundary NaN (Carmack)</button>
+              <button onclick="applyPreset('Threat Model STRIDE')" class="px-2 py-0.5 rounded bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5">STRIDE Audit (Geohot)</button>
+              <button onclick="applyPreset('Hardening Docker Non-Root')" class="px-2 py-0.5 rounded bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5">Docker Non-Root (Linus)</button>
+              <button onclick="applyPreset('Docs Diataxis Completo')" class="px-2 py-0.5 rounded bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5">Diátaxis (Guido)</button>
             </div>
 
             <!-- Generated Prompt Preview Box -->
@@ -387,14 +582,14 @@
               <div class="flex items-center justify-between text-[11px] text-slate-400 mb-1.5 pb-1 border-b border-white/5">
                 <span class="flex items-center gap-1.5">
                   <span class="h-2 w-2 rounded-full bg-indigo-500"></span>
-                  Prompt Ottimizzato Pronto all'Uso
+                  Prompt Ottimizzato Pronto per Antigravity
                 </span>
-                <span class="text-slate-400">Regole Canone v3.0 incluse</span>
+                <span class="text-slate-400">Canone v3.2 & Standard Zero Sycophancy</span>
               </div>
               <div id="generatedPromptText" class="text-slate-200 leading-relaxed break-words select-all">
                 @turing Coordina lo sviluppo end-to-end con matrice RACI e quality gate applicando il Canone di Orchestrazione Ingegneristica (Volume 09) e verificando il quality gate a ogni transizione di fase.
               </div>
-              <div class="mt-3 flex justify-end">
+              <div class="mt-3 flex justify-end gap-2">
                 <button onclick="copyGeneratedPrompt(this)" class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-sans font-medium transition flex items-center gap-1.5 shadow-md">
                   <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
                   <span>Copia Prompt per Antigravity</span>
@@ -410,10 +605,10 @@
                 <h3 class="text-base font-bold text-white flex items-center gap-2">
                   <span>🔄</span> Flusso Canonico a 5 Fasi
                 </h3>
-                <span class="text-[10px] bg-emerald-500/20 text-emerald-300 font-mono px-2 py-0.5 rounded">RACI</span>
+                <span class="text-[10px] bg-emerald-500/20 text-emerald-300 font-mono px-2 py-0.5 rounded">RACI Bloccante</span>
               </div>
               <p class="text-xs text-slate-400 mb-4 leading-relaxed">
-                Nessuna fase viene approvata senza il consenso formale del rispettivo specialista.
+                Nessuna fase viene approvata senza il consenso formale e la firma del rispettivo specialista.
               </p>
 
               <!-- Pipeline Steps -->
@@ -435,25 +630,25 @@
                 </div>
 
                 <div class="flex items-start gap-3 p-2 rounded-xl bg-slate-900/60 border border-white/5">
-                  <div class="h-6 w-6 rounded-lg bg-red-600 text-white font-mono text-xs flex items-center justify-center shrink-0">3</div>
+                  <div class="h-6 w-6 rounded-lg bg-amber-600 text-white font-mono text-xs flex items-center justify-center shrink-0">3</div>
                   <div>
-                    <div class="text-xs font-semibold text-white">Sviluppo TDD & DB</div>
-                    <div class="text-[11px] text-slate-400">@taylor (Laravel) & @steve (UI) & @linus</div>
+                    <div class="text-xs font-semibold text-white">Sviluppo TDD & Stack</div>
+                    <div class="text-[11px] text-slate-400">@taylor (Laravel 13) & @steve & @linus</div>
                   </div>
                 </div>
 
                 <div class="flex items-start gap-3 p-2 rounded-xl bg-slate-900/60 border border-white/5">
-                  <div class="h-6 w-6 rounded-lg bg-emerald-600 text-white font-mono text-xs flex items-center justify-center shrink-0">4</div>
+                  <div class="h-6 w-6 rounded-lg bg-rose-600 text-white font-mono text-xs flex items-center justify-center shrink-0">4</div>
                   <div>
-                    <div class="text-xs font-semibold text-white">Quality Assurance & Veto</div>
-                    <div class="text-[11px] text-slate-400">@carmack (NaN/INF) & @geohot (Veto)</div>
+                    <div class="text-xs font-semibold text-white">QA, Resilienza & Veto</div>
+                    <div class="text-[11px] text-slate-400">@carmack (NaN/INF) & @rauch & @geohot</div>
                   </div>
                 </div>
 
                 <div class="flex items-start gap-3 p-2 rounded-xl bg-slate-900/60 border border-white/5">
-                  <div class="h-6 w-6 rounded-lg bg-purple-600 text-white font-mono text-xs flex items-center justify-center shrink-0">5</div>
+                  <div class="h-6 w-6 rounded-lg bg-lime-600 text-white font-mono text-xs flex items-center justify-center shrink-0">5</div>
                   <div>
-                    <div class="text-xs font-semibold text-white">Docs & Rilascio</div>
+                    <div class="text-xs font-semibold text-white">Docs-as-Code & Rilascio</div>
                     <div class="text-[11px] text-slate-400">@guido (Diátaxis) & @turing (Sign-off)</div>
                   </div>
                 </div>
@@ -461,369 +656,890 @@
             </div>
 
             <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[11px] text-slate-400">
-              <span>Quality Gates: <strong class="text-emerald-400">Attivi</strong></span>
+              <span>Quality Gates: <strong class="text-emerald-400">Attivi (Zero Bypass)</strong></span>
               <button onclick="switchTab('tab-pipeline')" class="text-indigo-400 hover:text-indigo-300 font-semibold">Dettagli RACI →</button>
             </div>
           </div>
         </div>
 
-        <!-- Quick Architecture Matrix & Cross-Device Sync -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- Stack Architettura -->
-          <div class="glass-panel rounded-2xl p-5 border border-white/10 space-y-3">
-            <h3 class="text-sm font-bold text-white flex items-center gap-2">
-              <span>🏗️</span> Stack Architetturale Certificato
-            </h3>
-            <div class="space-y-2 text-xs">
-              <div class="flex justify-between p-2 rounded-lg bg-slate-900/60 border border-white/5">
-                <span class="text-slate-300">Backend Core:</span>
-                <span class="font-mono text-red-400 font-semibold">PHP 8.4+ / Laravel 11/12</span>
-              </div>
-              <div class="flex justify-between p-2 rounded-lg bg-slate-900/60 border border-white/5">
-                <span class="text-slate-300">Database Engine:</span>
-                <span class="font-mono text-indigo-400 font-semibold">MySQL 8.4 LTS (InnoDB Coprente)</span>
-              </div>
-              <div class="flex justify-between p-2 rounded-lg bg-slate-900/60 border border-white/5">
-                <span class="text-slate-300">Web Server:</span>
-                <span class="font-mono text-emerald-400 font-semibold">Nginx Hardened (Webroot isolata)</span>
-              </div>
-              <div class="flex justify-between p-2 rounded-lg bg-slate-900/60 border border-white/5">
-                <span class="text-slate-300">Security Layer:</span>
-                <span class="font-mono text-rose-400 font-semibold">PreToolUse Linter + Diritto di Veto</span>
-              </div>
+        <!-- Prontuario Funzionale Rapido dei 9 Specialisti (Cosa Fa e Come) -->
+        <div class="glass-panel rounded-2xl p-5 border border-white/10 space-y-4">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <span>📋</span> Prontuario Funzionale Rapido: "Cosa Fa" e "Come lo Fa"
+              </h3>
+              <p class="text-xs text-slate-400">Sintesi operativa di ciascuno dei 9 specialisti suddivisi per i 5 gruppi canonici.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <input type="text" id="quickFilterInput" oninput="filterQuickProntuario(this.value)" placeholder="Cerca specialista o tecnologia..." class="bg-slate-900/90 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500 w-56 font-sans">
+              <button onclick="switchTab('tab-team')" class="px-3 py-1.5 rounded-lg bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 border border-indigo-500/30 text-xs font-medium">Schede Complete →</button>
             </div>
           </div>
 
-          <!-- Sincronizzazione Multi-Device -->
-          <div class="glass-panel rounded-2xl p-5 border border-white/10 space-y-3">
-            <h3 class="text-sm font-bold text-white flex items-center gap-2">
-              <span>💻</span> Sincronizzazione Simmetrica 4 Nodi
-            </h3>
-            <div class="space-y-2 text-xs">
-              <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900/60 border border-white/5">
-                <div class="flex items-center gap-2">
-                  <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-                  <span class="text-slate-200">Mac Studio M2 Max (Workstation)</span>
+          <div id="quickProntuarioGrid" class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+            <!-- 1. Alan Turing -->
+            <div class="quick-agent-card p-3 rounded-xl bg-slate-900/60 border border-indigo-500/30 flex flex-col justify-between space-y-2">
+              <div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <span>👑</span>
+                    <span class="font-bold text-white">Alan Turing</span>
+                    <span class="font-mono text-indigo-300 font-semibold text-[11px]">@turing</span>
+                  </div>
+                  <span class="text-[9px] bg-indigo-500/20 text-indigo-300 px-1.5 py-0.5 rounded font-mono">Leadership</span>
                 </div>
-                <span class="font-mono text-slate-400 text-[11px]">sync.sh (Zsh)</span>
+                <div class="mt-2 space-y-1 text-[11px]">
+                  <div><strong class="text-indigo-300">Cosa fa:</strong> <span class="text-slate-300">Orchestra il progetto, governa il team e valida i quality gate di fase.</span></div>
+                  <div><strong class="text-sky-300">Come:</strong> <span class="text-slate-400">Hub-and-Spoke, RACI formale, Quorum a 3 round, Canone Vol. 09.</span></div>
+                </div>
               </div>
-              <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900/60 border border-white/5">
-                <div class="flex items-center gap-2">
-                  <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-                  <span class="text-slate-200">MacBook Pro M1 (Portatile 1)</span>
-                </div>
-                <span class="font-mono text-slate-400 text-[11px]">sync.sh (Zsh)</span>
+              <div class="pt-2 border-t border-white/5 flex items-center justify-between text-[11px]">
+                <button onclick="quickDispatch('turing')" class="text-indigo-400 hover:text-indigo-300 font-semibold">Usa nel Prompt →</button>
+                <button onclick="inspectSpecialist('turing')" class="text-slate-400 hover:text-slate-200">Dettaglio</button>
               </div>
-              <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900/60 border border-white/5">
-                <div class="flex items-center gap-2">
-                  <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-                  <span class="text-slate-200">MacBook Air M3 (Portatile 2)</span>
+            </div>
+
+            <!-- 2. Werner Vogels -->
+            <div class="quick-agent-card p-3 rounded-xl bg-slate-900/60 border border-sky-500/30 flex flex-col justify-between space-y-2">
+              <div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <span>📐</span>
+                    <span class="font-bold text-white">Werner Vogels</span>
+                    <span class="font-mono text-sky-300 font-semibold text-[11px]">@werner</span>
+                  </div>
+                  <span class="text-[9px] bg-sky-500/20 text-sky-300 px-1.5 py-0.5 rounded font-mono">Architettura</span>
                 </div>
-                <span class="font-mono text-slate-400 text-[11px]">sync.sh (Zsh)</span>
+                <div class="mt-2 space-y-1 text-[11px]">
+                  <div><strong class="text-indigo-300">Cosa fa:</strong> <span class="text-slate-300">Disegna architetture modulari, contratti API tipizzati e tolleranza ai guasti.</span></div>
+                  <div><strong class="text-sky-300">Come:</strong> <span class="text-slate-400">OpenAPI 3.1, RFC 7807/9457, Transactional Outbox, Canone Vol. 01.</span></div>
+                </div>
               </div>
-              <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900/60 border border-white/5">
-                <div class="flex items-center gap-2">
-                  <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-                  <span class="text-slate-200">PC Windows 11 (Gaming & Testing)</span>
+              <div class="pt-2 border-t border-white/5 flex items-center justify-between text-[11px]">
+                <button onclick="quickDispatch('werner')" class="text-sky-400 hover:text-sky-300 font-semibold">Usa nel Prompt →</button>
+                <button onclick="inspectSpecialist('werner')" class="text-slate-400 hover:text-slate-200">Dettaglio</button>
+              </div>
+            </div>
+
+            <!-- 3. Taylor Otwell -->
+            <div class="quick-agent-card p-3 rounded-xl bg-slate-900/60 border border-red-500/30 flex flex-col justify-between space-y-2">
+              <div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <span>🐘</span>
+                    <span class="font-bold text-white">Taylor Otwell</span>
+                    <span class="font-mono text-red-300 font-semibold text-[11px]">@taylor</span>
+                  </div>
+                  <span class="text-[9px] bg-red-500/20 text-red-300 px-1.5 py-0.5 rounded font-mono">Costruttori</span>
                 </div>
-                <span class="font-mono text-slate-400 text-[11px]">sync.ps1 (Mutex)</span>
+                <div class="mt-2 space-y-1 text-[11px]">
+                  <div><strong class="text-indigo-300">Cosa fa:</strong> <span class="text-slate-300">Sviluppa backend Laravel 13/PHP 8.4, Action atomiche e zero N+1.</span></div>
+                  <div><strong class="text-sky-300">Come:</strong> <span class="text-slate-400">Property Hooks, Asymmetric Visibility, DB::transaction anti-gap lock.</span></div>
+                </div>
+              </div>
+              <div class="pt-2 border-t border-white/5 flex items-center justify-between text-[11px]">
+                <button onclick="quickDispatch('taylor')" class="text-red-400 hover:text-red-300 font-semibold">Usa nel Prompt →</button>
+                <button onclick="inspectSpecialist('taylor')" class="text-slate-400 hover:text-slate-200">Dettaglio</button>
+              </div>
+            </div>
+
+            <!-- 4. Steve Jobs -->
+            <div class="quick-agent-card p-3 rounded-xl bg-slate-900/60 border border-purple-500/30 flex flex-col justify-between space-y-2">
+              <div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <span>🎨</span>
+                    <span class="font-bold text-white">Steve Jobs</span>
+                    <span class="font-mono text-purple-300 font-semibold text-[11px]">@steve</span>
+                  </div>
+                  <span class="text-[9px] bg-purple-500/20 text-purple-300 px-1.5 py-0.5 rounded font-mono">Costruttori</span>
+                </div>
+                <div class="mt-2 space-y-1 text-[11px]">
+                  <div><strong class="text-indigo-300">Cosa fa:</strong> <span class="text-slate-300">Interfacce web moderne anti-AI-slop in stile Linear/Stripe/Vercel.</span></div>
+                  <div><strong class="text-sky-300">Come:</strong> <span class="text-slate-400">Bento Grid asimmetrica, dark Zinc 950/900, 4 stati obbligatori, WCAG AA.</span></div>
+                </div>
+              </div>
+              <div class="pt-2 border-t border-white/5 flex items-center justify-between text-[11px]">
+                <button onclick="quickDispatch('steve')" class="text-purple-400 hover:text-purple-300 font-semibold">Usa nel Prompt →</button>
+                <button onclick="inspectSpecialist('steve')" class="text-slate-400 hover:text-slate-200">Dettaglio</button>
+              </div>
+            </div>
+
+            <!-- 5. Linus Torvalds -->
+            <div class="quick-agent-card p-3 rounded-xl bg-slate-900/60 border border-amber-500/30 flex flex-col justify-between space-y-2">
+              <div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <span>🐧</span>
+                    <span class="font-bold text-white">Linus Torvalds</span>
+                    <span class="font-mono text-amber-300 font-semibold text-[11px]">@linus</span>
+                  </div>
+                  <span class="text-[9px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded font-mono">Costruttori</span>
+                </div>
+                <div class="mt-2 space-y-1 text-[11px]">
+                  <div><strong class="text-indigo-300">Cosa fa:</strong> <span class="text-slate-300">Docker multi-arch non-root, hardening Nginx e sync macOS/Win11.</span></div>
+                  <div><strong class="text-sky-300">Come:</strong> <span class="text-slate-400">su-exec (UID 10001), POSIX Zsh (sync.sh) e PowerShell 7 Mutex (sync.ps1).</span></div>
+                </div>
+              </div>
+              <div class="pt-2 border-t border-white/5 flex items-center justify-between text-[11px]">
+                <button onclick="quickDispatch('linus')" class="text-amber-400 hover:text-amber-300 font-semibold">Usa nel Prompt →</button>
+                <button onclick="inspectSpecialist('linus')" class="text-slate-400 hover:text-slate-200">Dettaglio</button>
+              </div>
+            </div>
+
+            <!-- 6. John Carmack -->
+            <div class="quick-agent-card p-3 rounded-xl bg-slate-900/60 border border-emerald-500/30 flex flex-col justify-between space-y-2">
+              <div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <span>🚀</span>
+                    <span class="font-bold text-white">John Carmack</span>
+                    <span class="font-mono text-emerald-300 font-semibold text-[11px]">@carmack</span>
+                  </div>
+                  <span class="text-[9px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded font-mono">Inquisitori</span>
+                </div>
+                <div class="mt-2 space-y-1 text-[11px]">
+                  <div><strong class="text-indigo-300">Cosa fa:</strong> <span class="text-slate-300">TDD rigoroso, boundary test matematici, prevenzione crash e OOM.</span></div>
+                  <div><strong class="text-sky-300">Come:</strong> <span class="text-slate-400">IEEE 754 (NaN, INF, -0.0), stringhe 10MB, Reaper pattern con DLQ.</span></div>
+                </div>
+              </div>
+              <div class="pt-2 border-t border-white/5 flex items-center justify-between text-[11px]">
+                <button onclick="quickDispatch('carmack')" class="text-emerald-400 hover:text-emerald-300 font-semibold">Usa nel Prompt →</button>
+                <button onclick="inspectSpecialist('carmack')" class="text-slate-400 hover:text-slate-200">Dettaglio</button>
+              </div>
+            </div>
+
+            <!-- 7. Guillermo Rauch -->
+            <div class="quick-agent-card p-3 rounded-xl bg-slate-900/60 border border-cyan-500/30 flex flex-col justify-between space-y-2">
+              <div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <span>⚡</span>
+                    <span class="font-bold text-white">Guillermo Rauch</span>
+                    <span class="font-mono text-cyan-300 font-semibold text-[11px]">@rauch</span>
+                  </div>
+                  <span class="text-[9px] bg-cyan-500/20 text-cyan-300 px-1.5 py-0.5 rounded font-mono">Inquisitori</span>
+                </div>
+                <div class="mt-2 space-y-1 text-[11px]">
+                  <div><strong class="text-indigo-300">Cosa fa:</strong> <span class="text-slate-300">Collaudo E2E cooperazione frontend-backend-DB e reti instabili.</span></div>
+                  <div><strong class="text-sky-300">Come:</strong> <span class="text-slate-400">Circuit Breaker a 3 stati, Correlation-ID, Idempotency-Key, fallback.</span></div>
+                </div>
+              </div>
+              <div class="pt-2 border-t border-white/5 flex items-center justify-between text-[11px]">
+                <button onclick="quickDispatch('rauch')" class="text-cyan-400 hover:text-cyan-300 font-semibold">Usa nel Prompt →</button>
+                <button onclick="inspectSpecialist('rauch')" class="text-slate-400 hover:text-slate-200">Dettaglio</button>
+              </div>
+            </div>
+
+            <!-- 8. George Hotz -->
+            <div class="quick-agent-card p-3 rounded-xl bg-slate-900/60 border border-rose-500/30 flex flex-col justify-between space-y-2">
+              <div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <span>⚔️</span>
+                    <span class="font-bold text-white">George Hotz</span>
+                    <span class="font-mono text-rose-300 font-semibold text-[11px]">@geohot</span>
+                  </div>
+                  <span class="text-[9px] bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded font-mono">Inquisitori</span>
+                </div>
+                <div class="mt-2 space-y-1 text-[11px]">
+                  <div><strong class="text-indigo-300">Cosa fa:</strong> <span class="text-slate-300">Audit avversariale Zero-Trust, prevenzione OWASP e Diritto di Veto.</span></div>
+                  <div><strong class="text-sky-300">Come:</strong> <span class="text-slate-400">STRIDE model, socket pinning anti-SSRF, Grammar Decoding, DEK/KEK.</span></div>
+                </div>
+              </div>
+              <div class="pt-2 border-t border-white/5 flex items-center justify-between text-[11px]">
+                <button onclick="quickDispatch('geohot')" class="text-rose-400 hover:text-rose-300 font-semibold">Usa nel Prompt →</button>
+                <button onclick="inspectSpecialist('geohot')" class="text-slate-400 hover:text-slate-200">Dettaglio</button>
+              </div>
+            </div>
+
+            <!-- 9. Guido van Rossum -->
+            <div class="quick-agent-card p-3 rounded-xl bg-slate-900/60 border border-lime-500/30 flex flex-col justify-between space-y-2">
+              <div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <span>📖</span>
+                    <span class="font-bold text-white">Guido van Rossum</span>
+                    <span class="font-mono text-lime-300 font-semibold text-[11px]">@guido</span>
+                  </div>
+                  <span class="text-[9px] bg-lime-500/20 text-lime-300 px-1.5 py-0.5 rounded font-mono">Conoscenza</span>
+                </div>
+                <div class="mt-2 space-y-1 text-[11px]">
+                  <div><strong class="text-indigo-300">Cosa fa:</strong> <span class="text-slate-300">Custode di Docs-as-Code, leggibilità del codice, ADR e changelog.</span></div>
+                  <div><strong class="text-sky-300">Come:</strong> <span class="text-slate-400">Diátaxis (4 quadranti), Testable Docs in CI, SemVer e Conventional Commits.</span></div>
+                </div>
+              </div>
+              <div class="pt-2 border-t border-white/5 flex items-center justify-between text-[11px]">
+                <button onclick="quickDispatch('guido')" class="text-lime-400 hover:text-lime-300 font-semibold">Usa nel Prompt →</button>
+                <button onclick="inspectSpecialist('guido')" class="text-slate-400 hover:text-slate-200">Dettaglio</button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Prontuario Funzionale Rapido dei 9 Specialisti -->
-        <div class="glass-panel rounded-2xl p-5 border border-white/10 space-y-3">
-          <div class="flex items-center justify-between">
-            <h3 class="text-sm font-bold text-white flex items-center gap-2">
-              <span>📋</span> Prontuario Funzionale Rapido: Cosa Fa Ogni Singolo Agente
-            </h3>
-            <span class="text-[10px] bg-indigo-500/20 text-indigo-300 font-mono px-2 py-0.5 rounded">Riferimento Istantaneo</span>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-xs">
-            <div class="p-2.5 rounded-xl bg-slate-900/60 border border-white/5 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between">
-                  <span class="font-bold text-indigo-300 font-mono text-[11px]">@turing</span>
-                  <span class="text-[9px] text-slate-400">Tech Lead</span>
-                </div>
-                <p class="text-[11px] text-slate-300 mt-1 leading-snug"><strong>Orchestrazione & Governance:</strong> Coordina il flusso a 5 fasi, assegna i task con matrice RACI e valida i quality gate.</p>
-              </div>
-              <button onclick="quickDispatch('turing')" class="text-[10px] text-indigo-400 hover:text-indigo-300 text-left mt-2">Usa @turing →</button>
-            </div>
-
-            <div class="p-2.5 rounded-xl bg-slate-900/60 border border-white/5 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between">
-                  <span class="font-bold text-sky-300 font-mono text-[11px]">@werner</span>
-                  <span class="text-[9px] text-slate-400">Architect</span>
-                </div>
-                <p class="text-[11px] text-slate-300 mt-1 leading-snug"><strong>Architettura & Contratti:</strong> Progetta sistemi modulari, contratti OpenAPI tipizzati e resilienza a guasti.</p>
-              </div>
-              <button onclick="quickDispatch('werner')" class="text-[10px] text-sky-400 hover:text-sky-300 text-left mt-2">Usa @werner →</button>
-            </div>
-
-            <div class="p-2.5 rounded-xl bg-slate-900/60 border border-white/5 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between">
-                  <span class="font-bold text-red-300 font-mono text-[11px]">@taylor</span>
-                  <span class="text-[9px] text-slate-400">Backend</span>
-                </div>
-                <p class="text-[11px] text-slate-300 mt-1 leading-snug"><strong>Backend & DB Master:</strong> Sviluppa Action atomiche Laravel/PHP, zero N+1 ed elimina i Gap Lock InnoDB.</p>
-              </div>
-              <button onclick="quickDispatch('taylor')" class="text-[10px] text-red-400 hover:text-red-300 text-left mt-2">Usa @taylor →</button>
-            </div>
-
-            <div class="p-2.5 rounded-xl bg-slate-900/60 border border-white/5 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between">
-                  <span class="font-bold text-amber-300 font-mono text-[11px]">@linus</span>
-                  <span class="text-[9px] text-slate-400">DevOps</span>
-                </div>
-                <p class="text-[11px] text-slate-300 mt-1 leading-snug"><strong>DevOps & Container:</strong> Governa Docker multi-arch non-root (su-exec), hardening Nginx e sync macOS/Win11.</p>
-              </div>
-              <button onclick="quickDispatch('linus')" class="text-[10px] text-amber-400 hover:text-amber-300 text-left mt-2">Usa @linus →</button>
-            </div>
-
-            <div class="p-2.5 rounded-xl bg-slate-900/60 border border-white/5 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between">
-                  <span class="font-bold text-purple-300 font-mono text-[11px]">@steve</span>
-                  <span class="text-[9px] text-slate-400">UI/UX</span>
-                </div>
-                <p class="text-[11px] text-slate-300 mt-1 leading-snug"><strong>Design UI/UX:</strong> Realizza interfacce Bento Grid dark (Zinc 950/900), stile Linear/Stripe e micro-interazioni.</p>
-              </div>
-              <button onclick="quickDispatch('steve')" class="text-[10px] text-purple-400 hover:text-purple-300 text-left mt-2">Usa @steve →</button>
-            </div>
-
-            <div class="p-2.5 rounded-xl bg-slate-900/60 border border-white/5 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between">
-                  <span class="font-bold text-emerald-300 font-mono text-[11px]">@carmack</span>
-                  <span class="text-[9px] text-slate-400">QA Lead</span>
-                </div>
-                <p class="text-[11px] text-slate-300 mt-1 leading-snug"><strong>QA & Boundary Testing:</strong> Guida il TDD rigoroso, testa valori limite (NaN/INF, 10MB) e previene crash e OOM.</p>
-              </div>
-              <button onclick="quickDispatch('carmack')" class="text-[10px] text-emerald-400 hover:text-emerald-300 text-left mt-2">Usa @carmack →</button>
-            </div>
-
-            <div class="p-2.5 rounded-xl bg-slate-900/60 border border-white/5 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between">
-                  <span class="font-bold text-cyan-300 font-mono text-[11px]">@rauch</span>
-                  <span class="text-[9px] text-slate-400">Integration</span>
-                </div>
-                <p class="text-[11px] text-slate-300 mt-1 leading-snug"><strong>Integrazione E2E:</strong> Valida il dialogo reale tra frontend, backend e DB con Circuit Breaker e timeout.</p>
-              </div>
-              <button onclick="quickDispatch('rauch')" class="text-[10px] text-cyan-400 hover:text-cyan-300 text-left mt-2">Usa @rauch →</button>
-            </div>
-
-            <div class="p-2.5 rounded-xl bg-slate-900/60 border border-white/5 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between">
-                  <span class="font-bold text-rose-300 font-mono text-[11px]">@geohot</span>
-                  <span class="text-[9px] text-slate-400">Security</span>
-                </div>
-                <p class="text-[11px] text-slate-300 mt-1 leading-snug"><strong>Sicurezza & Veto:</strong> Esegue threat modeling STRIDE, blocca falle OWASP (BOLA/IDOR/SQLi) con veto assoluto.</p>
-              </div>
-              <button onclick="quickDispatch('geohot')" class="text-[10px] text-rose-400 hover:text-rose-300 text-left mt-2">Usa @geohot →</button>
-            </div>
-
-            <div class="p-2.5 rounded-xl bg-slate-900/60 border border-white/5 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between">
-                  <span class="font-bold text-lime-300 font-mono text-[11px]">@guido</span>
-                  <span class="text-[9px] text-slate-400">Docs</span>
-                </div>
-                <p class="text-[11px] text-slate-300 mt-1 leading-snug"><strong>Docs-as-Code:</strong> Mantiene README, vademecum e changelog veritieri secondo il framework Diátaxis.</p>
-              </div>
-              <button onclick="quickDispatch('guido')" class="text-[10px] text-lime-400 hover:text-lime-300 text-left mt-2">Usa @guido →</button>
-            </div>
-          </div>
-        </div>
       </div>
 
-      <!-- TAB 2: I 9 SPECIALISTI DETTAGLIATI -->
+      <!-- TAB 2: I 9 SPECIALISTI DETTAGLIATI CON FILTRI INTERATTIVI E GRUPPI -->
       <div id="tab-team" class="tab-content hidden space-y-6">
-        <div class="flex items-center justify-between">
-          <div>
-            <h2 class="text-xl font-bold text-white">La Squadra dei 9 Specialisti Canonici</h2>
-            <p class="text-xs text-slate-400">Ciascun agente incarna un pilastro dell'ingegneria del software con un volume dedicato del Canone.</p>
+        
+        <!-- Header con Search & Filter Bar -->
+        <div class="glass-panel rounded-2xl p-5 border border-white/10 space-y-4">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                <span>👥</span> La Squadra dei 9 Specialisti Canonici
+              </h2>
+              <p class="text-xs text-slate-400 mt-0.5">
+                5 Gruppi Funzionali • Ciascun agente possiede ruolo, responsabilità "Cosa Fa", metodologie "Come lo Fa" e volume del Canone.
+              </p>
+            </div>
+            <!-- Search input -->
+            <div class="relative w-full md:w-72">
+              <input type="text" id="specialistSearchInput" oninput="searchSpecialists(this.value)" placeholder="Cerca nome, alias, stack, standard..." class="w-full bg-slate-900/90 border border-white/10 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-indigo-500 font-sans pl-9">
+              <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </div>
           </div>
-          <span class="text-xs bg-indigo-500/20 text-indigo-300 font-mono px-3 py-1 rounded-full border border-indigo-500/30">Suite v3.0.0</span>
+
+          <!-- Interactive Group Filter Pills -->
+          <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-white/5">
+            <span class="text-xs text-slate-400 mr-1 font-medium">Filtra per Gruppo:</span>
+            <button onclick="filterSpecialists('all')" id="btn-filter-all" class="group-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white border border-indigo-400/40">
+              Tutti i 9 Specialisti
+            </button>
+            <button onclick="filterSpecialists('group-leadership')" id="btn-filter-group-leadership" class="group-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">
+              👑 Leadership & Governance (1)
+            </button>
+            <button onclick="filterSpecialists('group-architecture')" id="btn-filter-group-architecture" class="group-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">
+              📐 Architettura & Contratti (1)
+            </button>
+            <button onclick="filterSpecialists('group-builders')" id="btn-filter-group-builders" class="group-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">
+              🛠️ I Costruttori Core (3)
+            </button>
+            <button onclick="filterSpecialists('group-inquisitors')" id="btn-filter-group-inquisitors" class="group-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">
+              🛡️ Inquisitori & Gatekeeper (3)
+            </button>
+            <button onclick="filterSpecialists('group-documentation')" id="btn-filter-group-documentation" class="group-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">
+              📖 Conoscenza & Docs (1)
+            </button>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <!-- 1. Alan Turing -->
-          <div class="glass-card rounded-xl p-4 border border-indigo-500/30 space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="text-2xl">👑</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-semibold">@turing</span>
+        <!-- 9 SPECIALIST EXPANDED CARDS GRID -->
+        <div id="specialistsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+          <!-- ========================================== -->
+          <!-- 1. ALAN TURING (LEADERSHIP)                -->
+          <!-- ========================================== -->
+          <div id="card-turing" class="specialist-card group-leadership glass-card rounded-2xl p-5 border border-indigo-500/40 space-y-4 flex flex-col justify-between card-transition" data-agent="turing">
+            <div class="space-y-3">
+              <!-- Top Card Header -->
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-2xl">👑</span>
+                  <div>
+                    <h3 class="text-base font-bold text-white tracking-tight">Alan Turing</h3>
+                    <p class="text-xs text-indigo-300 font-medium">Project Orchestrator & Tech Lead</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-xs font-mono px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-semibold border border-indigo-500/30">@turing</span>
+                  <div class="text-[9px] text-slate-400 font-mono mt-0.5">Vol. 09 Orchestration</div>
+                </div>
+              </div>
+
+              <!-- Gruppo Badge -->
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/20 text-[11px] text-indigo-300 font-medium">
+                <span>👑</span> <strong>Gruppo 1:</strong> Leadership, Orchestrazione & Governance
+              </div>
+
+              <!-- Sezione: COSA FA -->
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5 space-y-1">
+                <div class="text-[11px] font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1">
+                  <span>🎯</span> Cosa Fa
+                </div>
+                <p class="text-xs text-slate-200 leading-relaxed">
+                  Pianifica il lavoro end-to-end, governa il contraddittorio dialettico tra gli 8 colleghi specialisti, assegna le responsabilità con matrice RACI formale e convalida i Quality Gate bloccanti prima di ogni transizione di fase.
+                </p>
+              </div>
+
+              <!-- Sezione: COME LO FA -->
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5 space-y-1.5">
+                <div class="text-[11px] font-bold text-sky-400 uppercase tracking-wider flex items-center gap-1">
+                  <span>⚙️</span> Come lo Fa (Metodologie & Standard)
+                </div>
+                <ul class="text-xs text-slate-300 space-y-1 list-disc list-inside leading-relaxed">
+                  <li><strong class="text-white">Topologia Hub-and-Spoke:</strong> Tutti i flussi transitano dal suo coordinamento centrale.</li>
+                  <li><strong class="text-white">Tie-Breaking Quorum:</strong> Risolve i dissidi tecnici in 3 round dialettici con motivazione scritta formale.</li>
+                  <li><strong class="text-white">Quality Gate Bloccanti:</strong> Impedisce l'avanzamento senza i sign-off obbligatori di sicurezza, QA e architettura.</li>
+                  <li><strong class="text-white">Canone 09:</strong> Applicazione dei principi di Forsgren & Skelton (DORA & Team Topologies).</li>
+                </ul>
+              </div>
+
+              <!-- Tech Badges -->
+              <div class="flex flex-wrap gap-1 text-[10px] font-mono">
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">RACI</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">Hub-and-Spoke</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">Quorum 3-Round</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">Gatekeeper</span>
+              </div>
             </div>
-            <div>
-              <h4 class="text-sm font-bold text-white">Alan Turing</h4>
-              <p class="text-[11px] text-indigo-300 font-medium">Project Orchestrator & Tech Lead</p>
-            </div>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Pianifica il lavoro, governa il contraddittorio tra gli 8 colleghi, applica la matrice RACI e convalida i quality gate formali prima di ogni transizione.
-            </p>
-            <div class="pt-2 border-t border-white/5 flex items-center justify-between text-[11px]">
-              <span class="text-slate-400">Canone: <strong class="text-indigo-400">Vol. 09</strong></span>
-              <button onclick="quickDispatch('turing')" class="text-indigo-400 hover:text-indigo-300 font-semibold">Usa nel Prompt →</button>
+
+            <!-- Card Actions -->
+            <div class="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+              <button onclick="copyToClipboard('@turing', this, 'Alias Copiato!')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-300 border border-white/5">
+                Copia Alias
+              </button>
+              <button onclick="quickDispatch('turing')" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-[11px] font-semibold text-white shadow-sm flex items-center gap-1">
+                <span>⚡ Prompt Studio</span>
+              </button>
             </div>
           </div>
 
-          <!-- 2. Werner Vogels -->
-          <div class="glass-card rounded-xl p-4 border border-sky-500/30 space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="text-2xl">📐</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 font-semibold">@werner</span>
+          <!-- ========================================== -->
+          <!-- 2. WERNER VOGELS (ARCHITETTURA)            -->
+          <!-- ========================================== -->
+          <div id="card-werner" class="specialist-card group-architecture glass-card rounded-2xl p-5 border border-sky-500/40 space-y-4 flex flex-col justify-between card-transition" data-agent="werner">
+            <div class="space-y-3">
+              <!-- Top Card Header -->
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-2xl">📐</span>
+                  <div>
+                    <h3 class="text-base font-bold text-white tracking-tight">Werner Vogels</h3>
+                    <p class="text-xs text-sky-300 font-medium">System Architect & Tech Lead</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-xs font-mono px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 font-semibold border border-sky-500/30">@werner</span>
+                  <div class="text-[9px] text-slate-400 font-mono mt-0.5">Vol. 01 Architecture</div>
+                </div>
+              </div>
+
+              <!-- Gruppo Badge -->
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-sky-500/10 border border-sky-500/20 text-[11px] text-sky-300 font-medium">
+                <span>📐</span> <strong>Gruppo 2:</strong> Architettura di Sistema & Contratti Formali
+              </div>
+
+              <!-- Sezione: COSA FA -->
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5 space-y-1">
+                <div class="text-[11px] font-bold text-sky-400 uppercase tracking-wider flex items-center gap-1">
+                  <span>🎯</span> Cosa Fa
+                </div>
+                <p class="text-xs text-slate-200 leading-relaxed">
+                  Progetta architetture modulari, contratti API tipizzati, pattern di consistenza eventuale, previene il dual-write problem e modella la tolleranza ai guasti distribuita ("Everything fails all the time").
+                </p>
+              </div>
+
+              <!-- Sezione: COME LO FA -->
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5 space-y-1.5">
+                <div class="text-[11px] font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1">
+                  <span>⚙️</span> Come lo Fa (Metodologie & Standard)
+                </div>
+                <ul class="text-xs text-slate-300 space-y-1 list-disc list-inside leading-relaxed">
+                  <li><strong class="text-white">Contratti OpenAPI 3.1:</strong> Modelli JSON Schema rigorosi con errori standard RFC 7807/9457.</li>
+                  <li><strong class="text-white">Transactional Outbox:</strong> Azzeramento del dual-write su database con poller deterministico.</li>
+                  <li><strong class="text-white">PACELC & CAP Theorem:</strong> Trade-off espliciti tra latenza e consistenza distribuita.</li>
+                  <li><strong class="text-white">Canone 01:</strong> Applicazione dei canoni di Martin Kleppmann & Mark Richards.</li>
+                </ul>
+              </div>
+
+              <!-- Tech Badges -->
+              <div class="flex flex-wrap gap-1 text-[10px] font-mono">
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">OpenAPI 3.1</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">RFC 7807</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">Outbox Pattern</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">Idempotency</span>
+              </div>
             </div>
-            <div>
-              <h4 class="text-sm font-bold text-white">Werner Vogels</h4>
-              <p class="text-[11px] text-sky-300 font-medium">System Architect & Tech Lead</p>
-            </div>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Progetta architetture modulari, contratti API tipizzati (OpenAPI, RFC 7807) e resilienza cloud ("Everything fails all the time").
-            </p>
-            <div class="pt-2 border-t border-white/5 flex items-center justify-between text-[11px]">
-              <span class="text-slate-400">Canone: <strong class="text-sky-400">Vol. 01</strong></span>
-              <button onclick="quickDispatch('werner')" class="text-sky-400 hover:text-sky-300 font-semibold">Usa nel Prompt →</button>
+
+            <!-- Card Actions -->
+            <div class="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+              <button onclick="copyToClipboard('@werner', this, 'Alias Copiato!')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-300 border border-white/5">
+                Copia Alias
+              </button>
+              <button onclick="quickDispatch('werner')" class="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-[11px] font-semibold text-white shadow-sm flex items-center gap-1">
+                <span>⚡ Prompt Studio</span>
+              </button>
             </div>
           </div>
 
-          <!-- 3. Taylor Otwell -->
-          <div class="glass-card rounded-xl p-4 border border-red-500/30 space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="text-2xl">🐘</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-red-500/20 text-red-300 font-semibold">@taylor</span>
+          <!-- ========================================== -->
+          <!-- 3. TAYLOR OTWELL (COSTRUTTORI - BACKEND)   -->
+          <!-- ========================================== -->
+          <div id="card-taylor" class="specialist-card group-builders glass-card rounded-2xl p-5 border border-red-500/40 space-y-4 flex flex-col justify-between card-transition" data-agent="taylor">
+            <div class="space-y-3">
+              <!-- Top Card Header -->
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-2xl">🐘</span>
+                  <div>
+                    <h3 class="text-base font-bold text-white tracking-tight">Taylor Otwell</h3>
+                    <p class="text-xs text-red-300 font-medium">Polyglot Backend Sage & DB Master</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-xs font-mono px-2 py-0.5 rounded bg-red-500/20 text-red-300 font-semibold border border-red-500/30">@taylor</span>
+                  <div class="text-[9px] text-slate-400 font-mono mt-0.5">Vol. 02 Database & Backend</div>
+                </div>
+              </div>
+
+              <!-- Gruppo Badge -->
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-[11px] text-amber-300 font-medium">
+                <span>🛠️</span> <strong>Gruppo 3:</strong> I Costruttori Core (Backend & Database)
+              </div>
+
+              <!-- Sezione: COSA FA -->
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5 space-y-1">
+                <div class="text-[11px] font-bold text-red-400 uppercase tracking-wider flex items-center gap-1">
+                  <span>🎯</span> Cosa Fa
+                </div>
+                <p class="text-xs text-slate-200 leading-relaxed">
+                  Sviluppa la business logic server-side con Action atomiche su Laravel 13 e PHP 8.4+, elimina le query N+1, rimuove radicalmente i Gap Lock su InnoDB MySQL 8.4 e presidia le transazioni ACID con retry deterministico.
+                </p>
+              </div>
+
+              <!-- Sezione: COME LO FA -->
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5 space-y-1.5">
+                <div class="text-[11px] font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1">
+                  <span>⚙️</span> Come lo Fa (Metodologie & Standard)
+                </div>
+                <ul class="text-xs text-slate-300 space-y-1 list-disc list-inside leading-relaxed">
+                  <li><strong class="text-white">Laravel 13 & PHP 8.4:</strong> Property Hooks su DTO, Asymmetric Visibility (<code class="text-red-300 font-mono">public private(set)</code>).</li>
+                  <li><strong class="text-white">Anti-Gap Lock InnoDB:</strong> Lock deterministici ordinati su singola riga univoca per azzerare deadlock concorrenti.</li>
+                  <li><strong class="text-white">Zero N+1 & Eager Loading:</strong> Prevenzione lazy loading in test con <code class="text-red-300 font-mono">Model::preventLazyLoading()</code>.</li>
+                  <li><strong class="text-white">Canone 02:</strong> Principi di Alex Petrov (Database Internals) e Vlad Botros.</li>
+                </ul>
+              </div>
+
+              <!-- Tech Badges -->
+              <div class="flex flex-wrap gap-1 text-[10px] font-mono">
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">Laravel 13</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">PHP 8.4 Hooks</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">MySQL 8.4 LTS</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">InnoDB Anti-Gap</span>
+              </div>
             </div>
-            <div>
-              <h4 class="text-sm font-bold text-white">Taylor Otwell</h4>
-              <p class="text-[11px] text-red-300 font-medium">Polyglot Backend Sage & DB Master</p>
-            </div>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Eccellenza assoluta su Laravel 11/12, PHP 8.4+, Action pattern atomici, zero query N+1, transazioni ACID e rimozione radicale dei Gap Lock InnoDB.
-            </p>
-            <div class="pt-2 border-t border-white/5 flex items-center justify-between text-[11px]">
-              <span class="text-slate-400">Canone: <strong class="text-red-400">Vol. 02</strong></span>
-              <button onclick="quickDispatch('taylor')" class="text-red-400 hover:text-red-300 font-semibold">Usa nel Prompt →</button>
+
+            <!-- Card Actions -->
+            <div class="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+              <button onclick="copyToClipboard('@taylor', this, 'Alias Copiato!')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-300 border border-white/5">
+                Copia Alias
+              </button>
+              <button onclick="quickDispatch('taylor')" class="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-[11px] font-semibold text-white shadow-sm flex items-center gap-1">
+                <span>⚡ Prompt Studio</span>
+              </button>
             </div>
           </div>
 
-          <!-- 4. Linus Torvalds -->
-          <div class="glass-card rounded-xl p-4 border border-amber-500/30 space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="text-2xl">🐧</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold">@linus</span>
+          <!-- ========================================== -->
+          <!-- 4. STEVE JOBS (COSTRUTTORI - FRONTEND)     -->
+          <!-- ========================================== -->
+          <div id="card-steve" class="specialist-card group-builders glass-card rounded-2xl p-5 border border-purple-500/40 space-y-4 flex flex-col justify-between card-transition" data-agent="steve">
+            <div class="space-y-3">
+              <!-- Top Card Header -->
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-2xl">🎨</span>
+                  <div>
+                    <h3 class="text-base font-bold text-white tracking-tight">Steve Jobs</h3>
+                    <p class="text-xs text-purple-300 font-medium">Senior Frontend Design & UI/UX Sage</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-xs font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-semibold border border-purple-500/30">@steve</span>
+                  <div class="text-[9px] text-slate-400 font-mono mt-0.5">Vol. 04 UI/UX Design</div>
+                </div>
+              </div>
+
+              <!-- Gruppo Badge -->
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-[11px] text-amber-300 font-medium">
+                <span>🛠️</span> <strong>Gruppo 3:</strong> I Costruttori Core (Frontend & Design)
+              </div>
+
+              <!-- Sezione: COSA FA -->
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5 space-y-1">
+                <div class="text-[11px] font-bold text-purple-400 uppercase tracking-wider flex items-center gap-1">
+                  <span>🎯</span> Cosa Fa
+                </div>
+                <p class="text-xs text-slate-200 leading-relaxed">
+                  Crea interfacce web moderne, intriganti, ad alto impatto estetico (stile Linear/Stripe/Vercel) e radicalmente anti-AI-slop. Presidia il design system, l'accessibilità WCAG AA e le micro-interazioni fluide.
+                </p>
+              </div>
+
+              <!-- Sezione: COME LO FA -->
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5 space-y-1.5">
+                <div class="text-[11px] font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1">
+                  <span>⚙️</span> Come lo Fa (Metodologie & Standard)
+                </div>
+                <ul class="text-xs text-slate-300 space-y-1 list-disc list-inside leading-relaxed">
+                  <li><strong class="text-white">Bento Grid Asimmetrica:</strong> Layout modulari ritmici (2:1, 1:1, 1:2) ad alta leggibilità.</li>
+                  <li><strong class="text-white">Dark Theme Zinc 950/900:</strong> Contrasti WCAG 2.1 AA certificati (4.5:1 testo normale).</li>
+                  <li><strong class="text-white">4 Stati Obbligatori:</strong> Skeleton/Loading, Empty State contestuale, Error State, Data Display.</li>
+                  <li><strong class="text-white">Canone 04:</strong> Applicazione dei canoni di Adam Wathan & Steve Schoger (Refactoring UI).</li>
+                </ul>
+              </div>
+
+              <!-- Tech Badges -->
+              <div class="flex flex-wrap gap-1 text-[10px] font-mono">
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">Bento Grid</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">Dark Zinc-950</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">WCAG AA</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">4 UI States</span>
+              </div>
             </div>
-            <div>
-              <h4 class="text-sm font-bold text-white">Linus Torvalds</h4>
-              <p class="text-[11px] text-amber-300 font-medium">DevOps, Hosting & Infra Sage</p>
-            </div>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Governa container Docker multi-arch (amd64/arm64), hardening della webroot Nginx, script simmetrici cross-platform (Bash/PowerShell) e non-root `su-exec`.
-            </p>
-            <div class="pt-2 border-t border-white/5 flex items-center justify-between text-[11px]">
-              <span class="text-slate-400">Canone: <strong class="text-amber-400">Vol. 03</strong></span>
-              <button onclick="quickDispatch('linus')" class="text-amber-400 hover:text-amber-300 font-semibold">Usa nel Prompt →</button>
+
+            <!-- Card Actions -->
+            <div class="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+              <button onclick="copyToClipboard('@steve', this, 'Alias Copiato!')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-300 border border-white/5">
+                Copia Alias
+              </button>
+              <button onclick="quickDispatch('steve')" class="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-[11px] font-semibold text-white shadow-sm flex items-center gap-1">
+                <span>⚡ Prompt Studio</span>
+              </button>
             </div>
           </div>
 
-          <!-- 5. Steve Jobs -->
-          <div class="glass-card rounded-xl p-4 border border-purple-500/30 space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="text-2xl">🎨</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-semibold">@steve</span>
+          <!-- ========================================== -->
+          <!-- 5. LINUS TORVALDS (COSTRUTTORI - DEVOPS)   -->
+          <!-- ========================================== -->
+          <div id="card-linus" class="specialist-card group-builders glass-card rounded-2xl p-5 border border-amber-500/40 space-y-4 flex flex-col justify-between card-transition" data-agent="linus">
+            <div class="space-y-3">
+              <!-- Top Card Header -->
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-2xl">🐧</span>
+                  <div>
+                    <h3 class="text-base font-bold text-white tracking-tight">Linus Torvalds</h3>
+                    <p class="text-xs text-amber-300 font-medium">DevOps, Hosting & Infra Sage</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-xs font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold border border-amber-500/30">@linus</span>
+                  <div class="text-[9px] text-slate-400 font-mono mt-0.5">Vol. 03 DevOps & SRE</div>
+                </div>
+              </div>
+
+              <!-- Gruppo Badge -->
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-[11px] text-amber-300 font-medium">
+                <span>🛠️</span> <strong>Gruppo 3:</strong> I Costruttori Core (DevOps & Hosting)
+              </div>
+
+              <!-- Sezione: COSA FA -->
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5 space-y-1">
+                <div class="text-[11px] font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1">
+                  <span>🎯</span> Cosa Fa
+                </div>
+                <p class="text-xs text-slate-200 leading-relaxed">
+                  Governa container Docker multi-arch (amd64/arm64), blinda la webroot Nginx, garantisce l'esecuzione non-root con su-exec e allinea in modo simmetrico l'infrastruttura tra macOS e Windows 11.
+                </p>
+              </div>
+
+              <!-- Sezione: COME LO FA -->
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5 space-y-1.5">
+                <div class="text-[11px] font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1">
+                  <span>⚙️</span> Come lo Fa (Metodologie & Standard)
+                </div>
+                <ul class="text-xs text-slate-300 space-y-1 list-disc list-inside leading-relaxed">
+                  <li><strong class="text-white">Docker Multi-Arch Non-Root:</strong> Utente <code class="text-amber-300 font-mono">appuser (UID 10001)</code> con su-exec su base Alpine/Debian-slim.</li>
+                  <li><strong class="text-white">Hardening Nginx:</strong> Webroot confinata a <code class="text-amber-300 font-mono">/public</code>, blocco dotfiles e traversal anti off-by-slash.</li>
+                  <li><strong class="text-white">Sync macOS & Windows 11:</strong> Script bivalenti POSIX Bash (<code class="text-amber-300 font-mono">sync.sh</code>) e PowerShell 7 Mutex (<code class="text-amber-300 font-mono">sync.ps1</code>).</li>
+                  <li><strong class="text-white">Canone 03:</strong> Principi Google SRE e Nigel Poulton (Docker Deep Dive).</li>
+                </ul>
+              </div>
+
+              <!-- Tech Badges -->
+              <div class="flex flex-wrap gap-1 text-[10px] font-mono">
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">Docker Multi-Arch</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">UID 10001 Non-Root</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">Nginx Hardened</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">Bash + PS7 Mutex</span>
+              </div>
             </div>
-            <div>
-              <h4 class="text-sm font-bold text-white">Steve Jobs</h4>
-              <p class="text-[11px] text-purple-300 font-medium">Senior Frontend Design & UI/UX</p>
-            </div>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Crea interfacce web moderne ad alto impatto estetico (stile Linear/Stripe/Vercel), layout Bento Grid, dark theme Zinc 950/900 e micro-interazioni fluide.
-            </p>
-            <div class="pt-2 border-t border-white/5 flex items-center justify-between text-[11px]">
-              <span class="text-slate-400">Canone: <strong class="text-purple-400">Vol. 04</strong></span>
-              <button onclick="quickDispatch('steve')" class="text-purple-400 hover:text-purple-300 font-semibold">Usa nel Prompt →</button>
+
+            <!-- Card Actions -->
+            <div class="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+              <button onclick="copyToClipboard('@linus', this, 'Alias Copiato!')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-300 border border-white/5">
+                Copia Alias
+              </button>
+              <button onclick="quickDispatch('linus')" class="px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-[11px] font-semibold text-white shadow-sm flex items-center gap-1">
+                <span>⚡ Prompt Studio</span>
+              </button>
             </div>
           </div>
 
-          <!-- 6. John Carmack -->
-          <div class="glass-card rounded-xl p-4 border border-emerald-500/30 space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="text-2xl">🚀</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-semibold">@carmack</span>
+          <!-- ========================================== -->
+          <!-- 6. JOHN CARMACK (INQUISITORI - QA)         -->
+          <!-- ========================================== -->
+          <div id="card-carmack" class="specialist-card group-inquisitors glass-card rounded-2xl p-5 border border-emerald-500/40 space-y-4 flex flex-col justify-between card-transition" data-agent="carmack">
+            <div class="space-y-3">
+              <!-- Top Card Header -->
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-2xl">🚀</span>
+                  <div>
+                    <h3 class="text-base font-bold text-white tracking-tight">John Carmack</h3>
+                    <p class="text-xs text-emerald-300 font-medium">Quality Assurance & Test Engineer</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-semibold border border-emerald-500/30">@carmack</span>
+                  <div class="text-[9px] text-slate-400 font-mono mt-0.5">Vol. 05 QA & Testing</div>
+                </div>
+              </div>
+
+              <!-- Gruppo Badge -->
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-rose-500/10 border border-rose-500/20 text-[11px] text-rose-300 font-medium">
+                <span>🛡️</span> <strong>Gruppo 4:</strong> Gli Inquisitori & Gatekeeper (Verifica & QA)
+              </div>
+
+              <!-- Sezione: COSA FA -->
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5 space-y-1">
+                <div class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1">
+                  <span>🎯</span> Cosa Fa
+                </div>
+                <p class="text-xs text-slate-200 leading-relaxed">
+                  Progetta suite di test estreme, guida la disciplina TDD (Red-Green-Refactor), esegue boundary testing spietato sui limiti matematici e hardware e previene deadlock, crash e OOM-killer.
+                </p>
+              </div>
+
+              <!-- Sezione: COME LO FA -->
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5 space-y-1.5">
+                <div class="text-[11px] font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1">
+                  <span>⚙️</span> Come lo Fa (Metodologie & Standard)
+                </div>
+                <ul class="text-xs text-slate-300 space-y-1 list-disc list-inside leading-relaxed">
+                  <li><strong class="text-white">IEEE 754 Boundary:</strong> Iniezione di <code class="text-emerald-300 font-mono">NaN</code>, <code class="text-emerald-300 font-mono">+INF</code>, <code class="text-emerald-300 font-mono">-INF</code>, <code class="text-emerald-300 font-mono">-0.0</code> e integer overflow.</li>
+                  <li><strong class="text-white">Stress Data Limits:</strong> Stringhe 10MB, payload non-UTF8 e array annidati estremi.</li>
+                  <li><strong class="text-white">Reaper Pattern & DLQ:</strong> Identificazione e bonifica di lock orfani e job pendenti.</li>
+                  <li><strong class="text-white">Canone 05:</strong> Canoni di Michael Feathers (Working with Legacy Code) e Kent Beck (TDD).</li>
+                </ul>
+              </div>
+
+              <!-- Tech Badges -->
+              <div class="flex flex-wrap gap-1 text-[10px] font-mono">
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">IEEE 754 NaN/INF</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">TDD Red-Green</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">Reaper & DLQ</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">OOM Prevention</span>
+              </div>
             </div>
-            <div>
-              <h4 class="text-sm font-bold text-white">John Carmack</h4>
-              <p class="text-[11px] text-emerald-300 font-medium">Quality Assurance & Test Engineer</p>
-            </div>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Progetta suite di test estreme, TDD rigoroso, boundary testing sui limiti matematici (IEEE 754 NaN/INF, stringhe 10MB) e resilienza a crash e OOM.
-            </p>
-            <div class="pt-2 border-t border-white/5 flex items-center justify-between text-[11px]">
-              <span class="text-slate-400">Canone: <strong class="text-emerald-400">Vol. 05</strong></span>
-              <button onclick="quickDispatch('carmack')" class="text-emerald-400 hover:text-emerald-300 font-semibold">Usa nel Prompt →</button>
+
+            <!-- Card Actions -->
+            <div class="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+              <button onclick="copyToClipboard('@carmack', this, 'Alias Copiato!')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-300 border border-white/5">
+                Copia Alias
+              </button>
+              <button onclick="quickDispatch('carmack')" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-[11px] font-semibold text-white shadow-sm flex items-center gap-1">
+                <span>⚡ Prompt Studio</span>
+              </button>
             </div>
           </div>
 
-          <!-- 7. Guillermo Rauch -->
-          <div class="glass-card rounded-xl p-4 border border-cyan-500/30 space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="text-2xl">⚡</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-semibold">@rauch</span>
+          <!-- ========================================== -->
+          <!-- 7. GUILLERMO RAUCH (INQUISITORI - E2E)     -->
+          <!-- ========================================== -->
+          <div id="card-rauch" class="specialist-card group-inquisitors glass-card rounded-2xl p-5 border border-cyan-500/40 space-y-4 flex flex-col justify-between card-transition" data-agent="rauch">
+            <div class="space-y-3">
+              <!-- Top Card Header -->
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-2xl">⚡</span>
+                  <div>
+                    <h3 class="text-base font-bold text-white tracking-tight">Guillermo Rauch</h3>
+                    <p class="text-xs text-cyan-300 font-medium">Integration Tester & E2E Sage</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-xs font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-semibold border border-cyan-500/30">@rauch</span>
+                  <div class="text-[9px] text-slate-400 font-mono mt-0.5">Vol. 06 Integration</div>
+                </div>
+              </div>
+
+              <!-- Gruppo Badge -->
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-rose-500/10 border border-rose-500/20 text-[11px] text-rose-300 font-medium">
+                <span>🛡️</span> <strong>Gruppo 4:</strong> Gli Inquisitori & Gatekeeper (Integrazione & E2E)
+              </div>
+
+              <!-- Sezione: COSA FA -->
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5 space-y-1">
+                <div class="text-[11px] font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1">
+                  <span>🎯</span> Cosa Fa
+                </div>
+                <p class="text-xs text-slate-200 leading-relaxed">
+                  Valida la cooperazione reale tra frontend, backend, database e API esterne. Progetta pattern di resilienza (Circuit Breaker) e garantisce continuità di servizio e degradazione controllata su reti instabili.
+                </p>
+              </div>
+
+              <!-- Sezione: COME LO FA -->
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5 space-y-1.5">
+                <div class="text-[11px] font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1">
+                  <span>⚙️</span> Come lo Fa (Metodologie & Standard)
+                </div>
+                <ul class="text-xs text-slate-300 space-y-1 list-disc list-inside leading-relaxed">
+                  <li><strong class="text-white">Circuit Breaker a 3 Stati:</strong> Closed, Open, Half-Open con isolamento dei servizi esterni lenti.</li>
+                  <li><strong class="text-white">Header di Tracciamento:</strong> Iniezione di <code class="text-cyan-300 font-mono">Correlation-ID</code> e idempotenza con <code class="text-cyan-300 font-mono">Idempotency-Key</code>.</li>
+                  <li><strong class="text-white">Degradazione Controllata:</strong> Fallback su cache deterministiche e timeout difensivi gerarchici.</li>
+                  <li><strong class="text-white">Canone 06:</strong> Principi di Michael Nygard (Release It!) e Sam Newman (Building Microservices).</li>
+                </ul>
+              </div>
+
+              <!-- Tech Badges -->
+              <div class="flex flex-wrap gap-1 text-[10px] font-mono">
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">Circuit Breaker</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">Correlation-ID</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">E2E Flow</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">Chaos Latency</span>
+              </div>
             </div>
-            <div>
-              <h4 class="text-sm font-bold text-white">Guillermo Rauch</h4>
-              <p class="text-[11px] text-cyan-300 font-medium">Integration Tester & E2E Sage</p>
-            </div>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Valida la cooperazione reale tra frontend, backend, database e API esterne. Progetta Circuit Breaker, timeout difensivi e degradazione controllata.
-            </p>
-            <div class="pt-2 border-t border-white/5 flex items-center justify-between text-[11px]">
-              <span class="text-slate-400">Canone: <strong class="text-cyan-400">Vol. 06</strong></span>
-              <button onclick="quickDispatch('rauch')" class="text-cyan-400 hover:text-cyan-300 font-semibold">Usa nel Prompt →</button>
+
+            <!-- Card Actions -->
+            <div class="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+              <button onclick="copyToClipboard('@rauch', this, 'Alias Copiato!')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-300 border border-white/5">
+                Copia Alias
+              </button>
+              <button onclick="quickDispatch('rauch')" class="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-[11px] font-semibold text-white shadow-sm flex items-center gap-1">
+                <span>⚡ Prompt Studio</span>
+              </button>
             </div>
           </div>
 
-          <!-- 8. George Hotz -->
-          <div class="glass-card rounded-xl p-4 border border-rose-500/30 space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="text-2xl">⚔️</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-semibold">@geohot</span>
+          <!-- ========================================== -->
+          <!-- 8. GEORGE HOTZ (INQUISITORI - SECURITY)    -->
+          <!-- ========================================== -->
+          <div id="card-geohot" class="specialist-card group-inquisitors glass-card rounded-2xl p-5 border border-rose-500/40 space-y-4 flex flex-col justify-between card-transition" data-agent="geohot">
+            <div class="space-y-3">
+              <!-- Top Card Header -->
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-2xl">⚔️</span>
+                  <div>
+                    <h3 class="text-base font-bold text-white tracking-tight">George Hotz</h3>
+                    <p class="text-xs text-rose-300 font-medium">Adversarial Security Auditor & Veto Holder</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-xs font-mono px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-semibold border border-rose-500/30">@geohot</span>
+                  <div class="text-[9px] text-slate-400 font-mono mt-0.5">Vol. 07 Security & Veto</div>
+                </div>
+              </div>
+
+              <!-- Gruppo Badge -->
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-rose-500/10 border border-rose-500/20 text-[11px] text-rose-300 font-medium">
+                <span>🛡️</span> <strong>Gruppo 4:</strong> Gli Inquisitori & Gatekeeper (Sicurezza Avversariale)
+              </div>
+
+              <!-- Sezione: COSA FA -->
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5 space-y-1">
+                <div class="text-[11px] font-bold text-rose-400 uppercase tracking-wider flex items-center gap-1">
+                  <span>🎯</span> Cosa Fa
+                </div>
+                <p class="text-xs text-slate-200 leading-relaxed">
+                  Valuta codice e configurazioni tramite approccio avversariale "Zero-Trust", blocca qualsiasi rischio OWASP (BOLA, IDOR, SQLi, SSRF, prompt injection) ed esercita un Diritto di Veto assoluto e invalicabile su modifiche rischiose.
+                </p>
+              </div>
+
+              <!-- Sezione: COME LO FA -->
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5 space-y-1.5">
+                <div class="text-[11px] font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1">
+                  <span>⚙️</span> Come lo Fa (Metodologie & Standard)
+                </div>
+                <ul class="text-xs text-slate-300 space-y-1 list-disc list-inside leading-relaxed">
+                  <li><strong class="text-white">Threat Model STRIDE:</strong> Analisi di Spoofing, Tampering, Repudiation, Info Disclosure, DoS, EoP.</li>
+                  <li><strong class="text-white">Socket Pinning Anti-SSRF:</strong> Blocco totale di loopback (<code class="text-rose-300 font-mono">127.0.0.1</code>) e subnet RFC 1918.</li>
+                  <li><strong class="text-white">Constrained Grammar Decoding:</strong> Schemi JSON stringenti per azzerare prompt injection e jailbreak.</li>
+                  <li><strong class="text-white">Canone 07:</strong> Principi di Michal Zalewski (Silence on the Wire) e Adam Shostack.</li>
+                </ul>
+              </div>
+
+              <!-- Tech Badges -->
+              <div class="flex flex-wrap gap-1 text-[10px] font-mono">
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">Diritto di Veto</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">STRIDE Model</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">Anti-BOLA/IDOR</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">Anti-SSRF Pinning</span>
+              </div>
             </div>
-            <div>
-              <h4 class="text-sm font-bold text-white">George Hotz</h4>
-              <p class="text-[11px] text-rose-300 font-medium">Adversarial Security Auditor</p>
-            </div>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Custode del Diritto di Veto Assoluto. Esegue threat modeling STRIDE, previene vulnerabilità OWASP (BOLA, IDOR, SQL injection) e blocca qualsiasi commit rischioso.
-            </p>
-            <div class="pt-2 border-t border-white/5 flex items-center justify-between text-[11px]">
-              <span class="text-slate-400">Canone: <strong class="text-rose-400">Vol. 07</strong></span>
-              <button onclick="quickDispatch('geohot')" class="text-rose-400 hover:text-rose-300 font-semibold">Usa nel Prompt →</button>
+
+            <!-- Card Actions -->
+            <div class="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+              <button onclick="copyToClipboard('@geohot', this, 'Alias Copiato!')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-300 border border-white/5">
+                Copia Alias
+              </button>
+              <button onclick="quickDispatch('geohot')" class="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-[11px] font-semibold text-white shadow-sm flex items-center gap-1">
+                <span>⚡ Prompt Studio</span>
+              </button>
             </div>
           </div>
 
-          <!-- 9. Guido van Rossum -->
-          <div class="glass-card rounded-xl p-4 border border-lime-500/30 space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="text-2xl">📖</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-lime-500/20 text-lime-300 font-semibold">@guido</span>
+          <!-- ========================================== -->
+          <!-- 9. GUIDO VAN ROSSUM (DOCUMENTAZIONE)       -->
+          <!-- ========================================== -->
+          <div id="card-guido" class="specialist-card group-documentation glass-card rounded-2xl p-5 border border-lime-500/40 space-y-4 flex flex-col justify-between card-transition" data-agent="guido">
+            <div class="space-y-3">
+              <!-- Top Card Header -->
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-2xl">📖</span>
+                  <div>
+                    <h3 class="text-base font-bold text-white tracking-tight">Guido van Rossum</h3>
+                    <p class="text-xs text-lime-300 font-medium">Documentation Engineer & Clarity Master</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-xs font-mono px-2 py-0.5 rounded bg-lime-500/20 text-lime-300 font-semibold border border-lime-500/30">@guido</span>
+                  <div class="text-[9px] text-slate-400 font-mono mt-0.5">Vol. 08 Documentation</div>
+                </div>
+              </div>
+
+              <!-- Gruppo Badge -->
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-lime-500/10 border border-lime-500/20 text-[11px] text-lime-300 font-medium">
+                <span>📖</span> <strong>Gruppo 5:</strong> Integrità della Conoscenza & Docs-as-Code
+              </div>
+
+              <!-- Sezione: COSA FA -->
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5 space-y-1">
+                <div class="text-[11px] font-bold text-lime-400 uppercase tracking-wider flex items-center gap-1">
+                  <span>🎯</span> Cosa Fa
+                </div>
+                <p class="text-xs text-slate-200 leading-relaxed">
+                  Garantisce la veridicità assoluta della documentazione rispetto al codice vivo, aggiorna README, specifiche architetturali e changelog semantici, applicando il principio "Readability counts".
+                </p>
+              </div>
+
+              <!-- Sezione: COME LO FA -->
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5 space-y-1.5">
+                <div class="text-[11px] font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1">
+                  <span>⚙️</span> Come lo Fa (Metodologie & Standard)
+                </div>
+                <ul class="text-xs text-slate-300 space-y-1 list-disc list-inside leading-relaxed">
+                  <li><strong class="text-white">Standard Diátaxis:</strong> Documentazione a 4 quadranti (Tutorial, How-To, Reference, Explanation).</li>
+                  <li><strong class="text-white">Testable Docs:</strong> Esecuzione di doctest in CI per evitare codice documentato non compilabile.</li>
+                  <li><strong class="text-white">ADR Immutabili:</strong> Registri storici delle decisioni con Contesto, Decisione e Conseguenze.</li>
+                  <li><strong class="text-white">Canone 08:</strong> Principi di Sarah Bhatti e Daniele Procida (Diátaxis Framework).</li>
+                </ul>
+              </div>
+
+              <!-- Tech Badges -->
+              <div class="flex flex-wrap gap-1 text-[10px] font-mono">
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">Diátaxis (4 Quadranti)</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">Docs-as-Code</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">ADR Records</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/5">SemVer 2.0</span>
+              </div>
             </div>
-            <div>
-              <h4 class="text-sm font-bold text-white">Guido van Rossum</h4>
-              <p class="text-[11px] text-lime-300 font-medium">Documentation Engineer</p>
-            </div>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Mantiene aggiornati README, specifiche architetturali Docs-as-Code, vademecum operativi e changelog seguendo lo standard Diátaxis a 4 quadranti.
-            </p>
-            <div class="pt-2 border-t border-white/5 flex items-center justify-between text-[11px]">
-              <span class="text-slate-400">Canone: <strong class="text-lime-400">Vol. 08</strong></span>
-              <button onclick="quickDispatch('guido')" class="text-lime-400 hover:text-lime-300 font-semibold">Usa nel Prompt →</button>
+
+            <!-- Card Actions -->
+            <div class="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+              <button onclick="copyToClipboard('@guido', this, 'Alias Copiato!')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-300 border border-white/5">
+                Copia Alias
+              </button>
+              <button onclick="quickDispatch('guido')" class="px-3 py-1.5 rounded-lg bg-lime-600 hover:bg-lime-500 text-[11px] font-semibold text-white shadow-sm flex items-center gap-1">
+                <span>⚡ Prompt Studio</span>
+              </button>
             </div>
           </div>
+
         </div>
       </div>
 
@@ -850,34 +1566,34 @@
               </thead>
               <tbody class="divide-y divide-white/5 text-slate-300">
                 <tr class="hover:bg-slate-900/40">
-                  <td class="py-3 px-3 font-semibold text-indigo-400">1. Analisi</td>
+                  <td class="py-3 px-3 font-semibold text-indigo-400">1. Analisi dei Requisiti</td>
                   <td class="py-3 px-3">Comprensione requisiti e vincoli di sistema</td>
-                  <td class="py-3 px-3 font-mono text-[11px]">A: @turing | R: @werner</td>
-                  <td class="py-3 px-3 text-emerald-300">Requisiti non ambigui approvati</td>
+                  <td class="py-3 px-3 font-mono text-[11px]">A: @turing | R: @werner | C: @geohot</td>
+                  <td class="py-3 px-3 text-emerald-300">Requisiti non ambigui approvati e firmati</td>
                 </tr>
                 <tr class="hover:bg-slate-900/40">
-                  <td class="py-3 px-3 font-semibold text-sky-400">2. Architettura</td>
-                  <td class="py-3 px-3">Contratti API tipizzati, DDL ed eliminazione rischi</td>
-                  <td class="py-3 px-3 font-mono text-[11px]">A: @werner | C: @geohot</td>
-                  <td class="py-3 px-3 text-emerald-300">OpenAPI valido, zero rischi BOLA</td>
+                  <td class="py-3 px-3 font-semibold text-sky-400">2. Architettura & Contratti</td>
+                  <td class="py-3 px-3">Contratti API tipizzati, DDL ed eliminazione rischi dual-write</td>
+                  <td class="py-3 px-3 font-mono text-[11px]">A: @werner | R: @taylor | C: @geohot</td>
+                  <td class="py-3 px-3 text-emerald-300">OpenAPI 3.1 valido, zero rischi BOLA/SSRF</td>
                 </tr>
                 <tr class="hover:bg-slate-900/40">
-                  <td class="py-3 px-3 font-semibold text-red-400">3. Sviluppo</td>
-                  <td class="py-3 px-3">Action atomiche, UI Bento Grid, configurazione Docker</td>
+                  <td class="py-3 px-3 font-semibold text-amber-400">3. Sviluppo & Costruzione</td>
+                  <td class="py-3 px-3">Action atomiche, UI Bento Grid, stack Docker multi-arch</td>
                   <td class="py-3 px-3 font-mono text-[11px]">A: @taylor | R: @steve, @linus</td>
-                  <td class="py-3 px-3 text-emerald-300">Codice compilabile, zero N+1, non-root</td>
+                  <td class="py-3 px-3 text-emerald-300">Codice compilabile, zero N+1, non-root UID 10001</td>
                 </tr>
                 <tr class="hover:bg-slate-900/40">
-                  <td class="py-3 px-3 font-semibold text-emerald-400">4. Verifica & QA</td>
-                  <td class="py-3 px-3">Boundary test (NaN/INF), Circuit Breakers, Veto</td>
+                  <td class="py-3 px-3 font-semibold text-rose-400">4. QA, Resilienza & Veto</td>
+                  <td class="py-3 px-3">Boundary test (NaN/INF), Circuit Breakers, Veto avversariale</td>
                   <td class="py-3 px-3 font-mono text-[11px]">A: @carmack | R: @rauch, @geohot</td>
                   <td class="py-3 px-3 text-rose-300 font-semibold">Zero Veto Geohot, 100% test passati</td>
                 </tr>
                 <tr class="hover:bg-slate-900/40">
-                  <td class="py-3 px-3 font-semibold text-purple-400">5. Chiusura</td>
-                  <td class="py-3 px-3">Docs-as-Code (Diátaxis), changelog e sync</td>
+                  <td class="py-3 px-3 font-semibold text-lime-400">5. Chiusura & Conoscenza</td>
+                  <td class="py-3 px-3">Docs-as-Code (Diátaxis), changelog semantico e sync multi-nodo</td>
                   <td class="py-3 px-3 font-mono text-[11px]">A: @turing | R: @guido</td>
-                  <td class="py-3 px-3 text-emerald-300">Documentazione veritiera & commit pulito</td>
+                  <td class="py-3 px-3 text-emerald-300">Documentazione veritiera & commit pulito approvato</td>
                 </tr>
               </tbody>
             </table>
@@ -891,7 +1607,7 @@
           <div class="flex items-center justify-between">
             <div>
               <h2 class="text-xl font-bold text-white">Pipeline Grafo di Memoria Multi-Tenant</h2>
-              <p class="text-xs text-slate-400">Architettura Laravel 11/12 + MySQL 8.4 InnoDB con protezione dai Gap Lock.</p>
+              <p class="text-xs text-slate-400">Architettura Laravel 13 + MySQL 8.4 InnoDB con protezione dai Gap Lock.</p>
             </div>
             <span class="text-xs bg-purple-500/20 text-purple-300 font-mono px-3 py-1 rounded-full border border-purple-500/30">Action Atomica</span>
           </div>
@@ -899,7 +1615,7 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="p-4 rounded-xl bg-slate-900/80 border border-white/5 space-y-2">
               <div class="text-xs font-semibold text-purple-300">Modello: MemoryNode</div>
-              <p class="text-xs text-slate-400">Rappresenta un'entità di conoscenza (`tenant_id`, `name`, `type`, `observations_json`).</p>
+              <p class="text-xs text-slate-400">Rappresenta un'entità di conoscenza (<code class="text-purple-300 font-mono">tenant_id</code>, <code class="text-purple-300 font-mono">name</code>, <code class="text-purple-300 font-mono">type</code>, <code class="text-purple-300 font-mono">observations_json</code>).</p>
               <div class="text-[10px] font-mono text-slate-400 bg-slate-950 p-2 rounded">
                 UNIQUE (tenant_id, name)
               </div>
@@ -907,7 +1623,7 @@
 
             <div class="p-4 rounded-xl bg-slate-900/80 border border-white/5 space-y-2">
               <div class="text-xs font-semibold text-sky-300">Modello: MemoryRelation</div>
-              <p class="text-xs text-slate-400">Collega due nodi (`from_node_id`, `to_node_id`, `relation_type`).</p>
+              <p class="text-xs text-slate-400">Collega due nodi (<code class="text-sky-300 font-mono">from_node_id</code>, <code class="text-sky-300 font-mono">to_node_id</code>, <code class="text-sky-300 font-mono">relation_type</code>).</p>
               <div class="text-[10px] font-mono text-slate-400 bg-slate-950 p-2 rounded">
                 CASCADE DELETE su entrambi i nodi
               </div>
@@ -915,24 +1631,11 @@
 
             <div class="p-4 rounded-xl bg-slate-900/80 border border-white/5 space-y-2">
               <div class="text-xs font-semibold text-emerald-300">Action: UpsertMemoryNodeAction</div>
-              <p class="text-xs text-slate-400">Esegue lock deterministico ordinato, retry con exponential backoff + jitter decorrelato.</p>
+              <p class="text-xs text-slate-400">Esegue lock deterministico ordinato sulla singola riga univoca, prevenendo range gap lock.</p>
               <div class="text-[10px] font-mono text-slate-400 bg-slate-950 p-2 rounded">
                 DB::transaction() anti-deadlock
               </div>
             </div>
-          </div>
-
-          <!-- Code Snippet Box -->
-          <div class="p-4 bg-slate-950 rounded-xl border border-white/10 font-mono text-xs text-slate-300 overflow-x-auto">
-            <div class="text-slate-400 mb-2">// backend/app/Actions/UpsertMemoryNodeAction.php</div>
-            <span class="text-purple-400">return</span> DB::transaction(<span class="text-indigo-400">function</span> () <span class="text-purple-400">use</span> ($tenantId, $data) {<br>
-            &nbsp;&nbsp;<span class="text-slate-400">// Lock deterministico sulla riga singola senza toccare gap di intervallo</span><br>
-            &nbsp;&nbsp;$node = MemoryNode::where(<span class="text-emerald-400">'tenant_id'</span>, $tenantId)<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;->where(<span class="text-emerald-400">'name'</span>, $data[<span class="text-emerald-400">'name'</span>])<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;->lockForUpdate()<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;->first();<br>
-            &nbsp;&nbsp;<span class="text-slate-400">// Esecuzione upsert atomico sicuro</span><br>
-            });
           </div>
         </div>
       </div>
@@ -949,42 +1652,28 @@
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <!-- Service 1: MySQL -->
             <div class="p-4 rounded-xl bg-slate-900/80 border border-white/5 space-y-2">
               <div class="flex items-center justify-between">
                 <span class="font-bold text-sm text-indigo-400">laravel_mysql</span>
                 <span class="text-[10px] font-mono text-emerald-400">Port 3306</span>
               </div>
-              <p class="text-xs text-slate-400">MySQL 8.4 LTS con volume persistente `mysql_data` e `custom.cnf` ottimizzato per InnoDB.</p>
-              <div class="text-[11px] text-slate-400 font-mono">Healthcheck: mysqladmin ping</div>
+              <p class="text-xs text-slate-400">MySQL 8.4 LTS con volume persistente <code class="text-indigo-300 font-mono">mysql_data</code> e <code class="text-indigo-300 font-mono">custom.cnf</code> ottimizzato per buffer pool InnoDB.</p>
             </div>
 
-            <!-- Service 2: PHP-FPM -->
             <div class="p-4 rounded-xl bg-slate-900/80 border border-white/5 space-y-2">
               <div class="flex items-center justify-between">
                 <span class="font-bold text-sm text-red-400">laravel_php</span>
                 <span class="text-[10px] font-mono text-emerald-400">Port 9000</span>
               </div>
-              <p class="text-xs text-slate-400">PHP 8.4-FPM multi-stage, multi-arch con `su-exec` e utente non-root `appuser` (UID 1000).</p>
-              <div class="text-[11px] text-slate-400 font-mono">Volumes: storage & cache rw</div>
+              <p class="text-xs text-slate-400">PHP 8.4-FPM multi-stage, multi-arch con <code class="text-red-300 font-mono">su-exec</code> e utente non-root <code class="text-red-300 font-mono">appuser (UID 10001)</code>.</p>
             </div>
 
-            <!-- Service 3: Nginx -->
             <div class="p-4 rounded-xl bg-slate-900/80 border border-white/5 space-y-2">
               <div class="flex items-center justify-between">
                 <span class="font-bold text-sm text-emerald-400">laravel_nginx</span>
                 <span class="text-[10px] font-mono text-emerald-400">Port 80/443</span>
               </div>
-              <p class="text-xs text-slate-400">Webroot confinata esclusivamente a `/public`, negazione accesso a file dot (.env, .git).</p>
-              <div class="text-[11px] text-slate-400 font-mono">Security Headers: HSTS, XFO</div>
-            </div>
-          </div>
-
-          <div class="p-3 bg-slate-900/50 rounded-xl border border-white/5 flex items-center justify-between text-xs">
-            <span class="text-slate-400">Comando rapido di avvio stack:</span>
-            <div class="flex items-center gap-2">
-              <code class="bg-slate-950 px-3 py-1 rounded text-sky-400 font-mono text-xs">cd infrastructure && docker compose up -d</code>
-              <button onclick="copyToClipboard('cd infrastructure && docker compose up -d', this)" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-white rounded text-xs">Copia</button>
+              <p class="text-xs text-slate-400">Webroot confinata esclusivamente a <code class="text-emerald-300 font-mono">/public</code>, negazione accesso a file dot (.env, .git).</p>
             </div>
           </div>
         </div>
@@ -996,7 +1685,7 @@
           <div class="flex items-center justify-between">
             <div>
               <h2 class="text-xl font-bold text-white">Sincronizzazione Simmetrica Multi-Device</h2>
-              <p class="text-xs text-slate-400">Allineamento automatico tra macOS (3 nodi) e Windows 11 (1 nodo) con Google Drive.</p>
+              <p class="text-xs text-slate-400">Allineamento automatico tra macOS (3 nodi) e Windows 11 (1 nodo) con kit portabile.</p>
             </div>
             <span class="text-xs bg-cyan-500/20 text-cyan-300 font-mono px-3 py-1 rounded-full border border-cyan-500/30">Cross-Platform</span>
           </div>
@@ -1006,7 +1695,7 @@
               <div class="flex items-center gap-2 text-sm font-bold text-white">
                 <span>🍎</span> macOS (Apple Silicon & Intel)
               </div>
-              <p class="text-xs text-slate-300">Script `scripts/sync.sh` compatibile con Zsh e POSIX. Gestisce lockfile per prevenire esecuzioni concorrenti, sync Git e consolidamento Python.</p>
+              <p class="text-xs text-slate-300">Script <code class="text-sky-300 font-mono">scripts/sync.sh</code> compatibile con Zsh e POSIX. Gestisce lockfile per prevenire esecuzioni concorrenti, sync Git e consolidamento Python.</p>
               <div class="mt-2">
                 <button onclick="copyToClipboard('./scripts/sync.sh', this)" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded text-xs font-mono">./scripts/sync.sh</button>
               </div>
@@ -1016,7 +1705,7 @@
               <div class="flex items-center gap-2 text-sm font-bold text-white">
                 <span>🪟</span> Windows 11 (PowerShell 7+)
               </div>
-              <p class="text-xs text-slate-300">Script `scripts/sync.ps1` con Mutex globale nativo di sistema .NET, risoluzione polimorfica di `python` o `py -3` e allineamento Git simmetrico.</p>
+              <p class="text-xs text-slate-300">Script <code class="text-sky-300 font-mono">scripts/sync.ps1</code> con Mutex globale nativo di sistema .NET, supporto Win32 Junctions per directory symlink e allineamento Git simmetrico.</p>
               <div class="mt-2">
                 <button onclick="copyToClipboard('powershell -ExecutionPolicy Bypass -File .\\scripts\\sync.ps1', this)" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded text-xs font-mono">powershell sync.ps1</button>
               </div>
@@ -1055,16 +1744,16 @@
               <span class="truncate">docker-compose.yml</span>
               <span class="text-[9px] font-mono text-amber-400">Infra</span>
             </div>
-            <div class="text-[10px] text-slate-400 truncate mt-0.5">MySQL 8.4 + PHP 8.4 + Nginx</div>
+            <div class="text-[10px] text-slate-400 truncate mt-0.5">MySQL 8.4 + PHP 8.4 Non-Root</div>
           </div>
 
           <!-- Object 3 -->
-          <div onclick="inspectObject('UnifyMemory')" class="p-2 rounded-lg bg-slate-900/60 hover:bg-slate-800/80 border border-white/5 cursor-pointer transition">
+          <div onclick="inspectObject('PortableKit')" class="p-2 rounded-lg bg-slate-900/60 hover:bg-slate-800/80 border border-white/5 cursor-pointer transition">
             <div class="font-medium text-slate-200 flex items-center justify-between">
-              <span class="truncate">unify_memory.py</span>
-              <span class="text-[9px] font-mono text-sky-400">Script</span>
+              <span class="truncate">bundle_team.sh</span>
+              <span class="text-[9px] font-mono text-emerald-400">Portable</span>
             </div>
-            <div class="text-[10px] text-slate-400 truncate mt-0.5">Consolidatore Google Drive</div>
+            <div class="text-[10px] text-slate-400 truncate mt-0.5">Kit portabile per altri PC/Mac</div>
           </div>
 
           <!-- Object 4 -->
@@ -1109,7 +1798,7 @@
           <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900/40 border border-white/5">
             <span class="text-slate-300">Docker User:</span>
             <span class="text-emerald-400 font-mono text-[11px] flex items-center gap-1">
-              <span>✓</span> Non-Root (1000)
+              <span>✓</span> Non-Root (10001)
             </span>
           </div>
         </div>
@@ -1124,7 +1813,7 @@
           <div class="font-bold text-white text-sm" id="inspectorTitle">UpsertMemoryNodeAction.php</div>
           <div class="text-[11px] text-indigo-400 font-mono" id="inspectorPath">backend/app/Actions/</div>
           <p class="text-slate-300 leading-relaxed text-[11px]" id="inspectorDesc">
-            Action atomica che governa l'inserimento o aggiornamento dei nodi di memoria nel database MySQL 8.4, prevenendo deadlock InnoDB grazie a lock ordinati e retry con jitter decorrelato.
+            Action atomica che governa l'inserimento o aggiornamento dei nodi di memoria nel database MySQL 8.4, prevenendo deadlock InnoDB grazie a lock deterministico ordinato e retry con jitter decorrelato.
           </p>
           <div class="pt-2 border-t border-white/5 flex justify-end">
             <button onclick="copyToClipboard('backend/app/Actions/UpsertMemoryNodeAction.php', this)" class="text-[10px] text-sky-400 hover:text-sky-300 font-mono">Copia Path</button>
@@ -1135,7 +1824,7 @@
       <!-- Bottom Status -->
       <div class="p-3 bg-slate-950/80 border-t border-white/5 text-[10px] text-slate-400 flex items-center justify-between">
         <span>Antigravity Engine</span>
-        <span class="text-emerald-400 font-mono">Gemini 3.8 Flash High</span>
+        <span class="text-emerald-400 font-mono">v3.2.0 Active</span>
       </div>
     </aside>
 
@@ -1162,70 +1851,115 @@
       }
     }
 
-    // Agent data dictionary
+    // Agent data dictionary with groups, "Cosa fa" and "Come lo fa"
     const agentsData = {
       turing: {
         alias: '@turing',
         name: 'Alan Turing',
+        icon: '👑',
         role: 'Tech Lead & Orchestratore',
+        groupName: 'Gruppo 1: Leadership & Governance',
+        groupClass: 'group-leadership',
         canon: 'Volume 09 (Engineering Orchestration)',
-        taskDefault: 'Coordina lo sviluppo end-to-end con matrice RACI e quality gate formali'
+        what: 'Pianifica lo sviluppo end-to-end, governa la dialettica tra gli 8 colleghi, assegna la matrice RACI e convalida i quality gate formali.',
+        how: 'Topologia Hub-and-Spoke, Tie-Breaking Quorum a 3 round, quality gate bloccanti prima del cambio fase e Canone Volume 09.',
+        taskDefault: 'Coordina lo sviluppo end-to-end con matrice RACI e quality gate formali bloccanti'
       },
       werner: {
         alias: '@werner',
         name: 'Werner Vogels',
+        icon: '📐',
         role: 'System Architect',
+        groupName: 'Gruppo 2: Architettura & Contratti Formali',
+        groupClass: 'group-architecture',
         canon: 'Volume 01 (Software Architecture)',
-        taskDefault: 'Definisci il contratto OpenAPI tipizzato e la tolleranza ai guasti'
+        what: 'Disegna architetture modulari, contratti API tipizzati, pattern di consistenza eventuale e modella la tolleranza ai guasti distribuita.',
+        how: 'Contratti OpenAPI 3.1, standard errori RFC 7807/9457, Transactional Outbox anti-dual write e trade-off PACELC/CAP.',
+        taskDefault: 'Definisci il contratto OpenAPI 3.1 tipizzato, lo schema RFC 7807 e il Transactional Outbox pattern'
       },
       taylor: {
         alias: '@taylor',
         name: 'Taylor Otwell',
+        icon: '🐘',
         role: 'Backend Sage & DB Master',
+        groupName: 'Gruppo 3: I Costruttori (Core Builders)',
+        groupClass: 'group-builders',
         canon: 'Volume 02 (Database & Backend)',
-        taskDefault: 'Sviluppa l\'Action atomica con transazioni anti-gap lock e zero N+1'
-      },
-      linus: {
-        alias: '@linus',
-        name: 'Linus Torvalds',
-        role: 'DevOps & Infrastructure Sage',
-        canon: 'Volume 03 (DevOps & Reliability)',
-        taskDefault: 'Configura docker-compose multi-arch e hardening webroot non-root'
+        what: 'Sviluppa la business logic con Action atomiche su Laravel 13 e PHP 8.4+, elimina zero N+1 ed estirpa i Gap Lock InnoDB.',
+        how: 'PHP 8.4 Property Hooks su DTO, Asymmetric Visibility, DB::transaction() anti-gap lock con lock deterministico e retry con jitter decorrelato.',
+        taskDefault: 'Implementa l\'Action atomica Laravel 13 con Property Hooks PHP 8.4 e transazione anti-gap lock InnoDB'
       },
       steve: {
         alias: '@steve',
         name: 'Steve Jobs',
+        icon: '🎨',
         role: 'Senior UI/UX Designer',
+        groupName: 'Gruppo 3: I Costruttori (Core Builders)',
+        groupClass: 'group-builders',
         canon: 'Volume 04 (UI/UX Design)',
-        taskDefault: 'Progetta un layout Bento Grid dark Zinc-950 con micro-interazioni'
+        what: 'Crea interfacce web moderne, intriganti, ad alto impatto estetico (stile Linear/Stripe/Vercel) e radicalmente anti-AI-slop.',
+        how: 'Bento Grid asimmetrica, dark theme Zinc 950/900 con contrasti WCAG AA, 4 stati obbligatori (Skeleton, Empty, Error, Data) e micro-interazioni fluide.',
+        taskDefault: 'Progetta un layout Bento Grid dark Zinc-950 con micro-interazioni e i 4 stati obbligatori'
+      },
+      linus: {
+        alias: '@linus',
+        name: 'Linus Torvalds',
+        icon: '🐧',
+        role: 'DevOps & Infrastructure Sage',
+        groupName: 'Gruppo 3: I Costruttori (Core Builders)',
+        groupClass: 'group-builders',
+        canon: 'Volume 03 (DevOps & Reliability)',
+        what: 'Governa container Docker multi-arch (amd64/arm64), blinda la webroot Nginx ed esegue sync simmetrico macOS/Win11.',
+        how: 'Immagini minimali multi-stage, su-exec con utente non-root (UID 10001), POSIX Zsh (sync.sh) e PowerShell 7 Mutex (sync.ps1).',
+        taskDefault: 'Configura docker-compose multi-arch e hardening webroot Nginx non-root con su-exec UID 10001'
       },
       carmack: {
         alias: '@carmack',
         name: 'John Carmack',
+        icon: '🚀',
         role: 'Lead QA Engineer',
+        groupName: 'Gruppo 4: Gli Inquisitori & Gatekeeper',
+        groupClass: 'group-inquisitors',
         canon: 'Volume 05 (QA & Defect Prevention)',
-        taskDefault: 'Esegui boundary testing sui limiti matematici (IEEE 754 NaN/INF, 10MB)'
+        what: 'Progetta suite di test estreme, guida la disciplina TDD (Red-Green-Refactor) e previene crash, memory leak e OOM-killer.',
+        how: 'Boundary testing matematico IEEE 754 (NaN, +INF, -INF, -0.0), payload da 10MB, Reaper pattern con DLQ per lock orfani.',
+        taskDefault: 'Esegui boundary testing sui limiti matematici IEEE 754 (NaN, INF, -0.0) e payload massivi da 10MB'
       },
       rauch: {
         alias: '@rauch',
         name: 'Guillermo Rauch',
+        icon: '⚡',
         role: 'Integration & E2E Tester',
+        groupName: 'Gruppo 4: Gli Inquisitori & Gatekeeper',
+        groupClass: 'group-inquisitors',
         canon: 'Volume 06 (Integration & Resilience)',
-        taskDefault: 'Testa i circuit breaker e la resilienza su connessioni instabili'
+        what: 'Valida la cooperazione reale tra frontend, backend, database e API, isolando servizi esterni guasti su reti lente o degradate.',
+        how: 'Circuit Breaker a 3 stati (Closed, Open, Half-Open), propagazione Correlation-ID, Idempotency-Key e timeout difensivi gerarchici.',
+        taskDefault: 'Verifica il Circuit Breaker a 3 stati, gli header Correlation-ID e la degradazione controllata E2E'
       },
       geohot: {
         alias: '@geohot',
         name: 'George Hotz',
+        icon: '⚔️',
         role: 'Adversarial Security Auditor',
+        groupName: 'Gruppo 4: Gli Inquisitori & Gatekeeper',
+        groupClass: 'group-inquisitors',
         canon: 'Volume 07 (Adversarial Security)',
-        taskDefault: 'Esegui threat modeling STRIDE, verifica BOLA ed esercita il Diritto di Veto'
+        what: 'Valuta il sistema tramite lente avversariale Zero-Trust, blocca vulnerabilità OWASP ed esercita il Diritto di Veto vincolante.',
+        how: 'Threat modeling STRIDE, socket pinning anti-SSRF su IP privati/loopback, Constrained Grammar Decoding e DEK/KEK encryption.',
+        taskDefault: 'Esegui audit di sicurezza avversariale STRIDE su tutti gli endpoint, verifica BOLA/SSRF ed esercita il Veto se necessario'
       },
       guido: {
         alias: '@guido',
         name: 'Guido van Rossum',
+        icon: '📖',
         role: 'Documentation Engineer',
+        groupName: 'Gruppo 5: Integrità della Conoscenza & Docs',
+        groupClass: 'group-documentation',
         canon: 'Volume 08 (Technical Documentation)',
-        taskDefault: 'Aggiorna i documenti secondo Diátaxis (Tutorial, How-To, Reference, Explanation)'
+        what: 'Garantisce la veridicità assoluta della documentazione rispetto al codice vivo, aggiorna README, ADR e changelog semantici.',
+        how: 'Standard Diátaxis a 4 quadranti (Tutorial, How-To, Reference, Explanation), Testable Docs in CI, ADR e SemVer 2.0.',
+        taskDefault: 'Aggiorna la documentazione secondo Diátaxis (Tutorial, How-To, Reference, Explanation) con testable doctest'
       }
     };
 
@@ -1240,23 +1974,40 @@
       document.querySelectorAll('.agent-chip').forEach(btn => {
         btn.classList.remove('bg-indigo-600', 'text-white', 'border', 'border-indigo-400/40');
         btn.classList.add('bg-slate-800', 'text-slate-300');
+        if (btn.textContent.includes(data.alias)) {
+          btn.classList.remove('bg-slate-800', 'text-slate-300');
+          btn.classList.add('bg-indigo-600', 'text-white', 'border', 'border-indigo-400/40');
+        }
       });
-      event.target.classList.remove('bg-slate-800', 'text-slate-300');
-      event.target.classList.add('bg-indigo-600', 'text-white', 'border', 'border-indigo-400/40');
 
+      // Update info banner
+      document.getElementById('selectedAgentIcon').textContent = data.icon;
+      document.getElementById('selectedAgentName').textContent = data.name;
+      document.getElementById('selectedAgentAlias').textContent = data.alias;
+      document.getElementById('selectedAgentGroupBadge').textContent = data.groupName;
+      document.getElementById('selectedAgentWhat').textContent = data.what;
+      document.getElementById('selectedAgentHow').textContent = data.how;
       document.getElementById('agentRoleBadge').textContent = `${data.name} • ${data.role}`;
       document.getElementById('taskInput').value = data.taskDefault;
       updateGeneratedPrompt();
     }
 
-    function selectAgent(agentKey) {
+    function quickDispatch(agentKey) {
       switchTab('tab-cockpit');
       setPromptAgent(agentKey);
     }
 
-    function quickDispatch(agentKey) {
-      switchTab('tab-cockpit');
-      setPromptAgent(agentKey);
+    function inspectSpecialist(agentKey) {
+      switchTab('tab-team');
+      filterSpecialists('all');
+      const targetCard = document.getElementById('card-' + agentKey);
+      if (targetCard) {
+        targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        targetCard.classList.add('ring-2', 'ring-indigo-400');
+        setTimeout(() => {
+          targetCard.classList.remove('ring-2', 'ring-indigo-400');
+        }, 2000);
+      }
     }
 
     function updateGeneratedPrompt() {
@@ -1272,19 +2023,22 @@
       const taskInput = document.getElementById('taskInput');
       if (presetName === 'Flusso 5 Fasi Completo') {
         setPromptAgent('turing');
-        taskInput.value = 'Coordina l\'intero flusso a 5 fasi per la nuova funzionalità con matrice RACI';
-      } else if (presetName === 'Action Atomica Backend') {
+        taskInput.value = 'Coordina l\'intero flusso a 5 fasi per la nuova funzionalità con matrice RACI e quality gate';
+      } else if (presetName === 'Action Atomica Laravel 13') {
         setPromptAgent('taylor');
-        taskInput.value = 'Implementa l\'Action atomica con transazione DB::transaction anti-deadlock e indici coprenti';
+        taskInput.value = 'Implementa l\'Action atomica Laravel 13 con Property Hooks PHP 8.4, DB::transaction anti-deadlock e indici coprenti';
       } else if (presetName === 'Boundary Test NaN & 10MB') {
         setPromptAgent('carmack');
-        taskInput.value = 'Scrivi una suite di test estrema per validare input IEEE 754 NaN/INF e payload 10MB';
-      } else if (presetName === 'Threat Model STRIDE & OWASP') {
+        taskInput.value = 'Scrivi una suite di test estrema per validare input IEEE 754 NaN/INF, stringhe vuote e payload da 10MB';
+      } else if (presetName === 'Threat Model STRIDE') {
         setPromptAgent('geohot');
-        taskInput.value = 'Esegui audit di sicurezza avversariale STRIDE su tutti gli endpoint, prevenendo BOLA/IDOR';
-      } else if (presetName === 'Hardening Dockerfile Non-Root') {
+        taskInput.value = 'Esegui audit di sicurezza avversariale STRIDE su tutti gli endpoint, prevenendo BOLA/IDOR e socket SSRF';
+      } else if (presetName === 'Hardening Docker Non-Root') {
         setPromptAgent('linus');
-        taskInput.value = 'Ottimizza il Dockerfile PHP con su-exec non-root e verifica il binding delle porte protette';
+        taskInput.value = 'Configura Dockerfile e docker-compose multi-arch con su-exec non-root (UID 10001) e webroot Nginx confinata';
+      } else if (presetName === 'Docs Diataxis Completo') {
+        setPromptAgent('guido');
+        taskInput.value = 'Struttura la documentazione tecnica nei 4 quadranti Diátaxis (Tutorial, How-To, Reference, Explanation) con doctest';
       }
       updateGeneratedPrompt();
     }
@@ -1292,6 +2046,57 @@
     function copyGeneratedPrompt(btn) {
       const text = document.getElementById('generatedPromptText').textContent.trim();
       copyToClipboard(text, btn, 'Prompt Copiato!');
+    }
+
+    // Filter specialists in Tab 2 by group
+    function filterSpecialists(groupClass) {
+      document.querySelectorAll('.group-filter-btn').forEach(btn => {
+        btn.classList.remove('bg-indigo-600', 'text-white', 'border', 'border-indigo-400/40');
+        btn.classList.add('bg-slate-800', 'text-slate-300');
+      });
+
+      const activeBtn = document.getElementById('btn-filter-' + groupClass);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-slate-800', 'text-slate-300');
+        activeBtn.classList.add('bg-indigo-600', 'text-white', 'border', 'border-indigo-400/40');
+      }
+
+      const cards = document.querySelectorAll('.specialist-card');
+      cards.forEach(card => {
+        if (groupClass === 'all' || card.classList.contains(groupClass)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    // Live search specialists in Tab 2
+    function searchSpecialists(query) {
+      const q = query.toLowerCase().trim();
+      const cards = document.querySelectorAll('.specialist-card');
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (!q || text.includes(q)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    // Filter quick prontuario in Tab 1
+    function filterQuickProntuario(query) {
+      const q = query.toLowerCase().trim();
+      const cards = document.querySelectorAll('.quick-agent-card');
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (!q || text.includes(q)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
     }
 
     function copyToClipboard(text, btnElement, successMsg = 'Copiato!') {
@@ -1311,17 +2116,17 @@
       UpsertAction: {
         title: 'UpsertMemoryNodeAction.php',
         path: 'backend/app/Actions/',
-        desc: 'Action atomica che governa l\'inserimento o aggiornamento dei nodi di memoria nel database MySQL 8.4, prevenendo deadlock InnoDB grazie a lock ordinati e retry con jitter decorrelato.'
+        desc: 'Action atomica che governa l\'inserimento o aggiornamento dei nodi di memoria nel database MySQL 8.4, prevenendo deadlock InnoDB grazie a lock deterministico ordinato e retry con jitter decorrelato.'
       },
       DockerCompose: {
         title: 'docker-compose.yml',
         path: 'infrastructure/',
-        desc: 'Stack multi-arch di produzione contenente MySQL 8.4 LTS, PHP 8.4-FPM non-root (su-exec UID 1000) e Nginx con webroot isolata.'
+        desc: 'Stack multi-arch di produzione contenente MySQL 8.4 LTS, PHP 8.4-FPM non-root (su-exec UID 10001) e Nginx con webroot confinata a /public.'
       },
-      UnifyMemory: {
-        title: 'unify_memory.py',
-        path: 'scripts/hooks/',
-        desc: 'Script Python di consolidamento che sincronizza e unifica in modo deterministico le memorie locali con Google Drive, risolvendo conflitti e preservando l\'integrità.'
+      PortableKit: {
+        title: 'bundle_team.sh & install_team.sh',
+        path: 'portable/',
+        desc: 'Kit portabile universale per esportare ed installare l\'intero team canonico dei 9 specialisti su qualsiasi altra istanza Antigravity (macOS e Windows 11).'
       },
       Vademecum: {
         title: 'VADEMECUM.md',
@@ -1355,7 +2160,7 @@
 
     // Initialize prompt on load
     window.addEventListener('DOMContentLoaded', () => {
-      updateGeneratedPrompt();
+      setPromptAgent('turing');
     });
   </script>
 </body>
