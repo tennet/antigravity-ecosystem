@@ -1,7 +1,7 @@
-# 🚀 Antigravity Ecosystem & Brain Hub (v3.0.0)
+# 🚀 Antigravity Ecosystem & Brain Hub (v3.1.0)
 
 > **Autore**: [Manuele Francescon](https://github.com/tennet) (`@tennet`)  
-> **Versione**: 3.0.0 (Suite a 9 Specialisti con Alias Rapidi)  
+> **Versione**: 3.1.0 (Suite a 9 Specialisti + Live Mission Control LAN + Stanza Fenice On-Demand)  
 > **Repository Ufficiale Plugin**: [`tennet/antigravity-engineering-team`](https://github.com/tennet/antigravity-engineering-team)  
 > **Workspace Path**: `/Users/manuele/.gemini/antigravity/scratch/antigravity-ecosystem`
 
@@ -29,7 +29,11 @@ antigravity-ecosystem/
 │   ├── references/                # I 9 volumi del Canone Ingegneristico (01-09 + INDEX)
 │   ├── docs/                      # Guida tecnica dettagliata
 │   ├── VADEMECUM.md               # Prontuario per l'uso quotidiano
-│   └── plugin.json                # Manifesto v3.0.0
+│   └── plugin.json                # Manifesto v3.1.0
+├── server/                        # Live Mission Control Server (Node.js zero-dipendenze)
+│   ├── mission_control_server.mjs # HTTP + SSE /api/live, /api/stream, /api/auth-cookie, auth LAN
+│   ├── antigravity_reader.mjs     # Lettore read-only sanitizzato di .system_generated + trigger Fenice
+│   └── server.test.mjs            # Suite test automatizzata (node:test)
 ├── backend/                       # Pipeline di Memoria Multi-Tenant (Laravel/MySQL)
 │   ├── app/
 │   │   ├── Actions/               # UpsertMemoryNodeAction (anti-deadlock, atomico)
@@ -40,17 +44,22 @@ antigravity-ecosystem/
 │   └── tests/Feature/             # Suite di test automatizzati (Pest/PHPUnit)
 ├── infrastructure/                # Containerizzazione & Hosting di Produzione
 │   ├── docker-compose.yml         # Stack MySQL 8.4 + PHP 8.4-FPM + Nginx
+│   ├── docker-compose.mission-control.yml # Servizio opt-in Mission Control Live non-root read-only
 │   ├── nginx/conf.d/laravel.conf  # Hardening webroot (isolamento public/, anti-bypass)
+│   ├── nginx/mission-control.conf.example # Reverse proxy SSE (proxy_buffering off) per porta 8787
 │   ├── php/Dockerfile             # Multi-stage, multi-arch non-root con su-exec
 │   └── mysql/my.cnf               # Configurazione InnoDB ad alta efficienza
-├── scripts/                       # Sincronizzazione Multi-Piattaforma
+├── scripts/                       # Sincronizzazione Multi-Piattaforma & Live Launcher
 │   ├── sync.sh                    # Script simmetrico macOS (POSIX / Zsh / Apple Silicon)
 │   ├── sync.ps1                   # Script simmetrico Windows 11 (PowerShell 7+ / Mutex)
+│   ├── start_mission_control.sh   # Avvio web server Live macOS / Linux (0.0.0.0:8787 + token LAN)
+│   ├── start_mission_control.ps1  # Avvio web server Live Windows 11 (Mutex + LAN IP detection)
 │   └── hooks/
 │       ├── unify_memory.py        # Consolidatore determinista della memoria Google Drive
 │       ├── resolve_python.py      # Risolutore polimorfico dell'interprete Python
 │       └── security_linter.py     # Linter di sicurezza difensiva PreToolUse
-└── docs/                          # Archivio Storico delle Decisioni & Audit
+└── docs/                          # Archivio Storico, Decisioni & Mission Control UI
+    ├── mission_control.html       # Dashboard 2.5D Interattiva (Live SSE + Demo Offline + Stanza Fenice)
     ├── audit_antigravity_brain_multidevice.md
     ├── report_stress_test_v3.md
     ├── report_feedback_formazione_subagenti.md
@@ -84,11 +93,20 @@ python3 scripts/hooks/unify_memory.py
 
 ### 2. Eseguire l'Allineamento della Postazione Locale:
 - **Su macOS**: `./scripts/sync.sh`
-- **Su Windows 11**: `powershell -ExecutionPolicy Bypass -File .\scripts\sync.ps1`
+- **Su Windows 11**: `pwsh -File .\scripts\sync.ps1`
 
-### 3. Avviare lo Stack Docker di Produzione:
+### 3. Avviare Mission Control Live Server (Localhost + Wi-Fi LAN):
+- **Su macOS / Linux**: `./scripts/start_mission_control.sh`
+- **Su Windows 11**: `pwsh -File .\scripts\start_mission_control.ps1`
+- **Test server**: `node --test server/server.test.mjs`
+
+### 4. Avviare lo Stack Docker di Produzione:
 ```bash
 cd infrastructure && docker compose up -d
+```
+*(Per includere opzionalmente anche Mission Control in Docker senza alterare lo stack Laravel)*:
+```bash
+MISSION_CONTROL_TOKEN="scegli-un-token-sicuro" docker compose -f infrastructure/docker-compose.yml -f infrastructure/docker-compose.mission-control.yml up -d mission-control
 ```
 
 ---

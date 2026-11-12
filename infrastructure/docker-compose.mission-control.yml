@@ -1,0 +1,40 @@
+# ==============================================================================
+# docker-compose.mission-control.yml — Opt-in Live Mission Control Service
+# Avvio combinato senza alterare lo stack Laravel di produzione:
+#   docker compose -f infrastructure/docker-compose.yml -f infrastructure/docker-compose.mission-control.yml up -d mission-control
+# oppure standalone:
+#   docker compose -f infrastructure/docker-compose.mission-control.yml up -d
+# ==============================================================================
+
+services:
+  mission-control:
+    image: node:22-alpine
+    container_name: antigravity_mission_control
+    user: "10001:10001"
+    working_dir: /app
+    command: ["node", "server/mission_control_server.mjs"]
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=16m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      HOST: "0.0.0.0"
+      PORT: "8787"
+      ANTIGRAVITY_BRAIN_DIR: "/data/brain"
+      MISSION_CONTROL_TOKEN: "${MISSION_CONTROL_TOKEN:?Set MISSION_CONTROL_TOKEN in env before exposing Docker LAN}"
+    ports:
+      - "${MISSION_CONTROL_PORT:-8787}:8787"
+    volumes:
+      - ../server:/app/server:ro
+      - ../docs:/app/docs:ro
+      - ${ANTIGRAVITY_BRAIN_DIR:-${HOME}/.gemini/antigravity/brain}:/data/brain:ro
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1:8787/healthz || exit 1"]
+      interval: 15s
+      timeout: 3s
+      retries: 3
+      start_period: 5s

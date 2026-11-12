@@ -1,0 +1,27 @@
+# ==============================================================================
+# mission-control.conf.example — Template Nginx Reverse Proxy per Mission Control
+# IMPORTANTE: tenere FUORI da infrastructure/nginx/conf.d/ per non interferire
+# con laravel.conf (listen 80 default_server). Montare esplicitamente su vhost/porta dedicata.
+# ==============================================================================
+
+server {
+    listen 8081;
+    listen [::]:8081;
+    server_name mission-control.local _;
+
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "DENY" always;
+    add_header Referrer-Policy "no-referrer" always;
+
+    location / {
+        proxy_pass http://host.docker.internal:8787;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+
+        # Obbligatorio per SSE (/api/stream) senza buffering
+        proxy_buffering off;
+        proxy_cache off;
+        proxy_read_timeout 3600s;
+    }
+}
