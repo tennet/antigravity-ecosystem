@@ -1,6 +1,6 @@
-# 🚀 Engineering Team Subagents for Antigravity AI (v4.1.0)
+# 🚀 Engineering Team Subagents for Antigravity AI (v5.0.0)
 
-[![Plugin Version](https://img.shields.io/badge/version-4.1.0-blue.svg)](plugin.json)
+[![Plugin Version](https://img.shields.io/badge/version-5.0.0-blue.svg)](plugin.json)
 [![Antigravity Compatible](https://img.shields.io/badge/Antigravity-Plugin-emerald.svg)](https://deepmind.google)
 [![Architecture](https://img.shields.io/badge/Protocol-Closed--Loop%20Dialectic-purple.svg)](#-il-protocollo-dialettico-ad-anello-chiuso)
 [![Author](https://img.shields.io/badge/Author-Manuele%20Francescon-orange.svg)](https://github.com/tennet)

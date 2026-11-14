@@ -939,9 +939,126 @@ test('mission_control_server exposes production RFC health check, enhanced secur
   const parsed = JSON.parse(res.body);
   assert.equal(parsed.status, 'ok');
   assert.equal(parsed.health, 'pass');
-  assert.equal(parsed.version, 'v4.1.0');
+  assert.equal(parsed.version, 'v5.0.0');
   assert.ok(typeof parsed.uptime_s === 'number');
   assert.ok(typeof parsed.sse_clients === 'number');
   assert.ok(typeof parsed.memory_rss_mb === 'number');
   assert.ok(typeof parsed.brain_readable === 'boolean');
+});
+
+test('mission_control_server exposes /api/metrics/tokens and validates token economics schema and LAN auth', async () => {
+  const brainDir = makeTempBrain('ag-mc-tokens-');
+  const lanToken = 'test-metrics-token-secure-32chars';
+
+  // 1. Server con auth abilitata (modalità LAN / token configurato)
+  const authSrv = createMissionControlServer({
+    rootDir: REPO_ROOT,
+    host: '127.0.0.1',
+    port: 0,
+    brainDir,
+    token: lanToken
+  });
+
+  try {
+    // 1a. Rifiuto non autenticato se auth abilitata -> 401
+    const unauthRes = await dispatchRequest(authSrv, '/api/metrics/tokens');
+    assert.equal(unauthRes.status, 401, 'Endpoint /api/metrics/tokens must require auth when authEnabled');
+    assert.equal(unauthRes.headers['content-type'], 'application/problem+json; charset=utf-8');
+
+    // 1b. Autenticazione con Bearer Token -> 200
+    const authRes = await dispatchRequest(authSrv, '/api/metrics/tokens', {
+      headers: { Authorization: `Bearer ${lanToken}` }
+    });
+    assert.equal(authRes.status, 200);
+    assert.equal(authRes.headers['content-type'], 'application/json; charset=utf-8');
+    assert.equal(authRes.headers['cache-control'], 'no-store');
+
+    const data = JSON.parse(authRes.body);
+    assert.ok(typeof data.canon_tokens === 'number' && data.canon_tokens > 0, 'canon_tokens must be a positive number');
+    assert.ok(typeof data.savings_estimate_percent === 'number' && data.savings_estimate_percent >= 75.0 && data.savings_estimate_percent <= 80.0, 'savings_estimate_percent must be between 75.0 and 80.0');
+    assert.ok(data.model_tiering && typeof data.model_tiering === 'object', 'model_tiering must be present');
+    assert.ok(data.model_tiering.tier_0 && data.model_tiering.tier_1 && data.model_tiering.tier_2 && data.model_tiering.tier_3, 'all 4 model tiers must exist');
+    assert.deepEqual(data.thinking_budget_presets, { off: 0, standard: 2048, deep: 8192 }, 'thinking_budget_presets must match expected specification');
+    assert.ok(data.cache_bundle && typeof data.cache_bundle === 'object', 'cache_bundle status object must be present');
+    assert.ok('present' in data.cache_bundle, 'cache_bundle must include present flag');
+    assert.ok(typeof data.timestamp === 'string' && !Number.isNaN(Date.parse(data.timestamp)), 'timestamp must be a valid RFC 3339 string');
+
+    // 1c. Richiesta HEAD -> 200 con body vuoto
+    const headRes = await dispatchRequest(authSrv, '/api/metrics/tokens', {
+      method: 'HEAD',
+      headers: { Authorization: `Bearer ${lanToken}` }
+    });
+    assert.equal(headRes.status, 200);
+    assert.equal(headRes.headers['content-type'], 'application/json; charset=utf-8');
+    assert.equal(headRes.headers['cache-control'], 'no-store');
+    assert.equal(headRes.body, '', 'HEAD response body must be completely empty');
+  } finally {
+    await authSrv.stop();
+  }
+
+  // 2. Server loopback senza auth (default locale)
+  const openSrv = createMissionControlServer({
+    rootDir: REPO_ROOT,
+    host: '127.0.0.1',
+    port: 0,
+    brainDir,
+    token: ''
+  });
+
+  try {
+    const getOpenRes = await dispatchRequest(openSrv, '/api/metrics/tokens');
+    assert.equal(getOpenRes.status, 200);
+    const parsedOpen = JSON.parse(getOpenRes.body);
+    assert.ok(parsedOpen.canon_tokens >= 15000, 'canon_tokens must reflect realistic baseline');
+  } finally {
+    await openSrv.stop();
+    fs.rmSync(brainDir, { recursive: true, force: true });
+  }
+});
+
+test('SSE /api/stream frames include token_economics payload for real-time dashboard monitoring', async () => {
+  const brainDir = makeTempBrain('ag-mc-sse-tokens-');
+  const convId = '55555555-6666-7777-8888-999999999999';
+  const t1 = new Date().toISOString();
+
+  writeConvFixture(brainDir, convId, [
+    {
+      step_index: 1,
+      source: 'MODEL',
+      type: 'PLANNER_RESPONSE',
+      status: 'DONE',
+      created_at: t1,
+      tool_calls: [
+        { name: 'read_file', args: JSON.stringify({ Path: '/Users/manuele/.gemini/antigravity/scratch/antigravity-ecosystem/portable/engineering-team/references/INDEX.md' }) }
+      ]
+    }
+  ]);
+
+  const srv = createMissionControlServer({
+    rootDir: REPO_ROOT,
+    host: '127.0.0.1',
+    port: 0,
+    brainDir
+  });
+
+  try {
+    const sseRes = await dispatchRequest(srv, '/api/stream', {
+      streamMatch: (buf) => buf.includes('event: snapshot') && buf.includes('token_economics')
+    });
+
+    assert.equal(sseRes.status, 200);
+    assert.ok(sseRes.body.includes('event: snapshot'));
+    assert.ok(sseRes.body.includes('token_economics'));
+
+    const dataLine = sseRes.body.split('\n').find((l) => l.startsWith('data: '));
+    assert.ok(dataLine, 'SSE frame must contain data line');
+    const snapData = JSON.parse(dataLine.slice(6));
+    assert.ok(snapData.token_economics, 'Snapshot must contain token_economics object');
+    assert.ok(snapData.token_economics.canon_tokens > 0);
+    assert.equal(snapData.token_economics.savings_estimate_percent, 75.0);
+    assert.deepEqual(snapData.token_economics.thinking_budget_presets, { off: 0, standard: 2048, deep: 8192 });
+  } finally {
+    await srv.stop();
+    fs.rmSync(brainDir, { recursive: true, force: true });
+  }
 });

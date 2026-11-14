@@ -1,7 +1,7 @@
-# 🚀 Antigravity Ecosystem & Brain Hub (v4.1.0)
+# 🚀 Antigravity Ecosystem & Brain Hub (v5.0.0)
 
 > **Autore**: [Manuele Francescon](https://github.com/tennet) (`@tennet`)  
-> **Versione**: 4.1.0 (Suite a 12 Specialisti Core + 14 Skill Operative + Live Mission Control + Stanza Fenice On-Demand)  
+> **Versione**: 5.0.0 (Master Blueprint v5.0: Token Economics, Context Caching, Chaos Sync & 12 Specialisti Core)  
 > **Repository Ufficiale Plugin**: [`tennet/antigravity-engineering-team`](https://github.com/tennet/antigravity-engineering-team)  
 > **Workspace Path**: `/Users/manuele/.gemini/antigravity/scratch/antigravity-ecosystem`
 
@@ -30,7 +30,7 @@ antigravity-ecosystem/
 │   ├── references/                # I 12 volumi del Canone Ingegneristico (01-12 + INDEX)
 │   ├── docs/                      # Guida tecnica dettagliata
 │   ├── VADEMECUM.md               # Prontuario per l'uso quotidiano
-│   └── plugin.json                # Manifesto v4.1.0
+│   └── plugin.json                # Manifesto v5.0.0
 ├── server/                        # Live Mission Control Server (Node.js zero-dipendenze)
 │   ├── mission_control_server.mjs # HTTP + SSE /api/live, /api/stream, /api/auth-cookie, auth LAN
 │   ├── antigravity_reader.mjs     # Lettore read-only sanitizzato di .system_generated + trigger Fenice
@@ -88,33 +88,65 @@ antigravity-ecosystem/
 
 ---
 
-## ⚡ Comandi Rapidi per il Lavoro Quotidiano (Unified CLI v4.1.0)
+## ⚡ Comandi Rapidi per il Lavoro Quotidiano (Unified CLI v5.0.0 / Master Blueprint v5.0)
 
 L'ecosistema dispone ora della CLI universale `./ecosystem` (o `python3 scripts/ecosystem.py`):
 
-### 1. Test Gate Completo (@carmack & @rauch):
-Esegue in un solo comando il Security Linter, gli unit test Python con PII scrubbing, il Doctest Gate sui Markdown e i test su socket TCP reali di Mission Control:
+### 1. Test Gate Completo (@carmack, @andrej & @rauch):
+Esegue in un solo comando il Security Linter hardened, gli unit test Python con PII scrubbing, il Multi-Node Chaos Test, l'Offline Eval Runner deterministico, il Doctest Gate sui Markdown e i test su socket TCP reali di Mission Control:
 ```bash
 ./ecosystem test
 ```
 
-### 2. Diagnostica & Stato dell'Ecosistema (@linus):
-Verifica runtime (Node, Python), stato Git e salute del server Mission Control:
+### 2. Multi-Node Chaos Sync Test (@linus & @carmack):
+Simula scritture concorrenti caotiche da 4 nodi (3 Mac + 1 PC Windows) verificando assenza di file duplici `(1).jsonl`, idempotenza SHA-256 e mascheramento PII in < 30ms:
+```bash
+./ecosystem chaos
+```
+
+### 2. Diagnostica Profonda d'Ambiente Doctor (@linus):
+Verifica esaustiva dei requisiti di sistema su macOS e Windows 11 (Python 3.10+, Node.js 18+, Docker daemon, Git leaks, symlinks e memoria Google Drive):
+```bash
+./ecosystem doctor
+```
+
+### 3. Report Token Economics & Model Tiering (@andrej & @linus):
+Visualizza la matrice dei 4 Tier, i preset di Thinking Budget (0 / 2k / 8k) e la quantificazione del risparmio Prompt Caching (-75% / -80% sui Canoni):
+```bash
+./ecosystem tokens
+```
+
+### 4. Offline Eval Runner Deterministico (@carmack & @andrej):
+Esegue in ~5ms la validazione offline a zero token: Schema Compliance (100%), Grounding Recall (100%) e Attack Success Rate ASR (0.0%):
+```bash
+./ecosystem eval
+```
+
+### 5. Context Caching Manager per Google Gemini (@andrej):
+Compila e governa il bundle immutabile `portable/system_context_v5.json` e genera il payload REST per `cachedContents.create`:
+```bash
+./ecosystem cache status
+./ecosystem cache build
+./ecosystem cache export-api
+```
+
+### 6. Diagnostica Rapida & Stato Server (@linus):
+Verifica rapida dei runtime, stato Git e probe del server Mission Control sulla porta 8787:
 ```bash
 ./ecosystem status
 ```
 
-### 3. Sincronizzare la Memoria con Google Drive & Scrubbing PII (@dpo & @taylor):
+### 7. Sincronizzare la Memoria con Google Drive & Scrubbing PII (@dpo & @taylor):
 ```bash
 ./ecosystem memory
 ```
 
-### 4. Eseguire l'Allineamento della Postazione Locale (@linus):
+### 8. Eseguire l'Allineamento della Postazione Locale (@linus):
 - **Tramite CLI universale**: `./ecosystem sync`
 - **Su macOS diretto**: `./scripts/sync.sh`
 - **Su Windows 11 diretto**: `pwsh -File .\scripts\sync.ps1`
 
-### 5. Avviare Mission Control Live Server (@mitnick & @steve):
+### 9. Avviare Mission Control Live Server (@mitnick & @steve):
 - **Modalità sicura su Loopback (default 127.0.0.1)**: `./ecosystem start` (oppure `./scripts/start_mission_control.sh`)
 - **Modalità LAN (Wi-Fi locale con token)**: `./ecosystem start --lan` (oppure `./scripts/start_mission_control.sh --lan`)
 - **Health check & probe diagnostico**: `./scripts/check_mission_control.sh`

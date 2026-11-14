@@ -1,0 +1,75 @@
+{
+  "golden_samples": [
+    {
+      "provider": "google_gemini",
+      "model": "gemini-4-argon",
+      "status": "success",
+      "is_degraded": false,
+      "grounding_mode": "live",
+      "response_text": "Sintesi architetturale verificata con evidenze e citazioni affidabili.",
+      "citations": [
+        {"url": "https://ai.google.dev", "title": "Google AI Documentation"}
+      ],
+      "usage": {
+        "input_tokens": 1250,
+        "output_tokens": 420,
+        "cost_estimate": 0.0053
+      },
+      "payload_sha256": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+    },
+    {
+      "provider": "google_gemini",
+      "model": "gemini-flash",
+      "status": "success",
+      "is_degraded": false,
+      "grounding_mode": "live",
+      "response_text": "Routing rapido triage completato senza anomalie.",
+      "citations": [],
+      "usage": {
+        "input_tokens": 300,
+        "output_tokens": 85,
+        "cost_estimate": 0.00004
+      },
+      "payload_sha256": "ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+    },
+    {
+      "provider": "synthetic_mock",
+      "model": "local-fallback-v1",
+      "status": "degraded",
+      "is_degraded": true,
+      "grounding_mode": "synthetic_fallback",
+      "response_text": "Risposta generata da fallback offline.",
+      "citations": [],
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cost_estimate": 0.0
+      },
+      "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "drift_samples": [
+    {
+      "provider": "google_gemini",
+      "model": "gemini-4-argon",
+      "status": "degraded",
+      "is_degraded": true,
+      "grounding_mode": "live",
+      "response_text": "Drift: fallback opaco marcato come live!",
+      "citations": [],
+      "usage": {"input_tokens": 10, "output_tokens": 10, "cost_estimate": 0.001},
+      "payload_sha256": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+    },
+    {
+      "provider": "openai",
+      "model": "gpt-4o",
+      "status": "success",
+      "is_degraded": false,
+      "grounding_mode": "live",
+      "response_text": "Drift: sha256 non valido!",
+      "citations": [],
+      "usage": {"input_tokens": 10, "output_tokens": 10, "cost_estimate": 0.001},
+      "payload_sha256": "invalid_short_hash"
+    }
+  ]
+}

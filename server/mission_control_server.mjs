@@ -24,6 +24,115 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DEFAULT_ROOT = path.resolve(__dirname, '..');
 
+export const MODEL_TIERING = {
+  tier_0: {
+    name: 'AST / Regex Locali',
+    latency: '< 10ms',
+    cost_per_1m_in_out: '$0.00 (0 tok)',
+    scope: 'Security Linter, Doctest Gate, AST parser'
+  },
+  tier_1: {
+    name: 'Gemini Flash (2.5/3.0)',
+    latency: '150-300ms',
+    cost_per_1m_in_out: '$0.075 / $0.30',
+    scope: 'Triage, routing rapido, classificazione, streaming'
+  },
+  tier_2: {
+    name: 'Gemini 3.1 Pro',
+    latency: '500ms-2s',
+    cost_per_1m_in_out: '$1.25 / $5.00',
+    scope: 'Ingegneria avanzata, refactoring, audit, architecture'
+  },
+  tier_3: {
+    name: 'Gemini 4 Argon / Jules',
+    latency: 'Async/Multi',
+    cost_per_1m_in_out: '$2.50 / $10.00',
+    scope: 'Agenti autonomi, Deep Research, task multi-step'
+  }
+};
+
+export const THINKING_BUDGET_PRESETS = {
+  off: 0,
+  standard: 2048,
+  deep: 8192
+};
+
+export function getCanonTokensEstimate(rootDir = DEFAULT_ROOT) {
+  const referencesDir = path.join(rootDir, 'portable', 'engineering-team', 'references');
+  let totalChars = 0;
+  try {
+    if (fs.existsSync(referencesDir)) {
+      const files = fs.readdirSync(referencesDir);
+      for (const f of files) {
+        if (!f.endsWith('.md')) continue;
+        const fullPath = path.join(referencesDir, f);
+        const st = fs.lstatSync(fullPath);
+        if (st.isFile() && !st.isSymbolicLink()) {
+          const content = fs.readFileSync(fullPath, 'utf8');
+          totalChars += content.length;
+        }
+      }
+    }
+  } catch {
+    // fallback se la directory non è accessibile
+  }
+  if (totalChars > 0) {
+    return Math.round(totalChars / 3.8);
+  }
+  return 21895; // stima canonica static baseline (~21.895 token)
+}
+
+export function getCacheBundleStatus(rootDir = DEFAULT_ROOT) {
+  const candidatePaths = [
+    path.join(rootDir, 'system_context_v5.json'),
+    path.join(rootDir, 'portable', 'system_context_v5.json'),
+    path.join(rootDir, 'portable', 'engineering-team', 'system_context_v5.json'),
+    path.join(rootDir, 'references', 'system_context_v5.json')
+  ];
+
+  for (const cand of candidatePaths) {
+    try {
+      if (fs.existsSync(cand)) {
+        const st = fs.lstatSync(cand);
+        if (st.isFile() && !st.isSymbolicLink()) {
+          const content = fs.readFileSync(cand);
+          const sha256 = crypto.createHash('sha256').update(content).digest('hex');
+          return {
+            present: true,
+            path: path.relative(rootDir, cand),
+            sha256,
+            bytes: st.size,
+            timestamp: st.mtime.toISOString(),
+            status: 'ready'
+          };
+        }
+      }
+    } catch {
+      // ignora candidato non leggibile
+    }
+  }
+
+  return {
+    present: false,
+    path: 'portable/system_context_v5.json',
+    sha256: null,
+    bytes: 0,
+    timestamp: null,
+    status: 'unbundled'
+  };
+}
+
+export function getTokenMetrics(rootDir = DEFAULT_ROOT) {
+  return {
+    canon_tokens: getCanonTokensEstimate(rootDir),
+    savings_estimate_percent: 75.0,
+    model_tiering: MODEL_TIERING,
+    thinking_budget_presets: THINKING_BUDGET_PRESETS,
+    cache_bundle: getCacheBundleStatus(rootDir),
+    timestamp: new Date().toISOString()
+  };
+}
+
 const MAX_SSE_GLOBAL = 20;
 const MAX_SSE_PER_IP = 4;
 const MAX_SSE_BUFFER_BYTES = 262_144;
@@ -259,7 +368,9 @@ export function createMissionControlServer(config = {}) {
   }
 
   function refreshSnapshot(convId, bypassCache = false) {
-    return readLiveSnapshot({ brainDir, convId, bypassCache });
+    const snap = readLiveSnapshot({ brainDir, convId, bypassCache });
+    snap.token_economics = getTokenMetrics(rootDir);
+    return snap;
   }
 
   function formatEventId(snap) {
@@ -343,7 +454,7 @@ export function createMissionControlServer(config = {}) {
       const body = JSON.stringify({
         status: 'ok',
         health: 'pass',
-        version: 'v4.1.0',
+        version: 'v5.0.0',
         uptime_s: Math.floor(process.uptime()),
         auth_required: authEnabled,
         authRequired: authEnabled,
@@ -420,6 +531,33 @@ export function createMissionControlServer(config = {}) {
       return res.end(JSON.stringify({ authenticated: true, authRequired: true }));
     }
 
+    // Route: /api/metrics/tokens (GET e HEAD)
+    if (pathname === '/api/metrics/tokens') {
+      if (authEnabled && isAuthBlocked(ip)) {
+        return sendProblem(res, 429, 'Too Many Failed Attempts', 'Authentication temporarily rate-limited.', {
+          'Retry-After': '60'
+        });
+      }
+      if (!isAuthorized(req)) {
+        recordAuthFailure(ip);
+        return sendProblem(res, 401, 'Unauthorized', 'Token required for token metrics.', {
+          'WWW-Authenticate': 'Bearer realm="Antigravity Mission Control"'
+        });
+      }
+      clearAuthFailure(ip);
+
+      const metrics = getTokenMetrics(rootDir);
+      const payload = JSON.stringify(metrics);
+
+      res.writeHead(200, {
+        ...securityHeaders,
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'no-store'
+      });
+      if (method === 'HEAD') return res.end();
+      return res.end(payload);
+    }
+
     if (pathname === '/api/live' || pathname === '/api/state') {
       if (authEnabled && isAuthBlocked(ip)) {
         return sendProblem(res, 429, 'Too Many Failed Attempts', 'Authentication temporarily rate-limited.', {
@@ -438,7 +576,7 @@ export function createMissionControlServer(config = {}) {
         return sendProblem(res, 400, 'Bad Request', 'Parameter conv contains invalid characters.');
       }
       try {
-        const snap = readLiveSnapshot({ brainDir, convId: convParam || undefined });
+        const snap = refreshSnapshot(convParam || undefined);
         const payload = JSON.stringify({ ...snap, authRequired: authEnabled });
 
         res.writeHead(200, {

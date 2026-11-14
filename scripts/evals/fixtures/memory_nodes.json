@@ -1,0 +1,54 @@
+{
+  "golden_samples": [
+    {
+      "tenant_id": 1,
+      "entity_type": "architectural_concept",
+      "label": "Deterministic Offline Evals",
+      "properties": {
+        "framework": "python_stdlib",
+        "speed_threshold_ms": 500,
+        "anti_drift": true
+      },
+      "vector_embedding": [0.124, -0.982, 0.451, 0.0],
+      "uuid": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"
+    },
+    {
+      "tenant_id": 2,
+      "entity_type": "security_policy",
+      "label": "Prompt Injection Sanitizer",
+      "properties": {
+        "level": "strict",
+        "nested": {
+          "level_2": {
+            "level_3": "safe"
+          }
+        }
+      },
+      "vector_embedding": null,
+      "uuid": null
+    }
+  ],
+  "drift_samples": [
+    {
+      "tenant_id": -5,
+      "entity_type": "concept",
+      "label": "Drift Tenant Negativo",
+      "properties": {}
+    },
+    {
+      "tenant_id": 1,
+      "entity_type": "concept",
+      "label": "Drift Profondita Eccessiva Stack Overflow",
+      "properties": {
+        "l1": {"l2": {"l3": {"l4": {"l5": {"l6": "too_deep"}}}}}
+      }
+    },
+    {
+      "tenant_id": 1,
+      "entity_type": "concept",
+      "label": "Drift IEEE 754 NaN",
+      "properties": {},
+      "vector_embedding": [0.12, 1e99999, -0.5]
+    }
+  ]
+}

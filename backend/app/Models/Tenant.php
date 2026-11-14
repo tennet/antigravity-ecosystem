@@ -79,4 +79,14 @@ class Tenant extends Model
     {
         return $this->hasMany(MemoryRelation::class, 'tenant_id');
     }
+
+    /**
+     * Tenant outbox events.
+     *
+     * @return HasMany<OutboxEvent>
+     */
+    public function outboxEvents(): HasMany
+    {
+        return $this->hasMany(OutboxEvent::class, 'tenant_id');
+    }
 }

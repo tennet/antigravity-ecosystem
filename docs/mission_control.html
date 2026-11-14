@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Antigravity Mission Control - Engineering Ecosystem</title>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-jlzrNDoV3mY+/HCompVC83OYiyJ5sRzhj3Fw20aG2pY='; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-KPD2K3J1zlokftX7WJb+VCtEU7baoZZHsRzcerkRqxg='; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none';">
   <!-- INLINED_OFFLINE_TAILWIND_CSS_START -->
   <style id="inlined-tailwind-css">
 *, ::before, ::after { box-sizing: border-box; border-width: 0; border-style: solid; border-color: #334155; }
@@ -1046,7 +1046,7 @@ strong, b { font-weight: bolder; }
         <div class="flex items-center space-x-2">
           <h1 class="font-bold text-sm sm:text-base tracking-tight text-white flex items-center gap-2 truncate">
             Antigravity Mission Control
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-mono shrink-0">v4.1.0</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-mono shrink-0">v5.0.0</span>
           </h1>
         </div>
         <p class="hidden sm:flex text-xs text-slate-400 items-center gap-2 truncate">
@@ -1221,7 +1221,7 @@ strong, b { font-weight: bolder; }
           <div class="relative z-10 flex flex-col xl:flex-row xl:items-center justify-between gap-4">
             <div>
               <div class="flex flex-wrap items-center gap-2 mb-1.5">
-                <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-mono font-semibold border border-indigo-500/30">MISSION CONTROL v4.1.0</span>
+                <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-mono font-semibold border border-indigo-500/30">MISSION CONTROL v5.0.0</span>
                 <span id="cockpitLiveBadge" class="text-[11px] px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 font-mono border border-amber-500/30">● DEMO / OFFLINE</span>
                 <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-200 font-mono border border-amber-400/25">Stanza Fenice On-Demand</span>
               </div>
@@ -1503,6 +1503,83 @@ strong, b { font-weight: bolder; }
               <button type="button" data-action="live-submit-token" class="px-3 py-1 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs transition">Connetti Live</button>
             </div>
             <div id="officeAuthError" class="hidden w-full text-rose-300 font-mono text-[11px]"></div>
+          </div>
+        </div>
+
+        <!-- BENTO CARD: TOKEN ECONOMICS & CONTEXT CACHING TELEMETRY (MASTER BLUEPRINT v5.0) -->
+        <div id="tokenEconomicsCard" class="rounded-xl bg-[#111318] border border-[#242834] p-3 sm:p-3.5 space-y-2.5">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="h-2 w-2 rounded-full bg-emerald-400 shrink-0"></span>
+              <h3 class="text-xs sm:text-sm font-bold text-white tracking-tight flex items-center gap-1.5 truncate">
+                <span>Token Economics &amp; Context Caching</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 font-mono border border-emerald-400/30">v5.0</span>
+              </h3>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <span id="tokenCacheSyncBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5">
+                <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span id="tokenCacheSyncText">Context Caching: Active / In Sync</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- 4 Telemetry Metrics Grid (Zero Layout Shift) -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 text-xs">
+            <!-- Metric 1: Volume Static Tokens -->
+            <div class="p-2.5 rounded-lg bg-[#090A0D] border border-[#242834] flex flex-col justify-between space-y-1">
+              <div class="flex items-center justify-between text-[10px] text-slate-400 uppercase tracking-wider font-mono">
+                <span>Prompt Statico</span>
+                <span class="text-sky-400">Canone 01–12</span>
+              </div>
+              <div class="flex items-baseline gap-1.5">
+                <span id="tokenStaticVolumeVal" class="text-base sm:text-lg font-bold font-mono text-white tabular-nums">23.572</span>
+                <span class="text-[10px] font-mono text-slate-400">tok</span>
+              </div>
+              <div class="text-[10px] text-slate-400 truncate">Bundle immutabile in RAM</div>
+            </div>
+
+            <!-- Metric 2: Context Caching Savings -->
+            <div class="p-2.5 rounded-lg bg-[#090A0D] border border-[#242834] flex flex-col justify-between space-y-1">
+              <div class="flex items-center justify-between text-[10px] text-slate-400 uppercase tracking-wider font-mono">
+                <span>Risparmio Cache</span>
+                <span class="text-emerald-400 font-bold">-75.0%</span>
+              </div>
+              <div class="flex items-baseline gap-1.5">
+                <span id="tokenSavingsPercentVal" class="text-base sm:text-lg font-bold font-mono text-emerald-400 tabular-nums">75.0%</span>
+                <span class="text-[10px] font-mono text-emerald-300/80">cost drop</span>
+              </div>
+              <div class="text-[10px] text-slate-400 truncate">Flash &amp; Pro Context Cache</div>
+            </div>
+
+            <!-- Metric 3: Active Model Tiering -->
+            <div class="p-2.5 rounded-lg bg-[#090A0D] border border-[#242834] flex flex-col justify-between space-y-1">
+              <div class="flex items-center justify-between text-[10px] text-slate-400 uppercase tracking-wider font-mono">
+                <span>Model Tiering</span>
+                <span id="tokenTierActiveTag" class="text-indigo-400 font-bold">Tier 1</span>
+              </div>
+              <div class="flex items-center gap-1 font-mono text-[10px] pt-0.5">
+                <button type="button" data-action="set-model-tier" data-tier="tier_0" id="tierPill0" class="px-1.5 py-0.5 rounded bg-[#181B22] text-slate-400 hover:text-white border border-[#242834] transition" title="Tier 0: AST / Regex Locali (<10ms)">T0</button>
+                <button type="button" data-action="set-model-tier" data-tier="tier_1" id="tierPill1" class="px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-bold transition" title="Tier 1: Gemini Flash 2.5/3.0">T1</button>
+                <button type="button" data-action="set-model-tier" data-tier="tier_2" id="tierPill2" class="px-1.5 py-0.5 rounded bg-[#181B22] text-slate-400 hover:text-white border border-[#242834] transition" title="Tier 2: Gemini 3.1 Pro">T2</button>
+                <button type="button" data-action="set-model-tier" data-tier="tier_3" id="tierPill3" class="px-1.5 py-0.5 rounded bg-[#181B22] text-slate-400 hover:text-white border border-[#242834] transition" title="Tier 3: Gemini 4 Argon / Jules">T3</button>
+              </div>
+              <div id="tokenTierDesc" class="text-[10px] text-slate-400 truncate">Gemini Flash (150–300ms)</div>
+            </div>
+
+            <!-- Metric 4: Thinking Budget Presets -->
+            <div class="p-2.5 rounded-lg bg-[#090A0D] border border-[#242834] flex flex-col justify-between space-y-1">
+              <div class="flex items-center justify-between text-[10px] text-slate-400 uppercase tracking-wider font-mono">
+                <span>Thinking Budget</span>
+                <span id="tokenThinkingBudgetTag" class="text-purple-400 font-bold">2.048 tok</span>
+              </div>
+              <div class="flex items-center gap-1 font-mono text-[10px] pt-0.5">
+                <button type="button" data-action="set-thinking-budget" data-preset="off" id="thinkingPresetOff" class="px-1.5 py-0.5 rounded bg-[#181B22] text-slate-400 hover:text-white border border-[#242834] transition" title="Off: 0 token">0</button>
+                <button type="button" data-action="set-thinking-budget" data-preset="standard" id="thinkingPresetStd" class="px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/40 font-bold transition" title="Standard: 2048 token">2k</button>
+                <button type="button" data-action="set-thinking-budget" data-preset="deep" id="thinkingPresetDeep" class="px-1.5 py-0.5 rounded bg-[#181B22] text-slate-400 hover:text-white border border-[#242834] transition" title="Deep: 8192 token">8k</button>
+              </div>
+              <div id="tokenThinkingDesc" class="text-[10px] text-slate-400 truncate">Standard (2.048 tok)</div>
+            </div>
           </div>
         </div>
 
@@ -2159,7 +2236,7 @@ strong, b { font-weight: bolder; }
       <!-- Bottom Status -->
       <div class="p-3 bg-[#090A0D] border-t border-[#242834] text-[10px] text-slate-400 flex items-center justify-between">
         <span>Antigravity Engine</span>
-        <span id="sideEngineMode" class="text-slate-300 font-mono">Demo Locale v4.1.0</span>
+        <span id="sideEngineMode" class="text-slate-300 font-mono">Demo Locale v5.0.0</span>
       </div>
     </aside>
 
@@ -2172,6 +2249,101 @@ strong, b { font-weight: bolder; }
     let currentSearchQuery = '';
     let isExpanded = false;
     let isPresentationMode = false;
+    let currentActiveModelTier = 'tier_1';
+    let currentActiveThinkingBudget = 'standard';
+    let lastTokenEconomicsData = null;
+
+    function updateTokenEconomicsWidget(te) {
+      if (!te || typeof te !== 'object') return;
+      lastTokenEconomicsData = te;
+
+      const volEl = document.getElementById('tokenStaticVolumeVal');
+      if (volEl && typeof te.canon_tokens === 'number') {
+        volEl.textContent = Number(te.canon_tokens).toLocaleString('it-IT');
+      }
+
+      const savEl = document.getElementById('tokenSavingsPercentVal');
+      if (savEl && typeof te.savings_estimate_percent === 'number') {
+        savEl.textContent = `${te.savings_estimate_percent.toFixed(1)}%`;
+      }
+
+      const syncBadge = document.getElementById('tokenCacheSyncBadge');
+      const syncText = document.getElementById('tokenCacheSyncText');
+      if (syncBadge && syncText) {
+        const isReady = te.cache_bundle && (te.cache_bundle.present || te.cache_bundle.status === 'ready');
+        if (isReady) {
+          syncBadge.className = 'text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5';
+          syncText.textContent = 'Context Caching: Active / In Sync';
+        } else {
+          syncBadge.className = 'text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30 flex items-center gap-1.5';
+          syncText.textContent = 'Context Caching: Standby';
+        }
+      }
+
+      const activeTierKey = te.active_tier || currentActiveModelTier;
+      setActiveModelTier(activeTierKey, false);
+
+      const activeBudgetKey = te.active_thinking_budget || currentActiveThinkingBudget;
+      setActiveThinkingBudget(activeBudgetKey, false);
+    }
+
+    function setActiveModelTier(tierKey, updateState = true) {
+      if (updateState) currentActiveModelTier = tierKey;
+      const tierTag = document.getElementById('tokenTierActiveTag');
+      const tierDesc = document.getElementById('tokenTierDesc');
+      const tierMeta = {
+        tier_0: { label: 'Tier 0', desc: 'AST / Regex Locali (<10ms)' },
+        tier_1: { label: 'Tier 1', desc: 'Gemini Flash (150–300ms)' },
+        tier_2: { label: 'Tier 2', desc: 'Gemini 3.1 Pro (500ms–2s)' },
+        tier_3: { label: 'Tier 3', desc: 'Gemini 4 Argon / Jules (Async)' }
+      };
+
+      if (lastTokenEconomicsData?.model_tiering?.[tierKey]) {
+        const t = lastTokenEconomicsData.model_tiering[tierKey];
+        if (tierTag) tierTag.textContent = tierKey.toUpperCase().replace('_', ' ');
+        if (tierDesc) tierDesc.textContent = `${t.name} (${t.latency})`;
+      } else if (tierMeta[tierKey]) {
+        if (tierTag) tierTag.textContent = tierMeta[tierKey].label;
+        if (tierDesc) tierDesc.textContent = tierMeta[tierKey].desc;
+      }
+
+      ['tier_0', 'tier_1', 'tier_2', 'tier_3'].forEach(k => {
+        const pill = document.getElementById(`tierPill${k.slice(-1)}`);
+        if (!pill) return;
+        if (k === tierKey) {
+          pill.className = 'px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-bold transition';
+        } else {
+          pill.className = 'px-1.5 py-0.5 rounded bg-[#181B22] text-slate-400 hover:text-white border border-[#242834] transition';
+        }
+      });
+    }
+
+    function setActiveThinkingBudget(presetKey, updateState = true) {
+      if (updateState) currentActiveThinkingBudget = presetKey;
+      const budgetTag = document.getElementById('tokenThinkingBudgetTag');
+      const budgetDesc = document.getElementById('tokenThinkingDesc');
+      const budgetMeta = {
+        off: { val: '0 tok', desc: 'Off (0 tok)' },
+        standard: { val: '2.048 tok', desc: 'Standard (2.048 tok)' },
+        deep: { val: '8.192 tok', desc: 'Deep (8.192 tok)' }
+      };
+
+      if (budgetMeta[presetKey]) {
+        if (budgetTag) budgetTag.textContent = budgetMeta[presetKey].val;
+        if (budgetDesc) budgetDesc.textContent = budgetMeta[presetKey].desc;
+      }
+
+      const pMap = { off: 'Off', standard: 'Std', deep: 'Deep' };
+      Object.keys(pMap).forEach(k => {
+        const pill = document.getElementById(`thinkingPreset${pMap[k]}`);
+        if (!pill) return;
+        if (k === presetKey) {
+          pill.className = 'px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/40 font-bold transition';
+        } else {
+          pill.className = 'px-1.5 py-0.5 rounded bg-[#181B22] text-slate-400 hover:text-white border border-[#242834] transition';
+        }
+      });
+    }
 
     function closeMobileDrawers() {
       const left = document.getElementById('leftSidebar');
@@ -5620,13 +5792,13 @@ strong, b { font-weight: bolder; }
       }
       if (sideModeEl) {
         if (statusKind === 'live-active' || statusKind === 'live-idle') {
-          sideModeEl.textContent = 'Live SSE · v4.1.0';
+          sideModeEl.textContent = 'Live SSE · v5.0.0';
           sideModeEl.className = 'text-emerald-400 font-mono';
         } else if (statusKind === 'live-auth') {
           sideModeEl.textContent = 'Live LAN · Auth';
           sideModeEl.className = 'text-amber-300 font-mono';
         } else {
-          sideModeEl.textContent = 'Demo Locale v4.1.0';
+          sideModeEl.textContent = 'Demo Locale v5.0.0';
           sideModeEl.className = 'text-slate-300 font-mono';
         }
       }
@@ -5683,6 +5855,10 @@ strong, b { font-weight: bolder; }
     function applyLiveSnapshot(snap) {
       if (!snap || typeof snap !== 'object') return;
       lastLiveSnapshot = snap;
+
+      if (snap.token_economics && typeof snap.token_economics === 'object') {
+        updateTokenEconomicsWidget(snap.token_economics);
+      }
 
       const rawAgents = snap.agents && typeof snap.agents === 'object' ? snap.agents : {};
       const nextStates = {};
@@ -6234,6 +6410,12 @@ strong, b { font-weight: bolder; }
             case 'copy-generated-prompt':
               copyGeneratedPrompt(actionEl);
               return;
+            case 'set-model-tier':
+              if (actionEl.dataset.tier) setActiveModelTier(actionEl.dataset.tier);
+              return;
+            case 'set-thinking-budget':
+              if (actionEl.dataset.preset) setActiveThinkingBudget(actionEl.dataset.preset);
+              return;
             case 'set-prompt-agent':
               setPromptAgent(actionEl.dataset.agent);
               return;
@@ -6392,6 +6574,20 @@ strong, b { font-weight: bolder; }
         if (liveCopyBtn) liveCopyBtn.dataset.copy = activeOrigin;
       }
       renderTeamUIFromSSOT();
+      updateTokenEconomicsWidget({
+        canon_tokens: 23572,
+        savings_estimate_percent: 75.0,
+        model_tiering: {
+          tier_0: { name: 'AST / Regex Locali', latency: '< 10ms' },
+          tier_1: { name: 'Gemini Flash (2.5/3.0)', latency: '150-300ms' },
+          tier_2: { name: 'Gemini 3.1 Pro', latency: '500ms-2s' },
+          tier_3: { name: 'Gemini 4 Argon / Jules', latency: 'Async/Multi' }
+        },
+        active_tier: 'tier_1',
+        thinking_budget_presets: { off: 0, standard: 2048, deep: 8192 },
+        active_thinking_budget: 'standard',
+        cache_bundle: { present: true, status: 'ready' }
+      });
       bindDelegatedEvents();
       setPromptAgent('turing');
       renderIsometricOffice();

@@ -1,7 +1,7 @@
-# 🧭 Guida Semplice ad Antigravity (Vademecum Pratico v4.1.0)
+# 🧭 Guida Semplice ad Antigravity (Vademecum Pratico v5.0.0)
 
 > **Autore:** [Manuele Francescon](https://github.com/tennet)  
-> **Versione:** 4.1.0 (Suite a 12 Specialisti Core + Skill Packs On-Demand)  
+> **Versione:** 5.0.0 (Suite a 12 Specialisti Core + Master Blueprint v5.0 Token Economics & Context Caching)  
 > Questa guida spiega **senza tecnicismi superflui** chi fa cosa nel tuo team Antigravity e cosa scrivere in chat per attivare subito la persona giusta.
 
 ---

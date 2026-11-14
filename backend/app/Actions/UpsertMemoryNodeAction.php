@@ -6,13 +6,15 @@ namespace App\Actions;
 
 use App\DTOs\MemoryNodeData;
 use App\Models\MemoryNode;
+use App\Models\OutboxEvent;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 /**
  * Action: Upsert Memory Node with atomic ACID isolation,
- * deterministic SHA-256 deduplication, Gap-Lock elimination, and full-jitter retry.
+ * deterministic SHA-256 deduplication, Gap-Lock elimination, full-jitter retry,
+ * and Transactional Outbox event dispatching for vector embeddings.
  */
 final class UpsertMemoryNodeAction
 {
@@ -77,7 +79,8 @@ final class UpsertMemoryNodeAction
 
     /**
      * Core atomic upsert routine executed within the transaction.
-     * Prevents InnoDB Gap-Lock deadlocks by avoiding SELECT FOR UPDATE on non-existent records.
+     * Prevents InnoDB Gap-Lock deadlocks by avoiding SELECT FOR UPDATE on non-existent records,
+     * and atomically emits an OutboxEvent whenever embedding generation is required.
      */
     private function upsertWithinTransaction(MemoryNodeData $data, string $checksum): UpsertResult
     {
@@ -105,11 +108,19 @@ final class UpsertMemoryNodeAction
                 $wasUpdated = true;
             }
 
+            // Transactional Outbox: If the existing node lacks a vector embedding,
+            // dispatch an outbox event to compute it asynchronously.
+            $outboxEvent = null;
+            if (empty($lockedNode->vector_embedding)) {
+                $outboxEvent = $this->createOutboxEvent($lockedNode);
+            }
+
             return new UpsertResult(
                 node: $lockedNode,
                 isDuplicate: true,
                 wasUpdated: $wasUpdated,
-                checksum: $checksum
+                checksum: $checksum,
+                outboxEvent: $outboxEvent,
             );
         }
 
@@ -130,11 +141,20 @@ final class UpsertMemoryNodeAction
 
             $newNode->save();
 
+            // Transactional Outbox:
+            // When a new MemoryNode is created without a vector embedding,
+            // dispatch an outbox event to request vector embedding generation.
+            $outboxEvent = null;
+            if (empty($newNode->vector_embedding)) {
+                $outboxEvent = $this->createOutboxEvent($newNode);
+            }
+
             return new UpsertResult(
                 node: $newNode,
                 isDuplicate: false,
                 wasUpdated: false,
-                checksum: $checksum
+                checksum: $checksum,
+                outboxEvent: $outboxEvent,
             );
         } catch (QueryException $e) {
             // Catch concurrent duplicate key race condition (MySQL 1062 / SQLSTATE 23000)
@@ -150,24 +170,61 @@ final class UpsertMemoryNodeAction
                     ->where('checksum_sha256', $checksum)
                     ->firstOrFail();
 
+                $wasUpdated = false;
+
                 // Lock the record by primary key if embedding update needed
                 if ($data->vectorEmbedding !== null && $recoveredNode->vector_embedding !== $data->vectorEmbedding) {
                     $locked = MemoryNode::query()->where('id', $recoveredNode->id)->lockForUpdate()->firstOrFail();
                     $locked->vector_embedding = $data->vectorEmbedding;
                     $locked->save();
                     $recoveredNode = $locked;
+                    $wasUpdated = true;
+                }
+
+                $outboxEvent = null;
+                if (empty($recoveredNode->vector_embedding)) {
+                    $outboxEvent = $this->createOutboxEvent($recoveredNode);
                 }
 
                 return new UpsertResult(
                     node: $recoveredNode,
                     isDuplicate: true,
-                    wasUpdated: false,
-                    checksum: $checksum
+                    wasUpdated: $wasUpdated,
+                    checksum: $checksum,
+                    outboxEvent: $outboxEvent,
                 );
             }
 
             throw $e;
         }
+    }
+
+    /**
+     * Create an atomic outbox event for asynchronous vector embedding generation.
+     * Executed strictly inside the active database transaction.
+     *
+     * @param MemoryNode $node
+     * @return OutboxEvent
+     */
+    private function createOutboxEvent(MemoryNode $node): OutboxEvent
+    {
+        return OutboxEvent::create([
+            'tenant_id' => $node->tenant_id,
+            'event_type' => OutboxEvent::EVENT_MEMORY_NODE_EMBEDDING_REQUESTED,
+            'aggregate_type' => OutboxEvent::AGGREGATE_MEMORY_NODE,
+            'aggregate_id' => $node->id,
+            'payload' => [
+                'node_id' => $node->id,
+                'uuid' => $node->uuid,
+                'tenant_id' => $node->tenant_id,
+                'entity_type' => $node->entity_type,
+                'label' => $node->label,
+                'properties' => $node->properties,
+                'checksum_sha256' => $node->checksum_sha256,
+            ],
+            'status' => OutboxEvent::STATUS_PENDING,
+            'retry_count' => 0,
+        ]);
     }
 
     /**
@@ -248,7 +305,6 @@ final class UpsertMemoryNodeAction
     private function isDeadlockOrLockTimeout(\Throwable $e): bool
     {
         $msg = $e->getMessage();
-        // MySQL 1213 (Deadlock), MySQL 1205 (Lock wait timeout), SQLite busy / locked
         return str_contains($msg, '1213') ||
                str_contains($msg, 'Deadlock found') ||
                str_contains($msg, '1205') ||

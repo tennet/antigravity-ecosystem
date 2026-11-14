@@ -103,6 +103,17 @@ class MemoryNode extends Model
     }
 
     /**
+     * Transactional outbox events emitted for this memory node.
+     *
+     * @return HasMany<OutboxEvent>
+     */
+    public function outboxEvents(): HasMany
+    {
+        return $this->hasMany(OutboxEvent::class, 'aggregate_id')
+            ->where('aggregate_type', OutboxEvent::AGGREGATE_MEMORY_NODE);
+    }
+
+    /**
      * Directed relations starting from this node.
      *
      * @return HasMany<MemoryRelation>

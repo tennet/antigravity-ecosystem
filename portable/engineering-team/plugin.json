@@ -1,9 +1,9 @@
 {
   "name": "engineering-team",
-  "displayName": "Engineering Team Subagents (Full Suite v4.1.0)",
+  "displayName": "Engineering Team Subagents (Full Suite v5.0.0)",
   "author": "Manuele Francescon",
-  "description": "Suite evoluta di 12 sub-agenti specializzati (9 storici + @andrej / @karpathy AI/LLM & Gemini Suite + @dpo Privacy/Compliance + @mitnick Ethical Hacker/Red Team in tandem con @linus) per Antigravity AI con protocollo dialettico ad anello chiuso, Canone Ingegneristico v4.1 (12 volumi), copertura multi-stack reale e architettura Skill Pack on-demand.",
-  "version": "4.1.0",
+  "description": "Suite evoluta di 12 sub-agenti specializzati per Antigravity AI con protocollo dialettico ad anello chiuso, Canone Ingegneristico (12 volumi), Master Blueprint v5.0, Token Economics, Context Caching Gemini e architettura Skill Pack on-demand.",
+  "version": "5.0.0",
   "repository": "https://github.com/tennet/antigravity-engineering-team",
   "rules": [
     "rules/AGENTS.md"

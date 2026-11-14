@@ -23,7 +23,7 @@ from pathlib import Path
 RE_HOME_UNIX = re.compile(r"/Users/[a-zA-Z0-9._-]+")
 RE_HOME_WIN = re.compile(r"[A-Za-z]:\\Users\\[a-zA-Z0-9._-]+")
 RE_BEARER = re.compile(r"Bearer\s+[A-Za-z0-9_\-\.]{15,}", re.IGNORECASE)
-RE_SECRET_KV = re.compile(r'(?i)\b(api[_-]?key|token|password|secret|auth)\s*[:=]\s*["\']?[a-zA-Z0-9_\-\.]{8,}["\']?')
+RE_SECRET_KV = re.compile(r'(?i)\b([a-zA-Z0-9_]*?(?:api[_-]?key|token|password|secret|auth)[a-zA-Z0-9_]*)\s*[:=]\s*["\']?[a-zA-Z0-9_\-\.]{8,}["\']?')
 
 
 def scrub_pii(val: object) -> object:

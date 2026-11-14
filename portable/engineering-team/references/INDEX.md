@@ -1,6 +1,6 @@
-# 📚 Tomo della Saggezza Ingegneristica (Engineering Canon Index v4.1.0)
+# 📚 Tomo della Saggezza Ingegneristica (Engineering Canon Index v5.0.0)
 
-> **Plugin**: `engineering-team` (v4.1.0)  
+> **Plugin**: `engineering-team` (v5.0.0)  
 > **Autore**: Manuele Francescon ([@tennet](https://github.com/tennet))  
 > **Scopo**: Raccolta sistematica dei distillati operativi estratti dalla letteratura fondamentale e dall'esperienza sul campo dei progetti reali, integrata nei riflessi decisionali dei 12 subagenti Core Antigravity.
 

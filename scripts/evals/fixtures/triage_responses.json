@@ -1,0 +1,46 @@
+{
+  "golden_samples": [
+    {
+      "task_id": "TASK-2026-001",
+      "primary_agent": "carmack",
+      "consulted_agents": ["andrej", "turing"],
+      "tier": "Tier 0",
+      "risk_level": "low",
+      "requires_human_approval": false,
+      "reasoning": "Offline eval runner harness senza dipendenze di rete con esecuzione immediata.",
+      "suggested_skills": ["automated-tdd-workflow", "ai-llm-integration-evals-and-security"]
+    },
+    {
+      "task_id": "TASK-2026-002",
+      "primary_agent": "taylor",
+      "consulted_agents": ["werner", "geohot"],
+      "tier": "Tier 2",
+      "risk_level": "high",
+      "requires_human_approval": true,
+      "reasoning": "Migrazione database multi-tenant con indici univoci e gestione gap lock InnoDB.",
+      "suggested_skills": ["laravel-boost-and-best-practices"]
+    }
+  ],
+  "drift_samples": [
+    {
+      "task_id": "DRIFT-001",
+      "primary_agent": "unknown_ai_bot",
+      "consulted_agents": ["carmack"],
+      "tier": "Tier 1",
+      "risk_level": "low",
+      "requires_human_approval": false,
+      "reasoning": "Agente inventato non presente nella suite dei 12 ruoli canonici.",
+      "suggested_skills": []
+    },
+    {
+      "task_id": "DRIFT-002",
+      "primary_agent": "steve",
+      "consulted_agents": [],
+      "tier": "Tier 99",
+      "risk_level": "extreme",
+      "requires_human_approval": false,
+      "reasoning": "Tier e risk level non ammessi.",
+      "suggested_skills": []
+    }
+  ]
+}
