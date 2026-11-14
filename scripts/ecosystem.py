@@ -55,7 +55,7 @@ def mark_fail(msg: str) -> str:
 
 def print_banner() -> None:
     print("=" * 68)
-    print(" 🚀 Antigravity Engineering Ecosystem — Unified CLI (v4.1.0)")
+    print(" 🚀 Antigravity Engineering Ecosystem — Unified CLI (v5.0.0)")
     print("    Alan Turing (@turing) & Engineering Team Canonical Suite")
     print("=" * 68)
 
@@ -156,7 +156,7 @@ def cmd_status(args: argparse.Namespace) -> int:
     url = f"http://127.0.0.1:{port}/healthz"
     print(f"\nVerifica server su {url}...")
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": "EcosystemCLI/4.1.0"})
+        req = urllib.request.Request(url, headers={"User-Agent": "EcosystemCLI/5.0.0"})
         with urllib.request.urlopen(req, timeout=1.5) as resp:
             if resp.status == 200:
                 body = json.loads(resp.read().decode("utf-8"))
