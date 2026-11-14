@@ -118,6 +118,23 @@ def cmd_start(args: argparse.Namespace) -> int:
     env["PORT"] = port
     env["NODE_ENV"] = env.get("NODE_ENV", "development")
 
+    if getattr(args, "open", False):
+        def _open_browser() -> None:
+            import time
+            time.sleep(0.6)
+            target_url = f"http://127.0.0.1:{port}"
+            try:
+                if platform.system() == "Darwin":
+                    subprocess.Popen(["open", target_url])
+                elif platform.system() == "Windows":
+                    subprocess.Popen(["cmd", "/c", "start", target_url], shell=True)
+                else:
+                    subprocess.Popen(["xdg-open", target_url])
+            except Exception:
+                pass
+        import threading
+        threading.Thread(target=_open_browser, daemon=True).start()
+
     cmd = ["node", str(server_path)]
     try:
         res = subprocess.run(cmd, env=env, cwd=str(REPO_ROOT))
@@ -615,6 +632,7 @@ def main() -> int:
     p_start.add_argument("--lan", action="store_true", help="Abilita ascolto su 0.0.0.0 (Wi-Fi/LAN locale)")
     p_start.add_argument("--port", type=int, default=8787, help="Porta TCP (default: 8787)")
     p_start.add_argument("--studio", action="store_true", help="Avvia versione Studio anziche' Live standard")
+    p_start.add_argument("--open", action="store_true", help="Apre automaticamente la dashboard nel browser predefinito")
 
     # status
     p_status = subparsers.add_parser("status", help="Stato dei runtime, git e probe del server")

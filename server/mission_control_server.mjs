@@ -853,6 +853,7 @@ if (isMain) {
       console.log(' Antigravity Mission Control — Live Web Server');
       console.log('==================================================================');
       console.log(` Localhost : http://127.0.0.1:${actualPort}`);
+      console.log(` Browser   : Apri http://127.0.0.1:${actualPort} nel browser (premi Ctrl+C per fermare)`);
       if (srv.isLanExposed) {
         const lanIps = getLocalLanAddresses();
         if (lanIps.length > 0) {
