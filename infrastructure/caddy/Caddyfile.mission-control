@@ -1,0 +1,35 @@
+# ==============================================================================
+# Caddyfile.mission-control — Hardened Caddy 2 Reverse Proxy
+# Automatic HTTPS, HTTP/3, Zero-Buffering for SSE Live Monitoring
+# ==============================================================================
+
+mission-control.example.com {
+    # Automatic TLS via Let's Encrypt / ZeroSSL (or internal CA if using local domains)
+    # tls admin@example.com
+
+    header {
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        Referrer-Policy "no-referrer"
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        Cross-Origin-Opener-Policy "same-origin"
+    }
+
+    # Reverse proxy to Node.js Mission Control server
+    reverse_proxy 127.0.0.1:8787 {
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+
+        # Crucial for Server-Sent Events (SSE): disable proxy buffering
+        flush_interval -1
+    }
+
+    log {
+        output file /var/log/caddy/mission-control.access.log {
+            roll_size 10mb
+            roll_keep 5
+        }
+        format json
+    }
+}

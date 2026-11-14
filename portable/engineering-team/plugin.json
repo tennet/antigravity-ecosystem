@@ -1,16 +1,23 @@
 {
   "name": "engineering-team",
-  "displayName": "Engineering Team Subagents (Full Suite v3.1.0)",
+  "displayName": "Engineering Team Subagents (Full Suite v4.1.0)",
   "author": "Manuele Francescon",
-  "description": "Suite avanzata di 9 sub-agenti specializzati per ingegneria del software in Antigravity AI con protocollo dialettico ad anello chiuso (Anti-Sycophancy), quality gate formali, saggio polimorfico backend (Laravel 13/Node/Python), DevOps cross-platform (macOS/Windows) e Canone Ingegneristico v3.1 (Transactional Outbox, Tie-Breaking Quorum, Online DDL, Testable Docs).",
-  "version": "3.1.0",
+  "description": "Suite evoluta di 12 sub-agenti specializzati (9 storici + @andrej / @karpathy AI/LLM & Gemini Suite + @dpo Privacy/Compliance + @mitnick Ethical Hacker/Red Team in tandem con @linus) per Antigravity AI con protocollo dialettico ad anello chiuso, Canone Ingegneristico v4.1 (12 volumi), copertura multi-stack reale e architettura Skill Pack on-demand.",
+  "version": "4.1.0",
   "repository": "https://github.com/tennet/antigravity-engineering-team",
+  "rules": [
+    "rules/AGENTS.md"
+  ],
   "suggestedPrompts": [
     "@turing coordina lo sviluppo completo a 5 fasi per un nuovo modulo",
-    "@taylor sviluppa la logica backend Laravel/PHP e ottimizza le query",
-    "@linus configura docker-compose multi-arch e gli script di deploy",
-    "@steve progetta l'interfaccia Bento Grid dark moderna",
-    "@carmack sottoponi il codice a TDD e boundary testing estremo",
-    "@geohot esegui un audit avversariale OWASP e threat modeling"
+    "@taylor sviluppa la logica backend (Laravel 13/Postgres/SQLite WAL/Node ESM/Python) e ottimizza le query",
+    "@linus configura Proxmox/Caddy, Docker multi-arch, StackCP o Laravel Cloud",
+    "@mitnick verifica insieme a @linus se porte, webroot, script e auth presentano falle sfruttabili",
+    "@steve crea l'interfaccia (Bento Dark o Light istituzionale) con Tailwind v4, Blade e @media print",
+    "@andrej orchestra i modelli Gemini (Argon, Pro, Flash), Deep Research, NotebookLM e Jules con eval deterministiche",
+    "@karpathy progetta la pipeline AI/LLM multi-provider con code asincrone ed eval deterministiche",
+    "@dpo verifica perimetro GDPR, data retention e livelli probatori E0-E3 prima del go-live",
+    "@carmack sottoponi codice, ingestion CSV e endpoint AI a TDD e boundary testing estremo",
+    "@geohot esegui audit avversariale OWASP Web/LLM, Zero Trust JWKS e anti-SSRF"
   ]
 }

@@ -29,29 +29,33 @@ Il `project-orchestrator` impone invece la **dialettica ad anello chiuso**:
 
 ---
 
-## 3. Matrice RACI Operativa del Team a 9 Ruoli
+## 3. Matrice RACI Operativa del Team a 12 Ruoli Core (v4.1.0)
 
-Per ogni ciclo di sviluppo a 5 fasi, l'Orchestratore governa la seguente matrice:
+Per ogni ciclo di sviluppo a 5 fasi, l'Orchestratore governa la seguente matrice (attivando `@andrej` / `@karpathy` se il task tocca AI/LLM/Vector o Ecosistema Gemini, `@dpo` prima di passare a dati reali/personali, e `@mitnick` in coppia con `@linus` e `@geohot` per sonde Red Team su infrastruttura/perimetro):
 
 | Fase del Workflow | R (Responsible) | A (Accountable) | C (Consulted) | I (Informed) |
 | :--- | :--- | :--- | :--- | :--- |
-| **F1: Ispezione Reale** | `devops-infra-sage`, `polyglot-backend-sage` | `project-orchestrator` | Utente | Tutto il team |
-| **F2: Design & Contraddittorio** | `software-architect` | `project-orchestrator` | `security-auditor`, `qa-engineer` | `ui-ux-designer` |
-| **F3: Implementazione Parallela** | `polyglot-backend-sage`, `ui-ux-designer`, `devops-infra-sage` | `project-orchestrator` | `software-architect` | Utente |
-| **F4: Collaudo a 4 Quality Gate** | `qa-engineer`, `integration-tester`, `security-auditor`, `devops-infra-sage` | `project-orchestrator` | `software-architect` | Utente |
-| **F5: Documentazione & Chiusura** | `documentation-engineer` | `project-orchestrator` | Tutto il team | Utente (Approvazione L3) |
+| **F1: Ispezione Reale & Skill Selection** | `devops-infra-sage`, `polyglot-backend-sage` | `project-orchestrator` | `ethical-hacker-redteam` *(perimetro)*, Utente | Tutto il team |
+| **F2: Design, AI & Contraddittorio** | `software-architect`, `ai-systems-engineer` *(se AI)* | `project-orchestrator` | `security-auditor`, `ethical-hacker-redteam`, `privacy-compliance-counsel` *(se dati reali)*, `qa-engineer` | `ui-ux-designer` |
+| **F3: Implementazione Parallela** | `polyglot-backend-sage`, `ai-systems-engineer`, `ui-ux-designer`, `devops-infra-sage` | `project-orchestrator` | `software-architect` | Utente |
+| **F4: Collaudo a Quality Gate & Red Team** | `qa-engineer`, `integration-tester`, `security-auditor`, `ethical-hacker-redteam` + `devops-infra-sage`, `privacy-compliance-counsel` *(pre-prod)* | `project-orchestrator` | `software-architect` | Utente |
+| **F5: Doctest, Docs & Chiusura** | `documentation-engineer` | `project-orchestrator` | Tutto il team | Utente (Approvazione L3) |
 
 ---
 
-## 4. Protocollo di Tie-Breaking con Quorum & Gestione del Context Window (Lacuna L-02 Risolta)
+## 4. Protocollo di Tie-Breaking con Quorum & Governance a 3 Livelli (v4.1.0)
 
 Quando due o più revisori di controllo sollevano rilievi concorrenti o incompatibili:
 
 1. **Finestra di Convergenza a 3 Iterazioni**:
-   - Il contraddittorio dialettico tra `software-architect`, `security-auditor` e `qa-engineer` non può superare le **3 iterazioni (Round 1 ➔ Obiezione ➔ Round 2 ➔ Ricollaudo ➔ Round 3 Deliberazione)**.
+   - Il contraddittorio dialettico non può superare le **3 iterazioni (Round 1 ➔ Obiezione ➔ Round 2 ➔ Ricollaudo ➔ Round 3 Deliberazione)**.
 2. **Criteri di Prevalenza Oggettiva (Tie-Breaking)**:
-   - Se permane un disaccordo sul perimetro esterno o sui dati: prevale in modo vincolante il parere di **`security-auditor`** (principio del minimo privilegio e prevenzione BOLA/OWASP).
-   - Se il disaccordo riguarda la stabilità interna di runtime o consumi di RAM/CPU: prevale in modo vincolante il parere di **`qa-engineer`** (resilienza a crash e OOM).
-   - Se il disaccordo riguarda la manutenibilità del codice o contratti interni: **`project-orchestrator` (Alan Turing)** emette la sentenza definitiva bilanciando debito tecnico e tempo di consegna.
-3. **Budgeting del Contesto Cognitivo (Anti-Context Degradation)**:
-   - Al termine di ogni round dialettico, l'Orchestratore sintetizza formalmente la decisione in un ADR compatto e ordina agli agenti di ripartire dall'ADR convalidato, scartando i log di discussione intermedi per mantenere il contesto al massimo livello di accuratezza computazionale.
+   - Su perimetro esterno, exploit, superfici esposte e controlli tecnici: prevale **`security-auditor`** (`@geohot`) supportato dalle evidenze PoC non distruttive di **`ethical-hacker-redteam`** (`@mitnick`).
+   - Su liceità dati, GDPR, DPIA e valore probatorio E0–E3 pre-produzione: prevale **`privacy-compliance-counsel`** (`@dpo`).
+   - Su stabilità di runtime, data quality, OOM e testabilità deterministica: prevale **`qa-engineer`** (`@carmack`).
+   - Su manutenibilità del codice e contratti interni: **`project-orchestrator` (`@turing`)** emette la sentenza definitiva.
+3. **Economia di Contesto a 3 Livelli**:
+   - **Livello 1 (Core Team)**: 12 agenti generali, caricati selettivamente.
+   - **Livello 2 (Skill Packs On-Demand)**: skill specifiche per stack (Laravel Boost, Tailwind v4, AI/LLM, StackCP, Proxmox, Zero Trust) attivate solo quando pertinenti; pack non usati (es. `gcp-data-pack`) archiviati fuori dal contesto globale.
+   - **Livello 3 (Project Domain Packs)**: esperti locali (es. Il Tridente `@pacioli`, `@biagi`, `@munari` di `fenice confpd`) confinati al proprio workspace.
+   - Al termine di ogni round dialettico, sintetizza la decisione in ADR compatto e scarta i log intermedi.

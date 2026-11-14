@@ -61,3 +61,16 @@ quadrantChart
      1. `DEPRECATED`: L'elemento continua a funzionare ma emette un log di avviso formale e riporta l'alert `[!WARNING]` nella documentazione indicando l'alternativa raccomandata e la data di sunset.
      2. `SUNSET`: L'elemento rifiuta nuove invocazioni restituendo errore controllato (`HTTP 410 Gone` o eccezione dedicata).
      3. `REMOVED`: Rimozione fisica del codice dal repository con nota esplicita nel `CHANGELOG.md`.
+
+---
+
+## 4. Single Source `AGENTS.md`/`CLAUDE.md`, ADR a 2 Livelli & Memoria (v4.0.0)
+
+1. **Single Source of Truth per Istruzioni di Progetto**:
+   - `AGENTS.md` è la fonte canonica di repository; dove un tool terzo (es. Laravel Boost) gestisce `CLAUDE.md`, mantieni i due file allineati senza lasciare bootstrap obsoleti né citare file di regole inesistenti (`@.ai/rules/index.md`).
+2. **Modello ADR / `DECISION_LOG.md` a Due Livelli**:
+   - Tabella indice sintetica in `DECISION_LOG.md` (`ID | Data | Decisione | Motivo | Stato/Revisione`) + schede estese (contesto, alternative valutate, motivazione) per decisioni permanenti o bloccanti.
+3. **Confine Docs-as-Code vs Memoria Persistente**:
+   - Vincoli di porta, runtime, schema e decisioni di progetto appartengono al repository Git; la memoria MCP / `unify_memory.py` (con `node_id` e project-scoping) conserva solo preferenze e contesto trasversale.
+4. **Doctest Gate Obbligatorio**:
+   - Prima di chiudere Fase 5 esegui `scripts/doctest_docs.py` (o equivalente) per verificare link interni, sintassi degli snippet e parità versioni con `plugin.json`/`composer.json`.

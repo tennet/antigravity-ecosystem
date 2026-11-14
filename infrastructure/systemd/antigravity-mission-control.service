@@ -1,0 +1,39 @@
+[Unit]
+Description=Antigravity Mission Control Live Web & SSE Monitoring Service
+Documentation=https://github.com/manuele/antigravity-ecosystem
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=antigravity
+Group=antigravity
+WorkingDirectory=/opt/antigravity-ecosystem
+ExecStart=/usr/bin/node /opt/antigravity-ecosystem/server/mission_control_server.mjs
+Restart=always
+RestartSec=5s
+
+# Environment configuration
+Environment=NODE_ENV=production
+Environment=HOST=127.0.0.1
+Environment=PORT=8787
+Environment=ANTIGRAVITY_BRAIN_DIR=/var/lib/antigravity/brain
+# Optional production environment file (e.g. for MISSION_CONTROL_TOKEN)
+EnvironmentFile=-/etc/antigravity/mission-control.env
+
+# Hardened Linux Sandbox (Principle of Least Privilege)
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictRealtime=true
+RestrictNamespaces=true
+MemoryDenyWriteExecute=true
+CapabilityBoundingSet=
+
+[Install]
+WantedBy=multi-user.target

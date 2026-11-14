@@ -19,7 +19,11 @@ echo -e "${CYAN}================================================================
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd -P)"
-PLUGIN_SRC="${REPO_ROOT}/plugin"
+PLUGIN_SRC="${SCRIPT_DIR}/engineering-team"
+if [ ! -d "${PLUGIN_SRC}/agents" ]; then
+    PLUGIN_SRC="${REPO_ROOT}/plugin"
+fi
+SKILLS_SRC="${REPO_ROOT}/skills"
 DIST_DIR="${SCRIPT_DIR}/dist"
 
 if [ ! -d "${PLUGIN_SRC}/agents" ]; then
@@ -40,6 +44,9 @@ cp -a "${PLUGIN_SRC}/references" "${TMP_STAGING}/"
 cp -a "${PLUGIN_SRC}/plugin.json" "${TMP_STAGING}/"
 cp -a "${PLUGIN_SRC}/README.md" "${TMP_STAGING}/"
 cp -a "${PLUGIN_SRC}/VADEMECUM.md" "${TMP_STAGING}/"
+if [ -d "${SKILLS_SRC}" ]; then
+    cp -a "${SKILLS_SRC}" "${DIST_DIR}/skills"
+fi
 
 # Include installer scripts alongside the bundle
 cp "${SCRIPT_DIR}/install_team.sh" "${DIST_DIR}/"

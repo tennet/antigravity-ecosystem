@@ -43,3 +43,18 @@ Quando testi funzioni, form request o query, sottoponi sistematicamente l'input 
    - Ripristina lo schema del database (tramite transazioni o `RefreshDatabase`) al termine di ogni singolo caso di prova.
 3. **Eliminazione dei Test Flaky**:
    - Un test che fallisce in modo non deterministico (ad esempio a causa di `sleep()` temporali non sincronizzati) è un bug del test. Sostituisci i ritardi arbitrari con attese basate su polling di eventi (`waitUntil(...)`).
+
+---
+
+## 4. Data Ingestion QA, Multi-Runtime, Zero-Network AI & Doctest (Estensione v4.0.0)
+
+1. **Boundary Testing su CSV/XLSX & Logiche Deterministiche**:
+   - Testa encoding misto oltre il buffer iniziale (es. byte `cp1252` oltre 128 KB), separatori decimali localizzati ambigui (`1.234,56`, `10,50-`, `N/D`), file 0-byte/solo header, duplicati fisiologici e invarianti contabili (note di credito / segni).
+   - Per motori di regole deterministici (bandi, fiscalità, CCNL) usa tabelle di decisione parametrizzate (`#[DataProvider]`, `subTest`).
+2. **Isolamento Rete Obbligatorio & AI/LLM Determinism**:
+   - Nei test Laravel impone `Http::preventStrayRequests()` globale o di suite; mai effettuare chiamate reali a LLM o motori di ricerca in CI, e mai nascondere failure dietro stub euristici silenziosi.
+3. **Transport Reale per Node `node:test` SSE & Benchmark Gates**:
+   - Affianca agli harness in-memory test su socket TCP/HTTP reali (`srv.start()`) per verificare cap connessioni (`MAX_SSE_PER_IP`), rate limiter, heartbeat `:ping` e `Last-Event-ID`.
+   - I benchmark di ingestion (`benchmark_ingestion.py`) devono avere soglie assertive (`p95`, RSS) ed exit code non-zero in caso di regressione.
+4. **Doctest Gate**:
+   - Verifica sintassi ed eseguibilità degli snippet e dei link nei file Markdown prima del rilascio (raccordo con Canone 08).

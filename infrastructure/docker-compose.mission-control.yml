@@ -8,11 +8,13 @@
 
 services:
   mission-control:
-    image: node:22-alpine
+    build:
+      context: ..
+      dockerfile: infrastructure/Dockerfile.mission-control
+    image: antigravity-mission-control:v4.1.0
     container_name: antigravity_mission_control
     user: "10001:10001"
     working_dir: /app
-    command: ["node", "server/mission_control_server.mjs"]
     restart: unless-stopped
     read_only: true
     tmpfs:
@@ -24,13 +26,12 @@ services:
     environment:
       HOST: "0.0.0.0"
       PORT: "8787"
+      NODE_ENV: "production"
       ANTIGRAVITY_BRAIN_DIR: "/data/brain"
       MISSION_CONTROL_TOKEN: "${MISSION_CONTROL_TOKEN:?Set MISSION_CONTROL_TOKEN in env before exposing Docker LAN}"
     ports:
       - "${MISSION_CONTROL_PORT:-8787}:8787"
     volumes:
-      - ../server:/app/server:ro
-      - ../docs:/app/docs:ro
       - ${ANTIGRAVITY_BRAIN_DIR:-${HOME}/.gemini/antigravity/brain}:/data/brain:ro
     healthcheck:
       test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1:8787/healthz || exit 1"]
@@ -38,3 +39,13 @@ services:
       timeout: 3s
       retries: 3
       start_period: 5s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 128M

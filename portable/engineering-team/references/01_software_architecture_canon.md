@@ -76,3 +76,16 @@ Quando un'architettura richiede di persistere uno stato nel database relazionale
      SELECT * FROM outbox_events WHERE status = 'PENDING' ORDER BY created_at ASC LIMIT 50 FOR UPDATE SKIP LOCKED;
      ```
    - Dopo la pubblicazione con acknowledge sul broker, il record outbox viene marcato come `PROCESSED` o rimosso con cleanup batch.
+
+---
+
+## 5. Spettro Architetturale Reale & Edge Zero Trust (Estensione v4.0.0)
+
+1. **Matrice degli Stili Architetturali per Target Reali**:
+   - **Monolite su Shared Hosting Vincolato (StackCP/Apache)**: assenza di daemon persistenti o `execve` da FPM; usare code su filesystem protette da `flock(..., LOCK_EX)` + cron CLI, deploy atomico via backup+estrazione e quarantena upload fuori webroot.
+   - **Dual-Stack / Strangler Fig (Python → Laravel)**: isolare il dominio canonico e far coesistere prototipi Python e core Laravel tramite schemi/contratti condivisi fino al cutover.
+   - **Raw Staging → Canonical Domain (ETL Dati Sporchi)**: preservare sempre l'importazione grezza (`source_hash`, encoding `cp1252`/UTF-8, numero riga e duplicati) separata dalle viste/modelli riconciliati.
+   - **Streaming HTTP & SSE Long-Lived**: connection cap globale e per IP, `proxy_buffering off`, heartbeat periodico, `Last-Event-ID` e graceful shutdown.
+2. **Edge & Zero Trust Auth (Cloudflare Access / Reverse Proxy)**:
+   - Verificare sempre crittograficamente il JWT dell'edge (`Cf-Access-Jwt-Assertion` tramite JWKS pubblico, `aud`, `iss`, `exp`) e mTLS/Origin Pulls; non fidarsi mai dei soli header email spoofabili né di secret in query string (`?cf_key=`).
+3. **Architettura AI/LLM**: vedi [`10_ai_systems_and_evals_canon.md`](10_ai_systems_and_evals_canon.md) (job asincroni > 5s, divieto di fallback opachi).

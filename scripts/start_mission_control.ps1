@@ -6,7 +6,8 @@
 
 [CmdletBinding()]
 param(
-    [string]$HostAddress = $(if ($env:HOST) { $env:HOST } else { '0.0.0.0' }),
+    [switch]$Lan,
+    [string]$HostAddress = $(if ($env:HOST) { $env:HOST } elseif ($Lan) { '0.0.0.0' } else { '127.0.0.1' }),
     [string]$PortRaw = $(if ($env:PORT) { $env:PORT } else { '8787' })
 )
 
@@ -62,9 +63,14 @@ try {
             Select-Object -ExpandProperty IPAddress -Unique
     }
 
-    if ($HostAddress -eq '0.0.0.0' -and $lanIps.Count -gt 0) {
-        Write-Host "[INFO] IP LAN rilevati: $($lanIps -join ', ')" -ForegroundColor Cyan
-        Write-Host "[INFO] Nota Windows Firewall: consenti Node.js su rete privata per accesso colleghi." -ForegroundColor Yellow
+    if ($HostAddress -eq '0.0.0.0') {
+        Write-Host "[AVVISO SICUREZZA - @mitnick & @geohot] Modalita' LAN abilitata (0.0.0.0)." -ForegroundColor Yellow
+        if ($lanIps.Count -gt 0) {
+            Write-Host "[INFO] IP LAN rilevati: $($lanIps -join ', ')" -ForegroundColor Cyan
+        }
+        Write-Host "[INFO] Nota Windows Firewall: consenti Node.js su rete privata per accesso colleghi." -ForegroundColor DarkYellow
+    } else {
+        Write-Host "[SICUREZZA] Bind isolato su loopback (127.0.0.1). Usa -Lan per esporre sulla rete locale." -ForegroundColor Green
     }
 
     $env:HOST = $HostAddress

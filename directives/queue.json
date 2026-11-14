@@ -1,0 +1,35 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-11-13T13:49:16.716Z",
+  "directives": [
+    {
+      "id": "dir_1794577756716_9fb721",
+      "targetAgent": "carmack",
+      "title": "Nuova Istruzione dal Monitor",
+      "directive": "Esegui test boundary su input sporchi",
+      "priority": "high",
+      "status": "active",
+      "createdAt": "2026-11-13T13:49:16.716Z",
+      "antigravityPrompt": "@carmack [PRIORITÀ ALTA]: Esegui test boundary su input sporchi"
+    },
+    {
+      "id": "dir_1794577558833_8864a7",
+      "targetAgent": "carmack",
+      "title": "Nuova Istruzione dal Monitor",
+      "directive": "Esegui test boundary su input sporchi",
+      "priority": "high",
+      "status": "active",
+      "createdAt": "2026-11-13T13:45:58.833Z",
+      "antigravityPrompt": "@carmack [PRIORITÀ ALTA]: Esegui test boundary su input sporchi"
+    },
+    {
+      "id": "dir_init_001",
+      "targetAgent": "turing",
+      "title": "Inizializzazione Studio Cockpit",
+      "directive": "Governare l'orchestrazione del team con monitoring centrale, gestione delle skill e pilotaggio in tempo reale.",
+      "priority": "normal",
+      "createdAt": "2026-11-13T11:16:00.000Z",
+      "status": "active"
+    }
+  ]
+}

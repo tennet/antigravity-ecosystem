@@ -50,7 +50,13 @@ trap cleanup_on_error EXIT
 # Configuration & Paths
 # ------------------------------------------------------------------------------
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
-REPO_ROOT="${SCRIPT_DIR}"
+if [ "$(basename "${SCRIPT_DIR}")" = "scripts" ]; then
+    REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd -P)"
+    HOOKS_DIR="${SCRIPT_DIR}/hooks"
+else
+    REPO_ROOT="${SCRIPT_DIR}"
+    HOOKS_DIR="${REPO_ROOT}/hooks"
+fi
 GEMINI_HOME="${HOME}/.gemini"
 TIMESTAMP="$(date +%s)"
 BACKUP_TARGET_DIR="${GEMINI_HOME}/config_backup_${TIMESTAMP}"
@@ -186,21 +192,36 @@ main() {
 
     # Example managed links for 3 Mac + 1 PC cluster
     # 1. Hooks configuration
-    if [ -d "${REPO_ROOT}/hooks" ]; then
-        safe_symlink "${REPO_ROOT}/hooks" "${GEMINI_HOME}/hooks"
+    if [ -d "${HOOKS_DIR}" ]; then
+        safe_symlink "${HOOKS_DIR}" "${GEMINI_HOME}/hooks"
         mkdir -p "${GEMINI_HOME}/config"
-        safe_symlink "${REPO_ROOT}/hooks" "${GEMINI_HOME}/config/hooks"
+        safe_symlink "${HOOKS_DIR}" "${GEMINI_HOME}/config/hooks"
     fi
 
-    # 2. Environment specifications (if present)
+    # 2. Engineering Team plugin & Skills Pack (if present in ecosystem root)
+    if [ -d "${REPO_ROOT}/portable/engineering-team" ]; then
+        mkdir -p "${GEMINI_HOME}/config/plugins"
+        safe_symlink "${REPO_ROOT}/portable/engineering-team" "${GEMINI_HOME}/config/plugins/engineering-team"
+    fi
+    if [ -d "${REPO_ROOT}/skills" ]; then
+        mkdir -p "${GEMINI_HOME}/config/skills"
+        for skill_dir in "${REPO_ROOT}/skills"/*/; do
+            if [ -f "${skill_dir}SKILL.md" ]; then
+                skill_name="$(basename "${skill_dir}")"
+                safe_symlink "${skill_dir%/}" "${GEMINI_HOME}/config/skills/${skill_name}"
+            fi
+        done
+    fi
+
+    # 3. Environment specifications (if present)
     if [ -f "${REPO_ROOT}/.env.example" ]; then
         safe_symlink "${REPO_ROOT}/.env.example" "${GEMINI_HOME}/env.master.template"
     fi
 
-    # 3. Consolidate shared multi-node memory from Google Drive
-    if [ -f "${REPO_ROOT}/hooks/unify_memory.py" ]; then
+    # 4. Consolidate shared multi-node memory from Google Drive
+    if [ -f "${HOOKS_DIR}/unify_memory.py" ]; then
         log_audit "Stage 3: Consolidating multi-node memory from Google Drive..."
-        "${REPO_ROOT}/hooks/run_hook.sh" "${REPO_ROOT}/hooks/unify_memory.py" || true
+        "${HOOKS_DIR}/run_hook.sh" "${HOOKS_DIR}/unify_memory.py" || true
     fi
 
     log_ok "Sync operation completed successfully without data loss."

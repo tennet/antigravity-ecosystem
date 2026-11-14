@@ -32,3 +32,16 @@ Quando diversi sottosistemi cooperano (API web, database, code di messaggi, serv
    - Quando validi contratti API tra frontend e backend, verifica che i test del consumatore guidino le aspettative del fornitore, prevenendo disallineamenti di campi o formati di date.
 3. **Simulazione di Reti Degradate**:
    - Nelle sessioni di collaudo avanzate, simula latenze di rete (100ms - 1500ms), disconnessioni socket e risposte HTTP 429 (Rate Limit) per verificare che l'interfaccia gestisca il backoff e informi l'utente senza bloccarsi.
+
+---
+
+## 3. Estensione Reale: LLM, Streaming SSE, Scraping, ETL & Edge Auth (v4.0.0)
+
+1. **Resilienza Provider AI/LLM**:
+   - Applica code asincrone, circuit breaker e backoff su `429`/`5xx`, tracciamento budget/costi, rilevazione *schema drift* e divieto di marcare un fallback sintetico come output `completed` live.
+2. **Streaming Long-Lived (SSE)**:
+   - Collauda su socket TCP reale e dietro reverse proxy (`proxy_buffering off`), verificando heartbeat `:ping`, reconnect `Last-Event-ID`, backpressure e distinzione tra `requestTimeout` HTTP e idle timeout SSE.
+3. **Ingestion/ETL & Scraping**:
+   - Verifica encoding su tutto il file (oltre i primi 128 KB), `Decimal` rigoroso, idempotenza su `source_hash`, scarti sempre tracciati in diagnostica, protezione anti-SSRF TOCTOU/IPv6 e code file-based `flock`.
+4. **Edge & Zero-Trust Auth**:
+   - Verifica spoof-resistance degli header (`Cf-Access-*`), validazione firma JWT/JWKS, assenza di secret in query string e fail-closed in assenza di configurazione.

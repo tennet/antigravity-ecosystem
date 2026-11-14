@@ -52,3 +52,18 @@ Prima di convalidare qualsiasi architettura o modulo esposto, applica la matrice
      - Effimero e con Time-To-Live brevissimo (TTL $\le 5$ secondi);
      - Vincolato crittograficamente al solo `tool_name` e al set ristretto di parametri autorizzati;
      - Monouso: viene invalidato istantaneamente appena consumato dal tool execution engine.
+
+
+---
+
+## 4. Zero Trust Edge, OWASP LLM05/10, SSRF IPv6 & Anti-Stub Hooks (Estensione v4.0.0)
+
+1. **Cloudflare Access & Zero Trust Edge Verification**:
+   - Verifica sempre la firma **JWT/JWKS** (`Cf-Access-Jwt-Assertion`, `aud`, `iss`, `exp`) e Authenticated Origin Pulls; mai fidarsi di `Cf-Access-Authenticated-User-Email` non verificato, mai accettare token segreti in query string (`?cf_key=`) e mai lasciare fallback `development_bypass` attivi fuori da `local`/`testing` (regola **Fail-Closed**).
+2. **OWASP LLM Top 10 Completo (LLM01, LLM05, LLM10, Grounding)**:
+   - **LLM05**: vieta `.innerHTML` / rendering HTML non sanitizzato su testo generato da LLM o titoli/snippet estratti dal web.
+   - **LLM10**: imponi `throttle` e cap di consumo su ogni endpoint pubblico collegato a API AI.
+   - **Grounding Integrity**: vieta fabbricazione euristica di URL/citazioni non marcate esplicitamente come simulate.
+3. **SSRF IPv6 (`AAAA`), Upload Magic-Bytes & Anti-Stub**:
+   - Risolvi sia record `A` che `AAAA` (bloccando `::1`, `fc00::/7`, `fe80::/10` oltre a RFC 1918), disabilita redirect non verificati ed effettua socket pinning contro TOCTOU.
+   - Sugli upload verifica MIME/magic-bytes (`finfo`) e limiti contro zip/docx bomb; verifica inoltre che hook di sicurezza (`security_linter.py`) non siano placeholder, che sync su drive cloud cifrino i dati e che Windows imposti ACL NTFS restrittive.

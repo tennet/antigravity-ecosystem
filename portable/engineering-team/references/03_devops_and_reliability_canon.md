@@ -87,3 +87,18 @@
 10. **Memory Limits & Exit Code 137 (OOM Killer)**:
     - *Trappola*: Assegnare `mem_limit: 512m` al container MySQL credendo che InnoDB limiti automaticamente l'uso di memoria.
     - *Verità Ingegneristica*: InnoDB alloca `innodb_buffer_pool_size`, ma MySQL alloca ulteriore RAM per thread stack, sort buffers e join buffers. Se il totale supera 512 MB, il kernel Linux invia `SIGKILL` (exit code 137). La regola aurea è dimensionare `innodb_buffer_pool_size` a non più del 50-60% del `mem_limit` del container.
+
+---
+
+## 6. Matrice Hosting Reali & Daemon Long-Lived (Estensione v4.0.0)
+
+1. **Proxmox VE KVM (Debian 12) + Caddy 2**:
+   - Separare disco OS e disco Dati montato via UUID in `/etc/fstab` (`noatime`); installare `qemu-guest-agent`, configurare `ufw`, `fail2ban` e `unattended-upgrades`, e impostare `data-root` di Docker sul volume dati.
+   - Esporre sempre `443:443/tcp` e `443:443/udp` (HTTP/3 QUIC) e definire `healthcheck` espliciti su Caddy e container applicativi.
+2. **Shared Hosting Apache (StackCP)**:
+   - Usare `.htaccess` con profilo SEC-01 Anti-PHP2Shell (HTTP 403 su script diretti diversi da `index.php`) e invocare esplicitamente `/usr/bin/php84` in CLI/cron.
+   - Rispettare il limite di 1 sessione SSH concorrente, eseguire sempre un backup remoto preventivo prima dell'estrazione su `public_html` e verificare `/salute` in modalità fail-fast (mai `curl ... || true`).
+3. **PaaS Effimeri (Laravel Cloud & Cloudflare R2)**:
+   - Trattare il filesystem locale come non persistente (vietati `storage:link`, `optimize:clear`, `queue:restart` nei deploy script), configurare dual-bucket Cloudflare R2 (privato + public), Managed Queues e CLI non interattiva (`-n --json`).
+4. **Daemon Node.js / Python & Sync Configurazioni**:
+   - Gestire daemon bare-metal via `systemd` / `launchd` / Windows Service con shutdown `SIGINT`/`SIGTERM` e `proxy_buffering off` per SSE; unificare il controllo drift tra `~/.gemini/config/`, `.agents/` e `.claude/` (incluse ACL NTFS su Windows).

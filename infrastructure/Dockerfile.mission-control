@@ -1,0 +1,40 @@
+# ==============================================================================
+# Dockerfile.mission-control — Hardened Multi-Arch Production Container
+# Antigravity Mission Control (v4.1.0)
+#
+# Security & Reliability Invariants:
+# - Non-Root UID 10001:10001
+# - Zero npm runtime dependencies (pure Node.js built-ins)
+# - Read-only root filesystem compatible
+# - Built-in container healthcheck via /healthz
+# ==============================================================================
+
+FROM node:22-alpine AS runtime
+
+# Create dedicated non-root application user and group
+RUN addgroup -g 10001 -S appgroup && \
+    adduser -u 10001 -S appuser -G appgroup
+
+WORKDIR /app
+
+# Copy application source and documentation
+COPY --chown=appuser:appgroup server/ ./server/
+COPY --chown=appuser:appgroup docs/ ./docs/
+
+# Create mount point for Antigravity brain data and tmpfs
+RUN mkdir -p /data/brain /tmp && \
+    chown -R appuser:appgroup /data/brain /tmp
+
+ENV NODE_ENV=production \
+    HOST=0.0.0.0 \
+    PORT=8787 \
+    ANTIGRAVITY_BRAIN_DIR=/data/brain
+
+EXPOSE 8787
+
+USER 10001:10001
+
+HEALTHCHECK --interval=15s --timeout=3s --start-period=5s --retries=3 \
+  CMD wget -q --spider http://127.0.0.1:8787/healthz || exit 1
+
+ENTRYPOINT ["node", "server/mission_control_server.mjs"]

@@ -1,27 +1,32 @@
-# 📚 Tomo della Saggezza Ingegneristica (Engineering Canon Index)
+# 📚 Tomo della Saggezza Ingegneristica (Engineering Canon Index v4.1.0)
 
-> **Plugin**: `engineering-team` (v3.0.0)  
+> **Plugin**: `engineering-team` (v4.1.0)  
 > **Autore**: Manuele Francescon ([@tennet](https://github.com/tennet))  
-> **Scopo**: Raccolta sistematica dei distillati operativi estratti dalla letteratura fondamentale dell'ingegneria del software mondiale, integrata nei riflessi decisionali dei 9 subagenti Antigravity.
+> **Scopo**: Raccolta sistematica dei distillati operativi estratti dalla letteratura fondamentale e dall'esperienza sul campo dei progetti reali, integrata nei riflessi decisionali dei 12 subagenti Core Antigravity.
 
 ---
 
-## 🏛️ I 9 Volumi del Canone Ingegneristico
+## 🏛️ I 12 Volumi del Canone Ingegneristico
 
-| N. | Modulo di Riferimento | Subagente Custode | Testi Fondamentali di Riferimento |
+| N. | Modulo di Riferimento | Subagente Custode | Ambito & Riferimenti Principali |
 | :---: | :--- | :--- | :--- |
-| **01** | [`01_software_architecture_canon.md`](01_software_architecture_canon.md) | `software-architect` | M. Kleppmann (*Designing Data-Intensive Applications*), M. Richards (*Fundamentals of Software Architecture*), G. Hohpe (*Enterprise Integration Patterns*). |
-| **02** | [`02_database_and_backend_canon.md`](02_database_and_backend_canon.md) | `polyglot-backend-sage` | A. Petrov (*Database Internals*), S. Botros (*High Performance MySQL*), M. Stauffer (*Laravel: Up & Running*), E. Evans (*DDD*). |
-| **03** | [`03_devops_and_reliability_canon.md`](03_devops_and_reliability_canon.md) | `devops-infra-sage` | Google (*Site Reliability Engineering*), N. Poulton (*Docker Deep Dive*), M. Nygard (*Release It!*). |
-| **04** | [`04_ui_ux_design_canon.md`](04_ui_ux_design_canon.md) | `ui-ux-designer` | A. Wathan & S. Schoger (*Refactoring UI*), S. Krug (*Don't Make Me Think*), Vercel Geist & Linear Design Systems. |
-| **05** | [`05_qa_and_defect_prevention_canon.md`](05_qa_and_defect_prevention_canon.md) | `qa-engineer` | M. Feathers (*Working Effectively with Legacy Code*), K. Beck (*Test-Driven Development*), M. Fowler (*Refactoring*). |
-| **06** | [`06_integration_and_resilience_canon.md`](06_integration_and_resilience_canon.md) | `integration-tester` | M. Nygard (*Release It!*), S. Newman (*Building Microservices*), M. Fowler (*Pockets of Resilience*). |
-| **07** | [`07_adversarial_security_canon.md`](07_adversarial_security_canon.md) | `security-auditor` | M. Zalewski (*The Tangled Web*), A. Shostack (*Threat Modeling*), OWASP Top 10 Web & OWASP LLM Top 10. |
-| **08** | [`08_technical_documentation_canon.md`](08_technical_documentation_canon.md) | `documentation-engineer` | J. Bhatti et al. (*Docs for Developers*), D. Procida (*The Diátaxis Framework*), Keep a Changelog. |
-| **09** | [`09_engineering_orchestration_canon.md`](09_engineering_orchestration_canon.md) | `project-orchestrator` | N. Forsgren et al. (*Accelerate*), M. Skelton & M. Pais (*Team Topologies*), Governance RACI. |
+| **01** | [`01_software_architecture_canon.md`](01_software_architecture_canon.md) | `software-architect` (`@werner`) | Kleppmann, Richards, Hohpe + Edge Zero Trust, Dual-Stack, Raw Staging ETL, SSE/Streaming. |
+| **02** | [`02_database_and_backend_canon.md`](02_database_and_backend_canon.md) | `polyglot-backend-sage` (`@taylor`) | Petrov, Botros, Stauffer, Evans + PostgreSQL 16, SQLite WAL, Laravel Boost, Node ESM & Python stdlib. |
+| **03** | [`03_devops_and_reliability_canon.md`](03_devops_and_reliability_canon.md) | `devops-infra-sage` (`@linus`) | Google SRE, Poulton, Nygard + Proxmox/Caddy, Shared Hosting StackCP Apache, Laravel Cloud, Daemon Node.js. |
+| **04** | [`04_ui_ux_design_canon.md`](04_ui_ux_design_canon.md) | `ui-ux-designer` (`@steve`) | Wathan & Schoger, Krug, Geist/Linear + Dual-Theme (Dark & Light PMI), Blade + Tailwind v4, Standalone HTML CSP & `@media print`. |
+| **05** | [`05_qa_and_defect_prevention_canon.md`](05_qa_and_defect_prevention_canon.md) | `qa-engineer` (`@carmack`) | Feathers, Beck, Fowler + Data Ingestion QA, Zero-Network AI Mocking (`preventStrayRequests`), Benchmark Gates, `node:test` SSE. |
+| **06** | [`06_integration_and_resilience_canon.md`](06_integration_and_resilience_canon.md) | `integration-tester` (`@rauch`) | Nygard, Newman, Fowler + Resilienza LLM, SSE Reverse Proxy, ETL `source_hash`, Scraping & Edge Auth. |
+| **07** | [`07_adversarial_security_canon.md`](07_adversarial_security_canon.md) | `security-auditor` (`@geohot`) | Zalewski, Shostack, OWASP Web & LLM Top 10 + Cloudflare JWT/JWKS, SSRF IPv6, Upload Magic-Bytes, Anti-Stub Hooks. |
+| **08** | [`08_technical_documentation_canon.md`](08_technical_documentation_canon.md) | `documentation-engineer` (`@guido`) | Bhatti, Procida (*Diátaxis*), Keep a Changelog + Single Source `AGENTS.md`/`CLAUDE.md`, ADR a 2 livelli, Doctest Gate. |
+| **09** | [`09_engineering_orchestration_canon.md`](09_engineering_orchestration_canon.md) | `project-orchestrator` (`@turing`) | Forsgren (*Accelerate*), Skelton & Pais (*Team Topologies*) + Governance a 3 Livelli (Core, Skill Packs, Domain Packs). |
+| **10** | [`10_ai_systems_and_evals_canon.md`](10_ai_systems_and_evals_canon.md) | `ai-systems-engineer` (`@andrej` / `@karpathy`) | Provider Factory AI/LLM, Ecosistema Google Gemini (Argon, Pro, Flash, Deep Research, NotebookLM, Antigravity, Jules), job asincroni, rilevazione schema drift & offline eval harness. |
+| **11** | [`11_privacy_gdpr_and_evidence_canon.md`](11_privacy_gdpr_and_evidence_canon.md) | `privacy-compliance-counsel` (`@dpo`) | GDPR art. 5/6/28/35, separazione sintetico/reale, minimizzazione, eIDAS/CAD/AgID livelli probatori E0–E3. |
+| **12** | [`12_red_team_and_ethical_hacking_canon.md`](12_red_team_and_ethical_hacking_canon.md) | `ethical-hacker-redteam` (`@mitnick`) | White-hat reconnaissance non distruttiva su porte, webroot, auth bypass, SSRF e social vectors con `@linus` e `@geohot`. |
 
 ---
 
-## 🧭 Istruzioni per l'Uso
+## 🧭 Istruzioni per l'Uso & Context Economy
 
-Tutti i subagenti del plugin possono fare riferimento esplicito a questi volumi nelle loro deliberazioni architetturali o nei loro quality gate. Quando un agente formula una raccomandazione o solleva un'obiezione, cita il principio corrispondente (es. *"In conformità con il Canone 02 (Regola ESR), questo indice composito deve invertire l'ordine delle colonne..."*).
+- I volumi del Canone **non vanno precaricati tutti in blocco**: ogni agente consulta il proprio volume di riferimento (e solo i volumi di interfaccia pertinenti al task) in Fase 2 e Fase 4.
+- Le procedure operative dettagliate per stack specifici risiedono nelle **Skill on-demand** (`skills/`) caricate solo quando il repository target usa quello stack.
+- I ruoli specialistici verticali di singolo cliente/settore (es. Il Tridente `@pacioli`, `@biagi`, `@munari` di `fenice confpd`) restano **Project Domain Packs locali** al workspace interessato.

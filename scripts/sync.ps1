@@ -63,7 +63,13 @@ try {
     }
 
     $ScriptDir = Resolve-NormalizedPath -Path $PSScriptRoot
-    $RepoRoot = $ScriptDir
+    if ((Split-Path -Path $ScriptDir -Leaf) -eq "scripts") {
+        $RepoRoot = Resolve-NormalizedPath -Path (Join-Path -Path $ScriptDir -ChildPath "..")
+        $HooksSource = Join-Path -Path $ScriptDir -ChildPath "hooks"
+    } else {
+        $RepoRoot = $ScriptDir
+        $HooksSource = Join-Path -Path $RepoRoot -ChildPath "hooks"
+    }
     $GeminiHome = Resolve-NormalizedPath -Path $TargetDir
     $Timestamp = [DateTimeOffset]::UtcNow.ToUnixTimeSeconds()
     $ProcessId = $PID
@@ -231,7 +237,6 @@ try {
     Write-LogAudit "Stage 2: Linking configuration assets symmetrically on Windows..."
 
     # Link hooks directory
-    $HooksSource = Join-Path -Path $RepoRoot -ChildPath "hooks"
     if (Test-Path -LiteralPath $HooksSource) {
         $HooksLink = Join-Path -Path $GeminiHome -ChildPath "hooks"
         New-SafeDirectoryJunction -SourcePath $HooksSource -LinkPath $HooksLink
@@ -242,6 +247,29 @@ try {
         }
         $ConfigHooksLink = Join-Path -Path $ConfigDir -ChildPath "hooks"
         New-SafeDirectoryJunction -SourcePath $HooksSource -LinkPath $ConfigHooksLink
+    }
+
+    # Link Engineering Team plugin & Skills Pack (if present)
+    $PluginSource = Join-Path -Path $RepoRoot -ChildPath "portable\engineering-team"
+    if (Test-Path -LiteralPath $PluginSource) {
+        $PluginsDir = Join-Path -Path $GeminiHome -ChildPath "config\plugins"
+        if (-not (Test-Path -LiteralPath $PluginsDir)) {
+            New-Item -ItemType Directory -LiteralPath $PluginsDir -Force | Out-Null
+        }
+        New-SafeDirectoryJunction -SourcePath $PluginSource -LinkPath (Join-Path -Path $PluginsDir -ChildPath "engineering-team")
+    }
+
+    $SkillsSource = Join-Path -Path $RepoRoot -ChildPath "skills"
+    if (Test-Path -LiteralPath $SkillsSource) {
+        $TargetSkillsDir = Join-Path -Path $GeminiHome -ChildPath "config\skills"
+        if (-not (Test-Path -LiteralPath $TargetSkillsDir)) {
+            New-Item -ItemType Directory -LiteralPath $TargetSkillsDir -Force | Out-Null
+        }
+        Get-ChildItem -LiteralPath $SkillsSource -Directory | ForEach-Object {
+            if (Test-Path -LiteralPath (Join-Path -Path $_.FullName -ChildPath "SKILL.md")) {
+                New-SafeDirectoryJunction -SourcePath $_.FullName -LinkPath (Join-Path -Path $TargetSkillsDir -ChildPath $_.Name)
+            }
+        }
     }
 
     # Link env template file

@@ -18,6 +18,7 @@ Thumbs.db
 # Temp & Logs
 *.tmp
 *.log
+scratch/
 
 # Portable build archives
 portable/dist/

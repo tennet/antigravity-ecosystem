@@ -73,7 +73,7 @@ Quando un progetto richiede estensioni, tempo reale, alta concorrenza o diagnost
 
 ---
 
-## 4. MySQL 8.4 Online DDL & Metadata Lock (MDL) Avoidance (Lacuna L-03 Risolta)
+## 5. MySQL 8.4 Online DDL & Metadata Lock (MDL) Avoidance (Lacuna L-03 Risolta)
 
 Quando esegui migrazioni o alterazioni DDL su tabelle con volumi elevati o sotto carico di produzione concorrente:
 
@@ -94,7 +94,7 @@ Quando esegui migrazioni o alterazioni DDL su tabelle con volumi elevati o sotto
 
 ---
 
-## 5. Hardening Avanzato: 10 Casi Limite & Anti-Allucinazioni Backend (Stress Test v3.2)
+## 6. Hardening Avanzato: 10 Casi Limite & Anti-Allucinazioni Backend (Stress Test v3.2)
 
 1. **Gap Locks su Vincoli Esterni in `READ COMMITTED`**:
    - *Trappola*: Credere che `READ COMMITTED` elimini tutti i Gap Lock.
@@ -126,3 +126,16 @@ Quando esegui migrazioni o alterazioni DDL su tabelle con volumi elevati o sotto
 10. **Evitare N+1 nelle Relazioni Annidate**:
     - *Trappola*: Caricare `Model::with('relation')` e poi accedere a una sotto-relazione `$item->relation->subrelation`.
     - *Verità Ingegneristica*: Impiega il caricamento a catena punto-notazione: `Model::with(['relation.subrelation'])` specificando le sole colonne necessarie: `Model::with(['relation:id,parent_id', 'relation.subrelation:id,relation_id,name'])`.
+
+---
+
+## 7. PostgreSQL 16, SQLite WAL, Laravel Boost & Runtime Zero-Dipendenze (v4.0.0)
+
+1. **PostgreSQL 16 & SQLite WAL**:
+   - Su PostgreSQL 16 sfrutta MVCC e `INSERT ... ON CONFLICT DO UPDATE/NOTHING`; se i test girano su SQLite `:memory:`, verifica esplicitamente le differenze di tipi/vincoli rispetto a Postgres in produzione.
+   - Su SQLite 3 applicativo/worker (PHP o Python) attiva `PRAGMA journal_mode=WAL`, `PRAGMA synchronous=NORMAL`, `busy_timeout` adeguato e mutex `threading.Lock` nelle scritture concorrenti.
+2. **Laravel Boost**:
+   - Quando è presente `boost.json`, dai precedenza ai tool MCP Boost (`database-schema`, `database-query`, `search-docs`) e formatta con `pint --dirty`.
+3. **Runtime Zero-Dipendenze (Node ESM `.mjs` & Python Stdlib)**:
+   - Riconosci server Node ESM (`node:http`, `node:test`, SSE cap per IP, `timingSafeEqual`, `lstatSync`/`realpathSync`) e pacchetti Python stdlib (`sqlite3`, `csv`, `Decimal`, `unittest`) anche in assenza di `package.json` o `pyproject.toml`.
+   - Su shared hosting con `execve` bloccato in FPM, adotta code file-based protette da `flock(..., LOCK_EX)` per worker cron CLI.

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.antigravity.mission-control</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/local/bin/node</string>
+        <string>server/mission_control_server.mjs</string>
+    </array>
+    <key>WorkingDirectory</key>
+    <string>/Users/manuele/.gemini/antigravity/scratch/antigravity-ecosystem</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>NODE_ENV</key>
+        <string>production</string>
+        <key>HOST</key>
+        <string>127.0.0.1</string>
+        <key>PORT</key>
+        <string>8787</string>
+    </dict>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>StandardOutPath</key>
+    <string>/tmp/antigravity_mission_control.stdout.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/antigravity_mission_control.stderr.log</string>
+</dict>
+</plist>
