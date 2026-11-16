@@ -16,8 +16,7 @@ Questo workspace unificato raccoglie e governa l'intero ecosistema di sviluppo, 
 3. **`backend/`**: La pipeline del grafo di memoria multi-tenant in **PHP 8.4+ e Laravel 13** (con piena retrocompatibilità 11/12), dotata di Action atomiche, prevenzione dei Gap Lock InnoDB, retry esponenziale con jitter decorrelato e protezione BOLA multi-tenant.
 4. **`infrastructure/`**: Lo stack **Docker multi-arch** (`linux/amd64` e `linux/arm64`) con MySQL 8.4 LTS, PHP 8.4-FPM non-root (`su-exec`) e Nginx webroot hardening.
 5. **`scripts/`**: Gli strumenti di sincronizzazione simmetrica cross-platform (`sync.sh` per macOS, `sync.ps1` per Windows 11), il consolidatore memoria (`unify_memory.py`), il security linter reale (`security_linter.py`) e il **Doctest Gate** (`doctest_docs.py`).
-6. **`lab/`**: Laboratori e collaudi architetturali isolati, tra cui `lab/zimbra-glpi/` (ambiente Docker Compose Dual-Profile per integrazione **ZCS / GreenMail + GLPI 10 Mailgate** con routing email-to-ticket, anti-loop e sincronizzazione LDAP).
-7. **`docs/`**: Report storici, audit multi-device e Live Mission Control UI.
+6. **`docs/`**: Report storici, audit multi-device e Live Mission Control UI.
 
 ---
 
@@ -60,14 +59,6 @@ antigravity-ecosystem/
 │       ├── unify_memory.py        # Consolidatore determinista della memoria Google Drive
 │       ├── resolve_python.py      # Risolutore polimorfico dell'interprete Python
 │       └── security_linter.py     # Linter di sicurezza difensiva PreToolUse
-├── lab/                           # Laboratori e Proof of Concept isolati
-│   └── zimbra-glpi/               # Laboratorio GLPI 10 + Zimbra / GreenMail (Email-to-Ticket Mailgate)
-│       ├── docker-compose.yml     # Dual-Profile (mock / zimbra)
-│       ├── glpi/                  # Dockerfile GLPI 10 + PHP 8.2 (imap/ldap) + Apache + Cron
-│       ├── mariadb/               # MariaDB 10.11 con utf8mb4 e tzinfo
-│       ├── dnsmasq/               # Risolutore DNS con MX per lab.local
-│       ├── docs/                  # ARCHITECTURE_GLPI_ZIMBRA.md (ADR-001, anti-loop, LDAP)
-│       └── scripts/               # send-test-email.py e setup.sh
 └── docs/                          # Archivio Storico, Decisioni & Mission Control UI
     ├── mission_control.html       # Dashboard 2.5D Interattiva (Live SSE + Demo Offline + Stanza Fenice)
     ├── audit_antigravity_brain_multidevice.md
